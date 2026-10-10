@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Dashboard | NAYAA{% endblock %}
+
+{% block content %}
+
+<!-- DASHBOARD HERO -->
+<section class="page-hero">
+    <div class="container">
+        <h1>Dashboard</h1>
+        <p>Administrative overview of NAYAA.</p>
+    </div>
+</section>
+
+<!-- DASHBOARD STATISTICS -->
+<section class="section">
+    <div class="container">
+
+        <div class="row g-3">
+
+            <!-- Projects -->
+            <div class="col-md-4">
+                <div class="stat">
+                    <strong>{{ project_count }}</strong>
+                    <span>Projects</span>
+                </div>
+            </div>
+
+            <!-- Volunteer Applications -->
+            <div class="col-md-4">
+                <div class="stat">
+                    <strong>{{ volunteer_count }}</strong>
+                    <span>Volunteer Applications</span>
+                </div>
+            </div>
+
+            <!-- Paid Donations -->
+            <div class="col-md-4">
+                <div class="stat">
+                    <strong>₹{{ donation_total }}</strong>
+                    <span>Paid Donations</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RECENT DONATIONS -->
+        <div class="mt-5">
+            <h2>Recent Donations</h2>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Donor</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for d in recent_donations %}
+                        <tr>
+                            <td>{{ d.donor_name }}</td>
+                            <td>₹{{ d.amount }}</td>
+                            <td>{{ d.status }}</td>
+                            <td>{{ d.created_at }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4">
+                                No recent donations found.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

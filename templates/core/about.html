@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About Us | NAYAA{% endblock %}
+
+{% block content %}
+
+<!-- ABOUT HERO -->
+<section class="about-hero">
+    <div class="about-hero-content">
+        <span class="about-eyebrow">ABOUT NAYAA</span>
+        <h1>Creating Opportunities for a Better Tomorrow</h1>
+        <p>
+            We believe every person deserves the opportunity to learn,
+            grow, and build a brighter future.
+        </p>
+        <a href="{% url 'donate' %}" class="about-hero-btn">
+            Be Part of the Change
+        </a>
+    </div>
+</section>
+
+<!-- ABOUT INTRODUCTION -->
+<section class="about-intro">
+    <div class="about-intro-image">
+        <img src="{% static 'images/about-nayaa.jpg' %}"
+             alt="Community members learning and working together">
+    </div>
+
+    <div class="about-intro-text">
+        <span class="about-label">WHO WE ARE</span>
+        <h2>A Future Full of Possibilities</h2>
+
+        <p>
+            NAYAA is built around a simple belief: meaningful opportunities
+            can create lasting change. We aim to support children, young
+            people, women, families, and communities through initiatives
+            that encourage growth, inclusion, and independence.
+        </p>
+
+        <p>
+            Our focus includes education, healthcare, women empowerment,
+            skills and livelihoods, and inclusive community development.
+            By bringing people and possibilities together, we hope to
+            contribute to a future where everyone has a chance to thrive.
+        </p>
+    </div>
+</section>
+
+<!-- MISSION AND VISION -->
+<section class="about-mission">
+    <div class="about-mission-card">
+        <div class="about-icon">✦</div>
+        <h2>Our Mission</h2>
+        <p>
+            To create meaningful opportunities for children, young people,
+            women, families, and communities through education, healthcare,
+            empowerment, skills, livelihoods, and inclusive development.
+        </p>
+    </div>
+
+    <div class="about-mission-card">
+        <div class="about-icon">◎</div>
+        <h2>Our Vision</h2>
+        <p>
+            A future where every individual and community can access
+            opportunities, realize their potential, and build a life
+            filled with dignity, confidence, and hope.
+        </p>
+    </div>
+</section>
+
+<!-- OUR VALUES -->
+<section class="about-values">
+    <div class="about-section-heading">
+        <span>WHAT GUIDES US</span>
+        <h2>Our Core Values</h2>
+        <p>
+            The principles that shape our work and guide our approach
+            to creating meaningful change.
+        </p>
+    </div>
+
+    <div class="about-values-grid">
+
+        <div class="about-value-card">
+            <div class="about-value-icon">♡</div>
+            <h3>Compassion</h3>
+            <p>
+                We believe in understanding people, listening to their
+                needs, and working with empathy.
+            </p>
+        </div>
+
+        <div class="about-value-card">
+            <div class="about-value-icon">✧</div>
+            <h3>Empowerment</h3>
+            <p>
+                We encourage people to develop their abilities,
+                confidence, and independence.
+            </p>
+        </div>
+
+        <div class="about-value-card">
+            <div class="about-value-icon">◈</div>
+            <h3>Inclusivity</h3>
+            <p>
+                We value equal opportunities and believe every voice
+                deserves to be heard.
+            </p>
+        </div>
+
+        <div class="about-value-card">
+            <div class="about-value-icon">❋</div>
+            <h3>Community</h3>
+            <p>
+                We believe lasting progress grows when people
+                work together and support one another.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- WHO WE SUPPORT -->
+<section class="about-people">
+    <div class="about-people-content">
+        <span class="about-label">OUR FOCUS</span>
+        <h2>Opportunities for Every Generation</h2>
+        <p>
+            Our approach focuses on people and communities at different
+            stages of life, recognizing that each has unique needs
+            and potential.
+        </p>
+
+        <div class="about-people-list">
+            <div class="about-person">
+                <span>01</span>
+                <div>
+                    <h3>Children and Young People</h3>
+                    <p>Encouraging learning, growth, and future opportunities.</p>
+                </div>
+            </div>
+
+            <div class="about-person">
+                <span>02</span>
+                <div>
+                    <h3>Women</h3>
+                    <p>Supporting empowerment, skills, and livelihoods.</p>
+                </div>
+            </div>
+
+            <div class="about-person">
+                <span>03</span>
+                <div>
+                    <h3>Families</h3>
+                    <p>Promoting well-being, awareness, and access to support.</p>
+                </div>
+            </div>
+
+            <div class="about-person">
+                <span>04</span>
+                <div>
+                    <h3>Communities</h3>
+                    <p>Building inclusive spaces and shared opportunities.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-people-image">
+        <img src="{% static 'images/project-community.jpg' %}"
+             alt="People working together in a community">
+    </div>
+</section>
+
+<!-- CALL TO ACTION -->
+<section class="about-cta">
+    <div class="about-cta-content">
+        <h2>Be Part of a Brighter Future</h2>
+        <p>
+            Every step toward opportunity begins with people who care.
+            Join us in supporting a future filled with possibilities.
+        </p>
+        <a href="{% url 'donate' %}" class="about-cta-btn">
+            Support NAYAA
+        </a>
+    </div>
+</section>
+
+<script src="{% static 'js/about.js' %}"></script>
+
+{% endblock %}

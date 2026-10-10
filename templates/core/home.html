@@ -1,0 +1,472 @@
+{% extends "base.html" %}
+
+{% block title %}Nayaa{% endblock %}
+
+{% block content %}
+
+<!-- =====================================================
+     DONATION POPUP
+     ===================================================== -->
+
+<div id="donationPopup" class="donation-popup">
+
+    <div class="donation-popup-box">
+
+        <button
+            type="button"
+            class="donation-popup-close"
+            aria-label="Close popup"
+            onclick="closeDonationPopup();">
+            ×
+        </button>
+
+
+        <!-- POPUP PHOTO -->
+
+        <div class="donation-popup-image">
+
+            <img
+                src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1000&q=85"
+                alt="Children">
+
+        </div>
+
+
+        <!-- POPUP MESSAGE -->
+
+        <div class="donation-popup-content">
+
+            <div class="donation-popup-eyebrow">
+                HELP CREATE A BETTER FUTURE
+            </div>
+
+            <h2>
+                Your support can create opportunities.
+            </h2>
+
+            <p>
+                Your contribution can help Nayaa create
+                opportunities for children, women, families,
+                and communities through education, healthcare,
+                skills, livelihoods, and community development.
+            </p>
+
+
+            <div class="donation-popup-buttons">
+
+                <a
+                    href="{% url 'donate' %}"
+                    class="donation-popup-donate">
+                    DONATE NOW
+                </a>
+
+                <button
+                    type="button"
+                    class="donation-popup-browse"
+                    onclick="closeDonationPopup();">
+                    Continue browsing
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     HERO
+     ===================================================== -->
+
+<section class="hero">
+
+    <div class="container">
+
+        <div class="col-lg-8">
+
+            <h1 class="hero-main-title">
+                Creating Opportunities for Children and Communities
+            </h1>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MISSION & VISION
+     ===================================================== -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="row g-5">
+
+            <!-- MISSION -->
+
+            <div class="col-lg-6">
+
+                <div class="eyebrow">
+                    Our Mission
+                </div>
+
+                <h2 class="mission-vision-heading">
+                    Creating opportunities that open new possibilities.
+                </h2>
+
+                <p class="mission-vision-text">
+                    Nayaa creates opportunities through education,
+                    healthcare, empowerment, skills, and community
+                    development.
+                </p>
+
+            </div>
+
+
+            <!-- VISION -->
+
+            <div class="col-lg-6">
+
+                <div class="eyebrow">
+                    Our Vision
+                </div>
+
+                <h2 class="mission-vision-heading">
+                    A future where everyone has the opportunity to grow.
+                </h2>
+
+                <p class="mission-vision-text">
+                    We envision inclusive communities where people can
+                    learn, live with dignity, and build a better future.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     YOUR IMPACT STARTS HERE
+     ===================================================== -->
+
+<section class="section impact-areas">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <div class="eyebrow">
+                Your Impact Starts Here
+            </div>
+
+            <h2 class="impact-areas-title">
+                Choose an area where you would like to create change.
+            </h2>
+
+            <p class="impact-areas-intro">
+                Nayaa works across different areas to create opportunities
+                for children, women, families, and communities.
+                Explore the areas where our work can make a difference.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <!-- =================================================
+                 EDUCATION
+                 ================================================= -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="impact-area-card">
+
+                    <div class="impact-area-icon">
+                        🎓
+                    </div>
+
+                    <h3>
+                        Education
+                    </h3>
+
+                    <p>
+                        Creating learning opportunities that help children
+                        develop knowledge, confidence, and skills for their future.
+                    </p>
+
+                    <a
+                        href="{% url 'education' %}"
+                        class="impact-area-link">
+                        Explore Education →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 HEALTHCARE
+                 ================================================= -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="impact-area-card">
+
+                    <div class="impact-area-icon">
+                        ❤️
+                    </div>
+
+                    <h3>
+                        Healthcare
+                    </h3>
+
+                    <p>
+                        Supporting awareness, wellbeing, and opportunities
+                        that can contribute to healthier communities.
+                    </p>
+
+                    <a
+                        href="{% url 'healthcare' %}"
+                        class="impact-area-link">
+                        Explore Healthcare →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 WOMEN EMPOWERMENT
+                 ================================================= -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="impact-area-card">
+
+                    <div class="impact-area-icon">
+                        👩
+                    </div>
+
+                    <h3>
+                        Women Empowerment
+                    </h3>
+
+                    <p>
+                        Creating pathways that encourage women to build
+                        confidence, skills, independence, and new possibilities.
+                    </p>
+
+                    <a
+                        href="{% url 'women_empowerment' %}"
+                        class="impact-area-link">
+                        Explore Empowerment →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 SKILLS & LIVELIHOODS
+                 ================================================= -->
+
+            <div class="col-md-6 col-lg-6">
+
+                <div class="impact-area-card impact-area-card-wide">
+
+                    <div class="impact-area-icon">
+                        💼
+                    </div>
+
+                    <h3>
+                        Skills & Livelihoods
+                    </h3>
+
+                    <p>
+                        Supporting people with opportunities to develop useful
+                        skills and explore pathways towards sustainable livelihoods.
+                    </p>
+
+                    <a
+                        href="{% url 'skills_livelihoods' %}"
+                        class="impact-area-link">
+                        Explore Skills & Livelihoods →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 COMMUNITY DEVELOPMENT
+                 ================================================= -->
+
+            <div class="col-md-6 col-lg-6">
+
+                <div class="impact-area-card impact-area-card-wide">
+
+                    <div class="impact-area-icon">
+                        🏘️
+                    </div>
+
+                    <h3>
+                        Community Development
+                    </h3>
+
+                    <p>
+                        Strengthening communities by encouraging participation,
+                        collaboration, awareness, and opportunities for growth.
+                    </p>
+
+                    <a
+                        href="{% url 'community_development' %}"
+                        class="impact-area-link">
+                        Explore Community Development →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     IMPACT
+     ===================================================== -->
+
+<section class="section impact-strip">
+
+    <div class="container">
+
+        <div class="row g-3">
+
+            {% for s in stats %}
+
+            <div class="col-6 col-lg-3">
+
+                <div class="stat">
+
+                    <strong>
+                        {{ s.value }}
+                    </strong>
+
+                    {{ s.label }}
+
+                    <small class="d-block text-muted">
+                        {{ s.description }}
+                    </small>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="col-12">
+
+                <p>
+                    Nayaa's impact information will be displayed here.
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+{% load static %}
+
+<!-- SUSTAINABLE DEVELOPMENT GOALS SECTION -->
+<section class="sdg-section">
+    <div class="container">
+        <img
+            src="{% static 'images/sdg-goals.png' %}"
+            alt="Towards achieving Sustainable Development Goals: Good Health and Well Being, Gender Equality, Quality Education, Decent Work and Economic Growth, Reduced Inequalities, and Partnerships for the Goals"
+            class="sdg-image"
+            loading="lazy"
+        >
+    </div>
+</section>
+
+<!-- =====================================================
+     CALL TO ACTION
+     ===================================================== -->
+
+<section class="section">
+
+    <div class="container text-center">
+
+        <div class="eyebrow">
+            Be Part of the Journey
+        </div>
+
+        <h2>
+            Help create opportunities for the next generation.
+        </h2>
+
+        <p class="lead">
+            Join Nayaa as a volunteer, partner, fundraiser, or supporter
+            and help create opportunities for children and communities.
+        </p>
+
+        <a
+            class="btn btn-brand me-2"
+            href="{% url 'volunteer' %}">
+            Volunteer
+        </a>
+
+        <a
+            class="btn btn-light rounded-pill"
+            href="{% url 'donate' %}">
+            Donate
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DONATION POPUP CLOSE FUNCTION
+     ===================================================== -->
+
+<script>
+
+function closeDonationPopup() {
+
+    const popup = document.getElementById("donationPopup");
+
+    if (popup) {
+        popup.remove();
+    }
+
+}
+
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block title %}Education | Nayaa{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="page-hero">
+    <div class="container">
+
+        <div class="eyebrow">NAYAA • OUR WORK</div>
+
+        <h1>Education</h1>
+
+        <p class="lead mt-3">
+            Creating learning opportunities that help children and young
+            people develop knowledge, confidence, skills, and hope for
+            their future.
+        </p>
+
+    </div>
+</section>
+
+
+<!-- INTRODUCTION -->
+<section class="section">
+
+    <div class="container">
+
+        <div class="row g-5 align-items-center">
+
+            <div class="col-lg-7">
+
+                <div class="eyebrow">Education at Nayaa</div>
+
+                <h2>Learning can open the door to new possibilities.</h2>
+
+                <p>
+                    Nayaa believes that every child and young person should
+                    have the opportunity to learn, develop their abilities,
+                    and build confidence for the future.
+                </p>
+
+                <p>
+                    Our education initiatives focus on creating supportive
+                    learning environments and opportunities that encourage
+                    curiosity, knowledge, creativity, and personal growth.
+                </p>
+
+                <p>
+                    We aim to support children and young people by helping
+                    them develop the knowledge and skills they need to
+                    participate more confidently in their families,
+                    communities, and future opportunities.
+                </p>
+
+            </div>
+
+            <div class="col-lg-5">
+
+                <div class="card p-4">
+
+                    <div class="impact-area-icon">
+                        🎓
+                    </div>
+
+                    <h3>Our Education Focus</h3>
+
+                    <p>
+                        Learning opportunities, educational support,
+                        confidence building, skill development, and
+                        encouragement for lifelong learning.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- WHAT WE DO -->
+<section class="section bg-light">
+
+    <div class="container">
+
+        <div class="eyebrow">What We Do</div>
+
+        <h2>Creating meaningful learning opportunities.</h2>
+
+        <div class="row g-4 mt-3">
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card p-4 h-100">
+                    <h3>Learning Support</h3>
+                    <p>
+                        Supporting children with opportunities to strengthen
+                        their learning and understanding.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card p-4 h-100">
+                    <h3>Skill Development</h3>
+                    <p>
+                        Encouraging young people to develop useful skills
+                        that can support their education and future.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card p-4 h-100">
+                    <h3>Confidence Building</h3>
+                    <p>
+                        Creating supportive environments where learners
+                        can express themselves, participate, and grow.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- OUR GOAL -->
+<section class="section">
+
+    <div class="container text-center">
+
+        <div class="eyebrow">Our Goal</div>
+
+        <h2>Helping every learner move towards a brighter future.</h2>
+
+        <p class="lead">
+            Nayaa works towards creating educational opportunities that
+            encourage children and young people to learn, grow, discover
+            their potential, and imagine new possibilities.
+        </p>
+
+        <a href="{% url 'projects' %}" class="btn btn-brand mt-3">
+            Explore Projects
+        </a>
+
+        <a href="{% url 'donate' %}" class="btn btn-light rounded-pill mt-3 ms-2">
+            Support Education
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

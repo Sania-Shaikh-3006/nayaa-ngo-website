@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}People's Stories | NAYAA{% endblock %}
+
+{% block content %}
+
+<section class="people-stories-page">
+    <div class="container">
+
+        <header class="stories-heading">
+            <span class="stories-eyebrow">REAL PEOPLE. REAL JOURNEYS.</span>
+            <h1>STORIES OF CHANGE</h1>
+            <p>
+                Every journey has a story. Discover real experiences
+                of courage, learning, and new possibilities.
+            </p>
+        </header>
+
+        <div class="people-stories-list">
+
+            <!-- STORY 1 -->
+            <article class="people-story-card">
+                <div class="people-story-photo">
+                    <img
+                        src="{% static 'images/story-shabnam.png' %}"
+                        alt="Photo accompanying Shabnam Begum's story"
+                        loading="lazy">
+                </div>
+
+                <div class="people-story-info">
+                    <span class="story-category">WOMEN'S RIGHTS</span>
+                    <h2>Shabnam Begum: Turning Challenges into Change</h2>
+                    <p>
+                        Married at 16 and forced to leave school,
+                        Shabnam continued her education and became
+                        a grassroots reporter. She later founded
+                        Nazar Ekta Foundation and organized women
+                        and marginalized families to access education,
+                        livelihoods, public services, and their rights.
+                    </p>
+                    <a
+                        href="https://www.veeraa.org/leaders/shabnam-begum"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="story-read-more">
+                        READ MORE <span aria-hidden="true">→</span>
+                    </a>
+                    <small class="story-credit">
+                        Story source: Veeraa
+                    </small>
+                </div>
+            </article>
+
+            <!-- STORY 2 -->
+            <article class="people-story-card">
+                <div class="people-story-photo">
+                    <img
+                        src="{% static 'images/story-shabana.png' %}"
+                        alt="Photo accompanying Shabana's story"
+                        loading="lazy">
+                </div>
+
+                <div class="people-story-info">
+                    <span class="story-category">SKILLS & LIVELIHOODS</span>
+                    <h2>Shabana: Learning Skills and Building Confidence</h2>
+                    <p>
+                        Shabana joined a computer-training course
+                        while raising three children and looking
+                        for ways to improve her family's financial
+                        situation. After completing the course,
+                        she began earning from home and planned
+                        to continue her education.
+                    </p>
+                    <a
+                        href="https://theonestage.org/shabana.php"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="story-read-more">
+                        READ MORE <span aria-hidden="true">→</span>
+                    </a>
+                    <small class="story-credit">
+                        Story source: OneStage
+                    </small>
+                </div>
+            </article>
+
+            <!-- STORY 3 -->
+            <article class="people-story-card">
+                <div class="people-story-photo">
+                    <img
+                        src="{% static 'images/story-farida.png' %}"
+                        alt="Photo accompanying Farida Khan's story"
+                        loading="lazy">
+                </div>
+
+                <div class="people-story-info">
+                    <span class="story-category">EDUCATION</span>
+                    <h2>Farida Khan: Finding Her Voice Through Education</h2>
+                    <p>
+                        Married at a young age and divorced before
+                        turning 16, Farida had not received a formal
+                        school education. She began studying at a
+                        community learning centre, completed further
+                        education, earned a B.Ed., and went on to
+                        help other women and girls access learning
+                        opportunities.
+                    </p>
+                    <a
+                        href="https://www.pehchan.org/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="story-read-more">
+                        READ MORE <span aria-hidden="true">→</span>
+                    </a>
+                    <small class="story-credit">
+                        Story source: Pehchan
+                    </small>
+                </div>
+            </article>
+
+        </div>
+
+        <div class="stories-view-all">
+            <a
+                href="https://theonestage.org/stories-hope.php"
+                target="_blank"
+                rel="noopener noreferrer">
+                VIEW MORE STORIES <span aria-hidden="true">→</span>
+            </a>
+        </div>
+
+        <p class="stories-disclaimer">
+            These stories were originally published by other
+            organizations. They are shared for awareness and
+            inspiration and are not Nayaa beneficiary stories.
+        </p>
+
+    </div>
+</section>
+
+<script src="{% static 'js/stories.js' %}"></script>
+
+{% endblock %}

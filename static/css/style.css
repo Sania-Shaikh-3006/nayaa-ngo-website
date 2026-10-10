@@ -1,0 +1,2723 @@
+:root {
+    --green: #176b52;
+    --dark: #12352d;
+    --cream: #f7f4ed;
+    --gold: #d5a93a;
+    --text: #24332e;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Inter, Arial, sans-serif;
+    color: var(--text);
+    background: #fff;
+    line-height: 1.6;
+}
+
+a {
+    color: var(--green);
+}
+
+
+/* =====================================================
+   NAVIGATION
+   ===================================================== */
+
+.nayaa-brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.nayaa-logo {
+    height: 28px !important;
+    width: 90px !important;
+    max-width: 90px !important;
+    object-fit: contain;
+    display: block;
+}
+
+.nayaa-tagline {
+    margin-left: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    font-style: italic;
+    color: #555;
+    white-space: nowrap;
+}
+
+.navbar-brand {
+    font-weight: 800;
+    letter-spacing: 0.4px;
+}
+
+.nav-link {
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   HERO
+   ===================================================== */
+
+.hero {
+    min-height: 72vh;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(7, 37, 29, 0.82),
+            rgba(7, 37, 29, 0.28)
+        ),
+        url("https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1800&q=85")
+        center/cover;
+
+    display: flex;
+    align-items: center;
+    color: #fff;
+}
+
+.hero h1 {
+    font-size: clamp(2.4rem, 6vw, 5.4rem);
+    font-weight: 800;
+}
+
+.hero-main-title {
+    font-size: 52px !important;
+    line-height: 1.2 !important;
+    font-weight: 700 !important;
+    max-width: 800px;
+}
+
+
+/* =====================================================
+   SECTIONS
+   ===================================================== */
+
+.section {
+    padding: 70px 0;
+}
+
+.eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--gold);
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   MISSION & VISION
+   ===================================================== */
+
+.mission-vision-heading {
+    font-size: 24px !important;
+    line-height: 1.4 !important;
+    font-weight: 600 !important;
+    color: #333 !important;
+}
+
+.mission-vision-text {
+    font-size: 18px !important;
+    line-height: 1.7 !important;
+    color: #555 !important;
+}
+
+
+/* =====================================================
+   CARDS
+   ===================================================== */
+
+.card {
+    border: 0;
+    box-shadow: 0 12px 35px rgba(18, 53, 45, 0.08);
+    height: 100%;
+}
+
+
+/* =====================================================
+   STATISTICS
+   ===================================================== */
+
+.stat {
+    background: var(--cream);
+    border-radius: 18px;
+    padding: 25px;
+}
+
+.stat strong {
+    display: block;
+    font-size: 2rem;
+    color: var(--green);
+}
+
+
+/* =====================================================
+   BUTTON
+   ===================================================== */
+
+.btn-brand {
+    background: var(--green);
+    color: #fff;
+    border-radius: 999px;
+    padding: 12px 22px;
+}
+
+.btn-brand:hover {
+    background: #0e4e3c;
+    color: #fff;
+}
+
+
+/* =====================================================
+   PAGE HERO
+   ===================================================== */
+
+.page-hero {
+    background: var(--dark);
+    color: #fff;
+    padding: 70px 0;
+}
+
+
+/* =====================================================
+   GALLERY
+   ===================================================== */
+
+.gallery-img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+
+.footer {
+    background: var(--dark);
+    color: #dfece7;
+    padding: 45px 0;
+}
+
+.footer a {
+    color: #dfece7;
+}
+
+
+/* =====================================================
+   ACCESSIBILITY
+   ===================================================== */
+
+.skip-link {
+    position: absolute;
+    left: -9999px;
+}
+
+.skip-link:focus {
+    left: 10px;
+    top: 10px;
+    background: #fff;
+    padding: 10px;
+    z-index: 9999;
+}
+
+
+/* =====================================================
+   FORMS
+   ===================================================== */
+
+.form-control,
+.form-select {
+    padding: 0.75rem;
+    border-radius: 10px;
+}
+
+
+/* =====================================================
+   IMPACT
+   ===================================================== */
+
+.impact-strip {
+    background: var(--cream);
+}
+
+
+/* =====================================================
+   DONATION POPUP
+   ===================================================== */
+
+.donation-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+
+    background: rgba(0, 0, 0, 0.72);
+
+    backdrop-filter: blur(4px);
+}
+
+
+/* =====================================================
+   POPUP BOX
+   ===================================================== */
+
+.donation-popup-box {
+    position: relative;
+
+    width: 100%;
+    max-width: 1050px;
+
+    min-height: 520px;
+
+    display: grid;
+    grid-template-columns: 48% 52%;
+
+    background: #ffffff;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.35);
+}
+
+
+/* =====================================================
+   POPUP IMAGE
+   ===================================================== */
+
+.donation-popup-image {
+    width: 100%;
+    height: 100%;
+    min-height: 520px;
+    overflow: hidden;
+}
+
+.donation-popup-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition: transform 0.5s ease;
+}
+
+.donation-popup-box:hover .donation-popup-image img {
+    transform: scale(1.02);
+}
+
+
+/* =====================================================
+   POPUP CONTENT
+   ===================================================== */
+
+.donation-popup-content {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 70px 65px;
+}
+
+
+/* =====================================================
+   POPUP SMALL HEADING
+   ===================================================== */
+
+.donation-popup-eyebrow {
+    margin-bottom: 18px;
+
+    color: #176b52;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    letter-spacing: 2.5px;
+}
+
+
+/* =====================================================
+   POPUP MAIN HEADING
+   ===================================================== */
+
+.donation-popup-content h2 {
+    margin: 0 0 24px;
+
+    color: #17251f;
+
+    font-size: 46px;
+
+    line-height: 1.08;
+
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   POPUP DESCRIPTION
+   ===================================================== */
+
+.donation-popup-content p {
+    margin: 0 0 32px;
+
+    color: #5f6965;
+
+    font-size: 18px;
+
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   POPUP BUTTON AREA
+   ===================================================== */
+
+.donation-popup-buttons {
+    display: flex;
+
+    align-items: center;
+
+    gap: 24px;
+
+    flex-wrap: wrap;
+}
+
+
+/* =====================================================
+   DONATE BUTTON
+   ===================================================== */
+
+.donation-popup-donate {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 145px;
+
+    padding: 14px 25px;
+
+    background: var(--green);
+
+    color: #ffffff;
+
+    border-radius: 6px;
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.5px;
+
+    transition: all 0.25s ease;
+}
+
+.donation-popup-donate:hover {
+    background: #0e4e3c;
+
+    color: #ffffff;
+
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   CONTINUE BROWSING
+   ===================================================== */
+
+.donation-popup-browse {
+    padding: 8px 0;
+
+    border: none;
+
+    background: transparent;
+
+    color: #5f6965;
+
+    font-size: 17px;
+
+    text-decoration: underline;
+
+    cursor: pointer;
+
+    transition: color 0.2s ease;
+}
+
+.donation-popup-browse:hover {
+    color: var(--green);
+}
+
+
+/* =====================================================
+   CLOSE BUTTON
+   ===================================================== */
+
+.donation-popup-close {
+    position: absolute;
+
+    top: 18px;
+
+    right: 20px;
+
+    z-index: 20;
+
+    width: 42px;
+
+    height: 42px;
+
+    border: none;
+
+    background: rgba(255, 255, 255, 0.95);
+
+    border-radius: 50%;
+
+    color: #333;
+
+    font-size: 30px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    transition: all 0.2s ease;
+}
+
+.donation-popup-close:hover {
+    background: var(--green);
+
+    color: #ffffff;
+
+    transform: rotate(90deg);
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+    .hero {
+        min-height: 68vh;
+    }
+
+    .section {
+        padding: 48px 0;
+    }
+
+    .hero-main-title {
+        font-size: 36px !important;
+    }
+
+    .mission-vision-heading {
+        font-size: 21px !important;
+    }
+
+    .mission-vision-text {
+        font-size: 16px !important;
+    }
+.nayaa-logo { 
+    height: 50px !important; 
+    width: 170px !important; 
+    max-width: 170px !important; 
+    object-fit: contain;
+}
+
+    .nayaa-tagline {
+        font-size: 11px;
+        margin-left: 6px;
+    }
+
+
+    /* POPUP MOBILE */
+
+    .donation-popup {
+        padding: 15px;
+    }
+
+    .donation-popup-box {
+        display: block;
+
+        width: 100%;
+
+        max-height: 92vh;
+
+        min-height: 0;
+
+        overflow-y: auto;
+
+        border-radius: 10px;
+    }
+
+    .donation-popup-image {
+        height: 230px;
+
+        min-height: 230px;
+    }
+
+    .donation-popup-content {
+        padding: 35px 25px 30px;
+    }
+
+    .donation-popup-eyebrow {
+        font-size: 12px;
+
+        margin-bottom: 12px;
+    }
+
+    .donation-popup-content h2 {
+        font-size: 30px;
+
+        line-height: 1.15;
+
+        margin-bottom: 18px;
+    }
+
+    .donation-popup-content p {
+        font-size: 16px;
+
+        line-height: 1.6;
+
+        margin-bottom: 25px;
+    }
+
+    .donation-popup-buttons {
+        gap: 15px;
+    }
+
+    .donation-popup-close {
+        top: 10px;
+
+        right: 10px;
+
+        width: 38px;
+
+        height: 38px;
+
+        font-size: 26px;
+    }
+
+}
+/* =====================================================
+   NAYAA DONATION POPUP - FIX
+   ===================================================== */
+
+.donation-popup {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+
+    z-index: 999999 !important;
+
+    display: none !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 30px !important;
+
+    background: rgba(0, 0, 0, 0.75) !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.donation-popup-box {
+    position: relative !important;
+
+    width: 100% !important;
+    max-width: 1050px !important;
+    min-height: 520px !important;
+
+    display: grid !important;
+    grid-template-columns: 48% 52% !important;
+
+    background: #ffffff !important;
+
+    border-radius: 12px !important;
+
+    overflow: hidden !important;
+
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4) !important;
+}
+
+
+/* POPUP IMAGE */
+
+.donation-popup-image {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 520px !important;
+
+    overflow: hidden !important;
+}
+
+
+.donation-popup-image img {
+    width: 100% !important;
+    height: 100% !important;
+
+    object-fit: cover !important;
+
+    display: block !important;
+}
+
+
+/* POPUP CONTENT */
+
+.donation-popup-content {
+    position: relative !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+
+    padding: 70px 65px !important;
+
+    background: #ffffff !important;
+}
+
+
+/* SMALL HEADING */
+
+.donation-popup-eyebrow {
+    margin-bottom: 18px !important;
+
+    color: #176b52 !important;
+
+    font-size: 14px !important;
+
+    font-weight: 800 !important;
+
+    letter-spacing: 2.5px !important;
+}
+
+
+/* MAIN HEADING */
+
+.donation-popup-content h2 {
+    margin: 0 0 24px !important;
+
+    color: #17251f !important;
+
+    font-size: 46px !important;
+
+    line-height: 1.08 !important;
+
+    font-weight: 800 !important;
+}
+
+
+/* DESCRIPTION */
+
+.donation-popup-content p {
+    margin: 0 0 32px !important;
+
+    color: #5f6965 !important;
+
+    font-size: 18px !important;
+
+    line-height: 1.7 !important;
+}
+
+
+/* BUTTON AREA */
+
+.donation-popup-buttons {
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 24px !important;
+
+    flex-wrap: wrap !important;
+}
+
+
+/* DONATE NOW */
+
+.donation-popup-donate {
+    display: inline-flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-width: 145px !important;
+
+    padding: 14px 25px !important;
+
+    background: #176b52 !important;
+
+    color: #ffffff !important;
+
+    border-radius: 6px !important;
+
+    text-decoration: none !important;
+
+    font-size: 15px !important;
+
+    font-weight: 800 !important;
+
+    letter-spacing: 0.5px !important;
+}
+
+
+.donation-popup-donate:hover {
+    background: #0e4e3c !important;
+
+    color: #ffffff !important;
+}
+
+
+/* CONTINUE BROWSING */
+
+.donation-popup-browse {
+    padding: 8px 0 !important;
+
+    border: none !important;
+
+    background: transparent !important;
+
+    color: #5f6965 !important;
+
+    font-size: 17px !important;
+
+    text-decoration: underline !important;
+
+    cursor: pointer !important;
+}
+
+
+.donation-popup-browse:hover {
+    color: #176b52 !important;
+}
+
+
+/* CLOSE BUTTON */
+
+.donation-popup-close {
+    position: absolute !important;
+
+    top: 18px !important;
+    right: 20px !important;
+
+    z-index: 20 !important;
+
+    width: 42px !important;
+    height: 42px !important;
+
+    border: none !important;
+
+    background: rgba(255, 255, 255, 0.95) !important;
+
+    border-radius: 50% !important;
+
+    color: #333333 !important;
+
+    font-size: 30px !important;
+
+    line-height: 1 !important;
+
+    cursor: pointer !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+
+.donation-popup-close:hover {
+    background: #176b52 !important;
+
+    color: #ffffff !important;
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+    .donation-popup {
+        padding: 15px !important;
+    }
+
+    .donation-popup-box {
+        display: block !important;
+
+        width: 100% !important;
+
+        max-height: 92vh !important;
+
+        min-height: 0 !important;
+
+        overflow-y: auto !important;
+    }
+
+    .donation-popup-image {
+        height: 230px !important;
+
+        min-height: 230px !important;
+    }
+
+    .donation-popup-content {
+        padding: 35px 25px 30px !important;
+    }
+
+    .donation-popup-content h2 {
+        font-size: 30px !important;
+    }
+
+    .donation-popup-content p {
+        font-size: 16px !important;
+    }
+
+    .donation-popup-close {
+        top: 10px !important;
+        right: 10px !important;
+
+        width: 38px !important;
+        height: 38px !important;
+
+        font-size: 26px !important;
+    }
+}
+/* =====================================================
+   YOUR IMPACT STARTS HERE
+   ===================================================== */
+
+.impact-areas {
+    background: #ffffff;
+}
+
+.impact-areas-title {
+    margin-top: 10px;
+    margin-bottom: 18px;
+
+    color: var(--dark);
+
+    font-size: clamp(2rem, 4vw, 3rem);
+
+    font-weight: 800;
+
+    line-height: 1.2;
+}
+
+.impact-areas-intro {
+    max-width: 760px;
+
+    margin: 0 auto;
+
+    color: #5f6965;
+
+    font-size: 18px;
+
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   IMPACT AREA CARDS
+   ===================================================== */
+
+.impact-area-card {
+    height: 100%;
+
+    padding: 35px 30px;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(23, 107, 82, 0.10);
+
+    border-radius: 18px;
+
+    box-shadow: 0 12px 35px rgba(18, 53, 45, 0.08);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.impact-area-card:hover {
+    transform: translateY(-8px);
+
+    border-color: rgba(23, 107, 82, 0.25);
+
+    box-shadow: 0 20px 45px rgba(18, 53, 45, 0.14);
+}
+
+
+/* =====================================================
+   ICON
+   ===================================================== */
+
+.impact-area-icon {
+    width: 62px;
+
+    height: 62px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-bottom: 22px;
+
+    background: var(--cream);
+
+    border-radius: 16px;
+
+    font-size: 30px;
+}
+
+
+/* =====================================================
+   CARD TITLE
+   ===================================================== */
+
+.impact-area-card h3 {
+    margin-bottom: 14px;
+
+    color: var(--dark);
+
+    font-size: 25px;
+
+    font-weight: 750;
+}
+
+
+/* =====================================================
+   CARD DESCRIPTION
+   ===================================================== */
+
+.impact-area-card p {
+    margin-bottom: 22px;
+
+    color: #5f6965;
+
+    font-size: 16px;
+
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   CARD LINK
+   ===================================================== */
+
+.impact-area-link {
+    display: inline-block;
+
+    color: var(--green);
+
+    font-size: 15px;
+
+    font-weight: 750;
+
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+.impact-area-link:hover {
+    color: #0e4e3c;
+
+    text-decoration: underline;
+}
+
+
+/* =====================================================
+   WIDE CARDS
+   ===================================================== */
+
+.impact-area-card-wide {
+    min-height: 260px;
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+    .impact-areas-title {
+        font-size: 30px;
+    }
+
+    .impact-areas-intro {
+        font-size: 16px;
+    }
+
+    .impact-area-card {
+        padding: 28px 24px;
+    }
+
+    .impact-area-card h3 {
+        font-size: 22px;
+    }
+
+    .impact-area-card-wide {
+        min-height: auto;
+    }
+
+}
+/* =====================================================
+   FINAL NAYAA NAVBAR LOGO SIZE
+   ===================================================== */
+
+.navbar .nayaa-brand {
+    display: flex !important;
+    align-items: center !important;
+    min-width: 210px !important;
+}
+
+.navbar .nayaa-logo {
+    width: 170px !important;
+    height: 55px !important;
+    max-width: 170px !important;
+    min-width: 170px !important;
+    object-fit: contain !important;
+    display: block !important;
+}
+/* =========================================================
+   NAYAA HOME PAGE - NEW SECTIONS
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   HOME SECTION HEADINGS
+   --------------------------------------------------------- */
+
+.home-section-title {
+    margin-top: 10px;
+    margin-bottom: 18px;
+    color: var(--dark);
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.2;
+    font-weight: 800;
+}
+
+.home-section-intro {
+    max-width: 760px;
+    margin: 0 auto;
+    color: #5f6965;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.home-view-link {
+    color: var(--green);
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.home-view-link:hover {
+    color: #0e4e3c;
+    text-decoration: underline;
+}
+
+
+/* ---------------------------------------------------------
+   ENHANCED STATISTICS
+   --------------------------------------------------------- */
+
+.stat-enhanced {
+    height: 100%;
+    min-height: 170px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.stat-enhanced:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(18, 53, 45, 0.12);
+}
+
+.stat-enhanced strong {
+    font-size: 2.5rem;
+    line-height: 1.1;
+    margin-bottom: 8px;
+}
+
+.stat-label {
+    display: block;
+    color: var(--dark);
+    font-size: 17px;
+    font-weight: 750;
+    margin-bottom: 7px;
+}
+
+.stat-enhanced small {
+    color: #737b78;
+    font-size: 12px;
+}
+
+
+/* ---------------------------------------------------------
+   PROGRAM CARDS
+   --------------------------------------------------------- */
+
+.home-program-card {
+    position: relative;
+    padding-top: 48px !important;
+    border-radius: 18px;
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.home-program-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 20px 45px rgba(18, 53, 45, 0.14);
+}
+
+.home-program-card h3 {
+    color: var(--dark);
+    font-size: 23px;
+    font-weight: 750;
+    margin-bottom: 14px;
+}
+
+.home-program-card p {
+    color: #5f6965;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.home-program-card a {
+    color: var(--green);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.home-program-card a:hover {
+    text-decoration: underline;
+}
+
+.program-number {
+    position: absolute;
+    top: 17px;
+    right: 20px;
+    color: rgba(23, 107, 82, 0.15);
+    font-size: 25px;
+    font-weight: 800;
+}
+
+
+/* ---------------------------------------------------------
+   FEATURED CAMPAIGNS
+   --------------------------------------------------------- */
+
+.featured-campaigns-section {
+    background: var(--cream);
+}
+
+.campaign-card {
+    height: 100%;
+    position: relative;
+    padding: 35px 30px;
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid rgba(23, 107, 82, 0.08);
+    box-shadow: 0 12px 35px rgba(18, 53, 45, 0.07);
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
+}
+
+.campaign-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 20px 45px rgba(18, 53, 45, 0.14);
+    border-color: rgba(23, 107, 82, 0.22);
+}
+
+.campaign-card-number {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 22px;
+    background: var(--cream);
+    border-radius: 14px;
+    color: var(--green);
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.campaign-card h3 {
+    color: var(--dark);
+    font-size: 23px;
+    line-height: 1.3;
+    font-weight: 750;
+    margin-bottom: 14px;
+}
+
+.campaign-card p {
+    color: #5f6965;
+    line-height: 1.7;
+    margin-bottom: 22px;
+}
+
+.campaign-link {
+    color: var(--green);
+    font-weight: 750;
+    text-decoration: none;
+}
+
+.campaign-link:hover {
+    color: #0e4e3c;
+    text-decoration: underline;
+}
+
+
+/* ---------------------------------------------------------
+   PROJECT CARDS
+   --------------------------------------------------------- */
+
+.home-project-card {
+    border-radius: 18px;
+    overflow: hidden;
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.home-project-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 20px 45px rgba(18, 53, 45, 0.14);
+}
+
+.home-project-card h3 {
+    color: var(--dark);
+    font-size: 23px;
+    font-weight: 750;
+}
+
+.home-project-card p {
+    color: #5f6965;
+    line-height: 1.7;
+}
+
+.home-project-card a {
+    color: var(--green);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.home-project-card a:hover {
+    text-decoration: underline;
+}
+
+
+/* ---------------------------------------------------------
+   STORIES
+   --------------------------------------------------------- */
+
+.stories-section {
+    background: #ffffff;
+}
+
+.story-card {
+    border-radius: 18px;
+    overflow: hidden;
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.story-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 20px 45px rgba(18, 53, 45, 0.14);
+}
+
+.story-card h3 {
+    color: var(--dark);
+    font-size: 22px;
+    font-weight: 750;
+    margin-bottom: 12px;
+}
+
+.story-card p {
+    color: #5f6965;
+    line-height: 1.7;
+}
+
+.story-label {
+    margin-bottom: 10px;
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+
+/* ---------------------------------------------------------
+   EMPTY CONTENT CARDS
+   --------------------------------------------------------- */
+
+.empty-home-card {
+    padding: 50px 30px;
+    text-align: center;
+    background: var(--cream);
+    border-radius: 18px;
+}
+
+.empty-home-icon {
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+.empty-home-card h3 {
+    color: var(--dark);
+    font-size: 24px;
+    font-weight: 750;
+    margin-bottom: 10px;
+}
+
+.empty-home-card p {
+    max-width: 650px;
+    margin: 0 auto 25px;
+    color: #5f6965;
+}
+
+
+/* ---------------------------------------------------------
+   FINAL CTA
+   --------------------------------------------------------- */
+
+.home-final-cta {
+    background: var(--dark);
+    color: #ffffff;
+}
+
+.home-final-cta .eyebrow {
+    color: var(--gold);
+}
+
+.home-final-cta h2 {
+    max-width: 850px;
+    margin: 12px auto 18px;
+    color: #ffffff;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.2;
+    font-weight: 800;
+}
+
+.home-final-cta .lead {
+    max-width: 760px;
+    margin: 0 auto 30px;
+    color: #dfece7;
+    line-height: 1.7;
+}
+
+.home-cta-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.home-final-cta .btn-outline-light {
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.home-final-cta .btn-outline-light:hover {
+    background: #ffffff;
+    color: var(--dark);
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+    .home-section-title {
+        font-size: 30px;
+    }
+
+    .home-section-intro {
+        font-size: 16px;
+    }
+
+    .home-view-link {
+        font-size: 14px;
+    }
+
+    .stat-enhanced {
+        min-height: 145px;
+        padding: 20px 12px;
+    }
+
+    .stat-enhanced strong {
+        font-size: 2rem;
+    }
+
+    .stat-label {
+        font-size: 15px;
+    }
+
+    .campaign-card {
+        padding: 28px 24px;
+    }
+
+    .campaign-card h3 {
+        font-size: 21px;
+    }
+
+    .home-final-cta h2 {
+        font-size: 30px;
+    }
+
+}
+/* =========================================
+   NAYAA - SUSTAINABLE DEVELOPMENT GOALS
+========================================= */
+
+.sdg-section {
+    width: 100%;
+    padding: 60px 0;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.sdg-section .container {
+    max-width: 1500px;
+}
+
+.sdg-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+    .sdg-section {
+        padding: 35px 0;
+    }
+
+    .sdg-section .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+}
+/* ==========================================
+   NAYAA PEOPLE'S STORIES
+========================================== */
+
+.people-stories-page {
+    background: #eaf4e8;
+    padding: 65px 0 75px;
+    min-height: 100vh;
+}
+
+.stories-heading {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 55px;
+}
+
+.stories-eyebrow {
+    color: #43834e;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.stories-heading h1 {
+    color: #164d32;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    margin: 12px 0;
+}
+
+.stories-heading p {
+    color: #52695a;
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.people-stories-list {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.people-story-row {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(28, 72, 43, 0.08);
+    min-height: 260px;
+}
+
+.people-story-photo {
+    height: 100%;
+    min-height: 260px;
+    background: #dce9dc;
+}
+
+.people-story-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 260px;
+    object-fit: cover;
+}
+
+.people-story-info {
+    padding: 28px 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.story-category {
+    color: #39804a;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+    margin-bottom: 10px;
+}
+
+.people-story-info h2 {
+    color: #174c32;
+    font-size: 1.55rem;
+    font-weight: 750;
+    line-height: 1.35;
+    margin-bottom: 12px;
+}
+
+.people-story-info p {
+    color: #56675b;
+    font-size: 0.98rem;
+    line-height: 1.75;
+    margin-bottom: 18px;
+}
+
+.story-read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #24713e;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #8cbf8e;
+    padding-bottom: 5px;
+}
+
+.story-read-more:hover {
+    color: #123e27;
+    border-color: #123e27;
+}
+
+.story-credit {
+    display: block;
+    color: #7b877e;
+    font-size: 11px;
+    margin-top: 15px;
+}
+
+.stories-view-all {
+    text-align: center;
+    margin-top: 48px;
+}
+
+.stories-view-all a {
+    display: inline-block;
+    background: #236b3e;
+    color: #fff;
+    padding: 15px 32px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: background 0.2s ease,
+                transform 0.2s ease;
+}
+
+.stories-view-all a:hover {
+    background: #174b2d;
+    transform: translateY(-2px);
+}
+
+.stories-disclaimer {
+    text-align: center;
+    max-width: 750px;
+    margin: 28px auto 0;
+    color: #6b796e;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+    .people-stories-page {
+        padding: 42px 0 55px;
+    }
+
+    .stories-heading {
+        margin-bottom: 35px;
+    }
+
+    .people-story-row {
+        grid-template-columns: 1fr;
+    }
+
+    .people-story-photo,
+    .people-story-photo img {
+        height: 240px;
+        min-height: 240px;
+    }
+
+    .people-story-info {
+        padding: 23px;
+    }
+
+    .people-story-info h2 {
+        font-size: 1.3rem;
+    }
+}
+.story-extra {
+    display: none;
+}
+
+.story-extra.show {
+    display: block;
+}
+/* ==========================================
+   NAYAA - PEOPLE'S STORIES PAGE
+========================================== */
+
+.people-stories-page {
+    background: #f1f8ed;
+    padding: 45px 0 65px;
+    min-height: 100vh;
+}
+
+/* Heading */
+
+.stories-heading {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto 28px;
+}
+
+.stories-eyebrow {
+    color: #8b8700;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.stories-heading h1 {
+    color: #104c32;
+    font-size: clamp(30px, 4vw, 42px);
+    font-weight: 850;
+    line-height: 1.2;
+    margin: 10px 0 12px;
+}
+
+.stories-heading p {
+    color: #33483a;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Three story cards */
+
+.people-stories-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+    align-items: stretch;
+}
+
+.people-story-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #e2e9e1;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(25, 70, 43, 0.09);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.people-story-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(25, 70, 43, 0.14);
+}
+
+/* Photo */
+
+.people-story-photo {
+    width: 100%;
+    height: 205px;
+    overflow: hidden;
+    background: #dce9d9;
+}
+
+.people-story-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.4s ease;
+}
+
+.people-story-card:hover .people-story-photo img {
+    transform: scale(1.04);
+}
+
+/* Story text */
+
+.people-story-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    padding: 16px 18px 18px;
+}
+
+.story-category {
+    display: inline-block;
+    background: #c5f1df;
+    color: #14543b;
+    border-radius: 30px;
+    padding: 4px 10px;
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 10px;
+}
+
+.people-story-info h2 {
+    color: #123f2d;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.3;
+    margin: 0 0 12px;
+}
+
+.people-story-info p {
+    color: #293a31;
+    font-size: 14px;
+    line-height: 1.55;
+    margin: 0 0 18px;
+}
+
+/* Read more */
+
+.story-read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #12613c;
+    font-size: 13px;
+    font-weight: 850;
+    text-decoration: none;
+    margin-top: auto;
+    transition: color 0.2s ease;
+}
+
+.story-read-more:hover {
+    color: #083c25;
+    text-decoration: underline;
+}
+
+.story-credit {
+    color: #65766a;
+    font-size: 11px;
+    margin-top: 13px;
+}
+
+/* View more button */
+
+.stories-view-all {
+    text-align: center;
+    margin-top: 28px;
+}
+
+.stories-view-all a {
+    display: inline-block;
+    background: #08734e;
+    color: #fff;
+    padding: 11px 27px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.stories-view-all a:hover {
+    background: #075c3f;
+    transform: translateY(-2px);
+}
+
+.stories-disclaimer {
+    max-width: 800px;
+    margin: 18px auto 0;
+    color: #526457;
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* Entrance animation */
+
+.people-story-card.story-visible {
+    animation: storyFadeUp 0.55s ease both;
+}
+
+@keyframes storyFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Tablet */
+
+@media (max-width: 991px) {
+    .people-stories-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+    .people-stories-page {
+        padding: 35px 0 45px;
+    }
+
+    .stories-heading {
+        margin-bottom: 25px;
+    }
+
+    .stories-heading h1 {
+        font-size: 30px;
+    }
+
+    .stories-heading p {
+        font-size: 14px;
+    }
+
+    .people-stories-list {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .people-story-photo {
+        height: 230px;
+    }
+
+    .people-story-info {
+        padding: 18px;
+    }
+
+    .people-story-info h2 {
+        font-size: 19px;
+    }
+}
+
+/* Respect reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+    .people-story-card,
+    .people-story-photo img,
+    .stories-view-all a {
+        transition: none;
+    }
+
+    .people-story-card.story-visible {
+        animation: none;
+    }
+}
+/* =========================================
+   NAYAA - PROJECTS PAGE
+========================================= */
+
+/* Projects Hero Section */
+.projects-hero {
+    min-height: 390px;
+    padding: 80px 8%;
+    display: flex;
+    align-items: center;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(12, 54, 38, 0.88),
+            rgba(12, 54, 38, 0.35)
+        ),
+        url("../images/project-education.jpg") center/cover no-repeat;
+    color: #fff;
+}
+
+.projects-hero-content {
+    max-width: 650px;
+}
+
+.projects-tag {
+    display: inline-block;
+    margin-bottom: 16px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #d6edb8;
+}
+
+.projects-hero h1 {
+    margin: 0 0 18px;
+    font-size: clamp(32px, 5vw, 54px);
+    line-height: 1.15;
+    color: #fff;
+}
+
+.projects-hero p {
+    max-width: 560px;
+    margin-bottom: 28px;
+    font-size: 17px;
+    line-height: 1.7;
+    color: #f2f7f0;
+}
+
+.projects-hero-btn {
+    display: inline-block;
+    padding: 13px 24px;
+    border-radius: 6px;
+    background: #a7c957;
+    color: #183b2c;
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.25s ease;
+}
+
+.projects-hero-btn:hover {
+    background: #c2dc82;
+    transform: translateY(-2px);
+}
+
+/* Projects Main Section */
+.projects-section {
+    padding: 75px 8%;
+    background: #f8faf6;
+}
+
+/* Section Heading */
+.projects-heading {
+    max-width: 680px;
+    margin: 0 auto 42px;
+    text-align: center;
+}
+
+.projects-heading span {
+    color: #668b3c;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.projects-heading h2 {
+    margin: 10px 0;
+    color: #204d36;
+    font-size: 36px;
+}
+
+.projects-heading p {
+    color: #68756c;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* Projects Grid */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Individual Project Card */
+.project-card {
+    overflow: hidden;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 8px 28px rgba(25, 54, 35, 0.08);
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 32px rgba(25, 54, 35, 0.13);
+}
+
+/* Project Images */
+.project-card img {
+    display: block;
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+}
+
+/* Project Card Content */
+.project-card-content {
+    padding: 25px;
+}
+
+.project-category {
+    color: #6b913f;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.project-card h3 {
+    margin: 10px 0;
+    color: #244b36;
+    font-size: 22px;
+}
+
+.project-card p {
+    margin-bottom: 18px;
+    color: #68756c;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* Project Links */
+.project-card a {
+    color: #4c7834;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.project-card a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .projects-hero {
+        min-height: 340px;
+        padding: 60px 6%;
+    }
+
+    .projects-section {
+        padding: 55px 6%;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .project-card img {
+        height: 230px;
+    }
+
+    .projects-heading h2 {
+        font-size: 30px;
+    }
+}
+
+/* Small Mobile Screens */
+@media (max-width: 480px) {
+    .projects-hero {
+        padding: 45px 5%;
+    }
+
+    .projects-hero h1 {
+        font-size: 32px;
+    }
+
+    .projects-hero p {
+        font-size: 15px;
+    }
+
+    .project-card-content {
+        padding: 20px;
+    }
+
+    .project-card h3 {
+        font-size: 20px;
+    }
+}
+/* =========================================
+   NAYAA - ABOUT US PAGE
+========================================= */
+
+/* HERO */
+.about-hero {
+    min-height: 420px;
+    padding: 80px 8%;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    background:
+        linear-gradient(90deg, rgba(14, 53, 37, 0.9), rgba(14, 53, 37, 0.35)),
+        url("../images/about-nayaa.jpg") center/cover no-repeat;
+}
+
+.about-hero-content {
+    max-width: 700px;
+}
+
+.about-eyebrow,
+.about-label {
+    display: inline-block;
+    margin-bottom: 14px;
+    color: #71934d;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.about-eyebrow {
+    color: #d8edb9;
+}
+
+.about-hero h1 {
+    margin: 0 0 18px;
+    color: #fff;
+    font-size: clamp(34px, 5vw, 56px);
+    line-height: 1.15;
+}
+
+.about-hero p {
+    max-width: 570px;
+    margin-bottom: 28px;
+    color: #f2f7f0;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.about-hero-btn,
+.about-cta-btn {
+    display: inline-block;
+    padding: 13px 25px;
+    border-radius: 6px;
+    background: #a7c957;
+    color: #193c2b;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.25s ease;
+}
+
+.about-hero-btn:hover,
+.about-cta-btn:hover {
+    background: #c4dc8b;
+    transform: translateY(-2px);
+}
+
+/* INTRODUCTION */
+.about-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 55px;
+    padding: 85px 8%;
+    background: #fff;
+}
+
+.about-intro-image img {
+    display: block;
+    width: 100%;
+    height: 390px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.about-intro-text h2,
+.about-people-content h2 {
+    margin: 0 0 20px;
+    color: #214b35;
+    font-size: 36px;
+    line-height: 1.25;
+}
+
+.about-intro-text p,
+.about-people-content > p {
+    color: #66736a;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* MISSION AND VISION */
+.about-mission {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px;
+    padding: 65px 8%;
+    background: #f3f7ef;
+}
+
+.about-mission-card {
+    padding: 38px;
+    border: 1px solid #e2eadc;
+    border-radius: 12px;
+    background: #fff;
+    text-align: center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.about-mission-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(30, 70, 45, 0.09);
+}
+
+.about-icon {
+    display: flex;
+    width: 55px;
+    height: 55px;
+    margin: 0 auto 18px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #eaf2df;
+    color: #547c37;
+    font-size: 27px;
+}
+
+.about-mission-card h2 {
+    margin-bottom: 14px;
+    color: #244b36;
+    font-size: 25px;
+}
+
+.about-mission-card p {
+    margin: 0;
+    color: #68756c;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* CORE VALUES */
+.about-values {
+    padding: 80px 8%;
+    background: #fff;
+}
+
+.about-section-heading {
+    max-width: 680px;
+    margin: 0 auto 42px;
+    text-align: center;
+}
+
+.about-section-heading span {
+    color: #71934d;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.about-section-heading h2 {
+    margin: 10px 0;
+    color: #214b35;
+    font-size: 36px;
+}
+
+.about-section-heading p {
+    color: #68756c;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.about-values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.about-value-card {
+    padding: 30px 22px;
+    border: 1px solid #e7ece3;
+    border-radius: 12px;
+    background: #fbfcf9;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.about-value-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 26px rgba(30, 70, 45, 0.08);
+}
+
+.about-value-icon {
+    display: flex;
+    width: 48px;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: #eaf2df;
+    color: #547c37;
+    font-size: 25px;
+}
+
+.about-value-card h3 {
+    margin: 20px 0 10px;
+    color: #244b36;
+    font-size: 20px;
+}
+
+.about-value-card p {
+    margin: 0;
+    color: #68756c;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* WHO WE SUPPORT */
+.about-people {
+    display: grid;
+    grid-template-columns: 1fr 0.85fr;
+    align-items: center;
+    gap: 55px;
+    padding: 85px 8%;
+    background: #f5f8f2;
+}
+
+.about-people-image img {
+    display: block;
+    width: 100%;
+    height: 480px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.about-people-list {
+    margin-top: 30px;
+}
+
+.about-person {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 18px 0;
+    border-bottom: 1px solid #dfe8d9;
+}
+
+.about-person > span {
+    color: #709348;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.about-person h3 {
+    margin: 0 0 6px;
+    color: #244b36;
+    font-size: 18px;
+}
+
+.about-person p {
+    margin: 0;
+    color: #68756c;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* CALL TO ACTION */
+.about-cta {
+    padding: 75px 8%;
+    background: #214b35;
+    color: #fff;
+    text-align: center;
+}
+
+.about-cta-content {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.about-cta h2 {
+    margin: 0 0 16px;
+    color: #fff;
+    font-size: 36px;
+}
+
+.about-cta p {
+    margin: 0 auto 28px;
+    color: #e6eee5;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1000px) {
+    .about-values-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .about-intro,
+    .about-people {
+        gap: 35px;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-hero {
+        min-height: 350px;
+        padding: 60px 6%;
+    }
+
+    .about-intro,
+    .about-people {
+        grid-template-columns: 1fr;
+        padding: 60px 6%;
+    }
+
+    .about-intro-image img {
+        height: 300px;
+    }
+
+    .about-people-image img {
+        height: 320px;
+    }
+
+    .about-mission {
+        grid-template-columns: 1fr;
+        padding: 50px 6%;
+    }
+
+    .about-values {
+        padding: 60px 6%;
+    }
+
+    .about-cta {
+        padding: 60px 6%;
+    }
+
+    .about-intro-text h2,
+    .about-people-content h2,
+    .about-section-heading h2,
+    .about-cta h2 {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-hero {
+        padding: 45px 5%;
+    }
+
+    .about-hero h1 {
+        font-size: 32px;
+    }
+
+    .about-hero p {
+        font-size: 15px;
+    }
+
+    .about-values-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-mission-card {
+        padding: 28px 22px;
+    }
+}
+/* About page reveal animation */
+.about-reveal {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.about-reveal.about-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .about-reveal,
+    .about-reveal.about-visible {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+/* NAYAA logo: wider with a slight slant */
+.navbar-brand img,
+.nayaa-logo {
+    width: 260px !important;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: contain;
+    display: block;
+    transform: skewX(-6deg);
+    transform-origin: center;
+}
+
+@media (max-width: 768px) {
+    .navbar-brand img,
+    .nayaa-logo {
+        width: 190px !important;
+    }
+}
+.nayaa-logo {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.nayaa-logo strong {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    color: #238b45;
+}
+
+.nayaa-logo small {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 12px;
+    font-weight: 500;
+    font-style: italic;
+    letter-spacing: 0.8px;
+    color: #5f6f63;
+}
+/* =====================================================
+   NAYAA — PREMIUM GREEN TEXT LOGO
+===================================================== */
+
+.navbar .nayaa-brand {
+    display: flex !important;
+    align-items: center !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+}
+
+/* Main NAYAA */
+.navbar .nayaa-logo {
+    display: inline-flex !important;
+    align-items: baseline !important;
+    gap: 11px !important;
+    line-height: 1 !important;
+}
+
+.navbar .nayaa-logo strong {
+    font-family: Georgia, "Times New Roman", serif !important;
+    font-size: 34px !important;
+    font-weight: 900 !important;
+    font-style: normal !important;
+    letter-spacing: 5px !important;
+
+    /* Premium emerald green */
+    color: #087f5b !important;
+
+    text-shadow:
+        0 1px 0 rgba(255,255,255,0.8),
+        0 2px 5px rgba(8,127,91,0.18) !important;
+
+    transition: all 0.3s ease !important;
+}
+
+/* Tagline */
+.navbar .nayaa-logo em {
+    font-family: Georgia, "Times New Roman", serif !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    font-style: italic !important;
+    letter-spacing: 0.8px !important;
+
+    color: #397c61 !important;
+
+    transition: all 0.3s ease !important;
+}
+
+/* Hover */
+.navbar .nayaa-brand:hover {
+    text-decoration: none !important;
+}
+
+.navbar .nayaa-brand:hover strong {
+    color: #045c42 !important;
+    transform: translateY(-1px) !important;
+    text-shadow:
+        0 3px 8px rgba(8,127,91,0.28) !important;
+}
+
+.navbar .nayaa-brand:hover em {
+    color: #176b4f !important;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    .navbar .nayaa-logo {
+        gap: 7px !important;
+    }
+
+    .navbar .nayaa-logo strong {
+        font-size: 27px !important;
+        letter-spacing: 3px !important;
+    }
+
+    .navbar .nayaa-logo em {
+        font-size: 10px !important;
+        letter-spacing: 0.3px !important;
+    }
+}

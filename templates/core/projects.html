@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Our Projects | NAYAA{% endblock %}
+
+{% block content %}
+<section class="projects-hero">
+    <div class="projects-hero-content">
+        <span class="projects-tag">OUR INITIATIVES</span>
+        <h1>Creating Change, One Project at a Time</h1>
+        <p>
+            Every project is a step toward a brighter future.
+            Explore how we support children, families, and communities.
+        </p>
+        <a href="{% url 'donate' %}" class="projects-hero-btn">
+            Support Our Work
+        </a>
+    </div>
+</section>
+
+<section class="projects-section">
+    <div class="projects-heading">
+        <span>WHAT WE DO</span>
+        <h2>Our Projects</h2>
+        <p>
+            Building opportunities through education, healthcare,
+            empowerment, and community development.
+        </p>
+    </div>
+
+    <div class="projects-grid">
+        <article class="project-card">
+            <img src="{% static 'images/project-education.jpg' %}"
+                 alt="Children learning together in a community classroom">
+            <div class="project-card-content">
+                <span class="project-category">Education</span>
+                <h3>Learning for a Brighter Future</h3>
+                <p>
+                    Supporting children with learning opportunities,
+                    educational resources, and a welcoming space to grow.
+                </p>
+                <a href="{% url 'donate' %}">Support this cause →</a>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <img src="{% static 'images/project-healthcare.jpg' %}"
+                 alt="Community healthcare support">
+            <div class="project-card-content">
+                <span class="project-category">Healthcare</span>
+                <h3>Healthier Communities</h3>
+                <p>
+                    Encouraging health awareness and improving access
+                    to essential healthcare support.
+                </p>
+                <a href="{% url 'donate' %}">Support this cause →</a>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <img src="{% static 'images/project-women.jpg' %}"
+                 alt="Women participating in a skills workshop">
+            <div class="project-card-content">
+                <span class="project-category">Women Empowerment</span>
+                <h3>Skills and New Possibilities</h3>
+                <p>
+                    Creating pathways for women to build skills,
+                    confidence, and livelihood opportunities.
+                </p>
+                <a href="{% url 'donate' %}">Support this cause →</a>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <img src="{% static 'images/project-community.jpg' %}"
+                 alt="Volunteers working together in a community">
+            <div class="project-card-content">
+                <span class="project-category">Community</span>
+                <h3>Stronger Together</h3>
+                <p>
+                    Bringing people together to encourage inclusion,
+                    participation, and community development.
+                </p>
+                <a href="{% url 'donate' %}">Support this cause →</a>
+            </div>
+        </article>
+    </div>
+</section>
+
+<script src="{% static 'js/projects.js' %}"></script>
+{% endblock %}
