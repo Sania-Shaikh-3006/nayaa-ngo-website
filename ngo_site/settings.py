@@ -53,7 +53,7 @@ TEMPLATES = [{
 WSGI_APPLICATION = "ngo_site.wsgi.application"
 ASGI_APPLICATION = "ngo_site.asgi.application"
 
-# Database configuration: PostgreSQL on Render, SQLite locally
+# PostgreSQL on Render; SQLite locally
 DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
 
 if DATABASE_URL:
@@ -73,7 +73,6 @@ else:
             "NAME": BASE_DIR / "db.sqlite3",
         }
     }
-
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
