@@ -7,7 +7,11 @@ load_dotenv(BASE_DIR / ".env")
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "development-only-change-me")
 DEBUG = os.getenv("DEBUG", "True").lower() == "true"
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"] if DEBUG else os.getenv("ALLOWED_HOSTS", "").split(",")
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+    if host.strip()
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -49,20 +53,18 @@ TEMPLATES = [{
 WSGI_APPLICATION = "ngo_site.wsgi.application"
 ASGI_APPLICATION = "ngo_site.asgi.application"
 
-# Final requirement: MySQL. For beginner-friendly local setup, SQLite is used
-# automatically until DB_NAME is filled in .env.
-if os.getenv("DB_NAME"):
-    import pymysql
-    pymysql.install_as_MySQLdb()
+# Database configuration: PostgreSQL on Render, SQLite locally
+DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
+
+if DATABASE_URL:
+    import dj_database_url
+
     DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.mysql",
-            "NAME": os.getenv("DB_NAME"),
-            "USER": os.getenv("DB_USER", "root"),
-            "PASSWORD": os.getenv("DB_PASSWORD", ""),
-            "HOST": os.getenv("DB_HOST", "127.0.0.1"),
-            "PORT": os.getenv("DB_PORT", "3306"),
-        }
+        "default": dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=True,
+        )
     }
 else:
     DATABASES = {
