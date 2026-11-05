@@ -27,119 +27,73 @@ from .models import *
 # ============================================================
 
 def home(request):
-    stats = list(
-        ImpactStat.objects
-        .filter(active=True)
-        .order_by("order")
-    )
+    homepage_content = HomePageContent.objects.first()
 
-    programs = list(
-        Program.objects
-        .filter(active=True)[:3]
-    )
+    # Active homepage banners
+    banner_slides = BannerSlide.objects.filter(
+        active=True
+    ).order_by("order")
 
-    stories = list(
-        Story.objects
-        .filter(verified=True)
-        .order_by("-created_at")[:3]
-    )
+    # Real impact statistics only
+    stats = ImpactStat.objects.filter(
+        active=True
+    ).order_by("order")
 
-    campaigns = list(
-        Campaign.objects
-        .filter(active=True)[:3]
-    )
+    # Active programs
+    programs = Program.objects.filter(
+        active=True
+    )[:3]
 
-    projects = list(
-        Project.objects
-        .filter(verified=True)
-        .order_by("-id")[:3]
-    )
+    # Verified success stories
+    stories = Story.objects.filter(
+        verified=True
+    ).order_by("-created_at")[:3]
 
-    demo_stats = [
-        {
-            "value": "5,000+",
-            "label": "People Reached",
-            "description": "Demo project figure",
-        },
-        {
-            "value": "25+",
-            "label": "Communities",
-            "description": "Demo project figure",
-        },
-        {
-            "value": "40+",
-            "label": "Learning & Skill Activities",
-            "description": "Demo project figure",
-        },
-        {
-            "value": "15+",
-            "label": "Community Initiatives",
-            "description": "Demo project figure",
-        },
-    ]
+    # Active campaigns
+    campaigns = Campaign.objects.filter(
+        active=True
+    )[:3]
 
-    demo_programs = [
-        {
-            "title": "Education & Learning",
-            "summary": (
-                "Creating learning opportunities that help "
-                "children build knowledge, confidence, and "
-                "skills for their future."
-            ),
-        },
-        {
-            "title": "Healthcare & Wellbeing",
-            "summary": (
-                "Supporting awareness, wellbeing, and "
-                "community initiatives that encourage "
-                "healthier lives."
-            ),
-        },
-        {
-            "title": "Skills & Livelihoods",
-            "summary": (
-                "Helping people develop useful skills and "
-                "explore pathways towards sustainable "
-                "livelihood opportunities."
-            ),
-        },
-    ]
+    # Verified projects
+    projects = Project.objects.filter(
+        verified=True
+    ).order_by("-id")[:3]
 
-    demo_campaigns = [
-        {
-            "title": "Every Child Deserves an Opportunity",
-            "description": (
-                "A Nayaa initiative focused on creating "
-                "learning and development opportunities "
-                "for children."
-            ),
-        },
-        {
-            "title": "Women Creating New Possibilities",
-            "description": (
-                "Supporting women through confidence, "
-                "skills, empowerment, and livelihood "
-                "opportunities."
-            ),
-        },
-        {
-            "title": "Stronger Communities, Brighter Futures",
-            "description": (
-                "Encouraging community participation, "
-                "collaboration, awareness, and local "
-                "development."
-            ),
-        },
-    ]
+    # Upcoming events
+    events = Event.objects.filter(
+        date__gte=__import__(
+            "django.utils.timezone",
+            fromlist=["localdate"]
+        ).localdate()
+    ).order_by("date")[:3]
+
+    # Latest published blog posts
+    latest_news = BlogPost.objects.filter(
+        published=True
+    ).order_by("-published_at")[:3]
+
+    # Latest press releases
+    press_releases = PressRelease.objects.order_by(
+        "-date"
+    )[:3]
+
+    # Active partners and supporters
+    partners = Partner.objects.filter(
+        active=True
+    ).order_by("order", "name")
 
     context = {
-        "stats": stats if stats else demo_stats,
+        "homepage_content": homepage_content,
+        "banner_slides": banner_slides,
+        "stats": stats,
         "programs": programs,
         "stories": stories,
         "campaigns": campaigns,
         "projects": projects,
-        "demo_programs": demo_programs,
-        "demo_campaigns": demo_campaigns,
+        "events": events,
+        "latest_news": latest_news,
+        "press_releases": press_releases,
+        "partners": partners,
     }
 
     return render(
@@ -147,15 +101,12 @@ def home(request):
         "core/home.html",
         context
     )
-
-
 # ============================================================
 # ABOUT
 # ============================================================
 
 def about(request):
     return render(request, "core/about.html")
-
 
 # ============================================================
 # OUR WORK
@@ -164,12 +115,11 @@ def about(request):
 def work(request):
     return render(
         request,
-        "core/work.html",
+        "core/projects.html",
         {
-            "programs": Program.objects.filter(active=True)
+            "projects": Project.objects.filter(verified=True)
         }
     )
-
 
 # ============================================================
 # NAYAA — INDIVIDUAL AREAS OF WORK

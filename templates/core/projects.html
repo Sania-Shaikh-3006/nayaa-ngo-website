@@ -1,91 +1,348 @@
-{% extends "base.html" %}
+
+{% extends "core/base.html" %}
 {% load static %}
 
 {% block title %}Our Projects | NAYAA{% endblock %}
 
 {% block content %}
+
+<!-- PROJECTS HERO -->
+
 <section class="projects-hero">
     <div class="projects-hero-content">
+
         <span class="projects-tag">OUR INITIATIVES</span>
+
         <h1>Creating Change, One Project at a Time</h1>
+
         <p>
             Every project is a step toward a brighter future.
             Explore how we support children, families, and communities.
         </p>
+
         <a href="{% url 'donate' %}" class="projects-hero-btn">
             Support Our Work
         </a>
+
     </div>
 </section>
 
+
+<!-- OUR FOCUS AREAS -->
+
 <section class="projects-section">
+
     <div class="projects-heading">
+
         <span>WHAT WE DO</span>
-        <h2>Our Projects</h2>
+
+        <h2>Our Focus Areas</h2>
+
         <p>
             Building opportunities through education, healthcare,
             empowerment, and community development.
         </p>
+
     </div>
 
+
     <div class="projects-grid">
+
         <article class="project-card">
-            <img src="{% static 'images/project-education.jpg' %}"
-                 alt="Children learning together in a community classroom">
+
+            <img
+                src="{% static 'images/project-education.jpg' %}"
+                alt="Children learning together in a community classroom"
+            >
+
             <div class="project-card-content">
+
                 <span class="project-category">Education</span>
+
                 <h3>Learning for a Brighter Future</h3>
+
                 <p>
                     Supporting children with learning opportunities,
                     educational resources, and a welcoming space to grow.
                 </p>
-                <a href="{% url 'donate' %}">Support this cause →</a>
+
+                <a href="{% url 'donate' %}">
+                    Support this cause →
+                </a>
+
             </div>
+
         </article>
 
+
         <article class="project-card">
-            <img src="{% static 'images/project-healthcare.jpg' %}"
-                 alt="Community healthcare support">
+
+            <img
+                src="{% static 'images/project-healthcare.jpg' %}"
+                alt="Community healthcare support"
+            >
+
             <div class="project-card-content">
+
                 <span class="project-category">Healthcare</span>
+
                 <h3>Healthier Communities</h3>
+
                 <p>
                     Encouraging health awareness and improving access
                     to essential healthcare support.
                 </p>
-                <a href="{% url 'donate' %}">Support this cause →</a>
+
+                <a href="{% url 'donate' %}">
+                    Support this cause →
+                </a>
+
             </div>
+
         </article>
 
+
         <article class="project-card">
-            <img src="{% static 'images/project-women.jpg' %}"
-                 alt="Women participating in a skills workshop">
+
+            <img
+                src="{% static 'images/project-women.jpg' %}"
+                alt="Women participating in a skills workshop"
+            >
+
             <div class="project-card-content">
+
                 <span class="project-category">Women Empowerment</span>
+
                 <h3>Skills and New Possibilities</h3>
+
                 <p>
                     Creating pathways for women to build skills,
                     confidence, and livelihood opportunities.
                 </p>
-                <a href="{% url 'donate' %}">Support this cause →</a>
+
+                <a href="{% url 'donate' %}">
+                    Support this cause →
+                </a>
+
             </div>
+
         </article>
 
+
         <article class="project-card">
-            <img src="{% static 'images/project-community.jpg' %}"
-                 alt="Volunteers working together in a community">
+
+            <img
+                src="{% static 'images/project-community.jpg' %}"
+                alt="Volunteers working together in a community"
+            >
+
             <div class="project-card-content">
-                <span class="project-category">Community</span>
+
+                <span class="project-category">Community Development</span>
+
                 <h3>Stronger Together</h3>
+
                 <p>
                     Bringing people together to encourage inclusion,
                     participation, and community development.
                 </p>
-                <a href="{% url 'donate' %}">Support this cause →</a>
+
+                <a href="{% url 'donate' %}">
+                    Support this cause →
+                </a>
+
             </div>
+
         </article>
+
     </div>
+
 </section>
 
+
+<!-- PROJECTS ADDED THROUGH DJANGO ADMIN -->
+
+<section class="projects-section">
+
+    <div class="projects-heading">
+
+        <span>OUR WORK IN ACTION</span>
+
+        <h2>Our Ongoing and Completed Projects</h2>
+
+        <p>
+            Explore the projects managed by NAYAA and the opportunities
+            they aim to create.
+        </p>
+
+    </div>
+
+
+    <div class="projects-grid">
+
+        {% for project in projects %}
+
+            {% if project.verified %}
+
+                <article class="project-card">
+
+                    <!-- PROJECT COVER IMAGE -->
+
+                    {% if project.cover_image %}
+
+                        <img
+                            src="{{ project.cover_image.url }}"
+                            alt="{{ project.title }}"
+                        >
+
+                    {% endif %}
+
+
+                    <div class="project-card-content">
+
+                        <span class="project-category">
+                            {{ project.sector }}
+                        </span>
+
+                        <h3>{{ project.title }}</h3>
+
+                        <p>{{ project.description }}</p>
+
+
+                        <p>
+                            <strong>Status:</strong>
+                            {{ project.get_status_display }}
+                        </p>
+
+                        <p>
+                            <strong>Goals:</strong>
+                            {{ project.goals }}
+                        </p>
+
+                        <p>
+                            <strong>Beneficiaries:</strong>
+                            {{ project.beneficiaries }}
+                        </p>
+
+                        <p>
+                            <strong>Timeline:</strong>
+                            {{ project.timeline }}
+                        </p>
+
+                        <p>
+                            <strong>Location:</strong>
+                            {{ project.location }}
+                        </p>
+
+
+                        <a href="{{ project.get_absolute_url }}">
+                            View Project Details →
+                        </a>
+
+
+                        {% if project.report %}
+
+                            <p>
+                                <a href="{{ project.report.url }}" target="_blank">
+                                    Download Project Report
+                                </a>
+                            </p>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- MULTIPLE VERIFIED PROJECT PHOTOS -->
+
+                    <div class="project-gallery">
+
+                        <h4>Project Gallery</h4>
+
+                        <div class="projects-grid">
+
+                            {% for media in project.mediaitem_set.all %}
+
+                                {% if media.verified and media.media_type == "photo" and media.image %}
+
+                                    <figure class="project-gallery-item">
+
+                                        <img
+                                            src="{{ media.image.url }}"
+                                            alt="{{ media.title }}"
+                                        >
+
+                                        {% if media.caption %}
+
+                                            <figcaption>
+                                                {{ media.caption }}
+                                            </figcaption>
+
+                                        {% endif %}
+
+                                        {% if media.source_credit %}
+
+                                            <small>
+                                                Photo credit: {{ media.source_credit }}
+                                            </small>
+
+                                        {% endif %}
+
+                                    </figure>
+
+                                {% endif %}
+
+                            {% empty %}
+
+                                <p>
+                                    More project photos will be added soon.
+                                </p>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            {% endif %}
+
+        {% empty %}
+
+            <p>
+                Our project updates will be available here soon.
+            </p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<!-- CALL TO ACTION -->
+
+<section class="projects-cta">
+
+    <h2>Be a Part of the Change</h2>
+
+    <p>
+        Your support can help create meaningful opportunities
+        for children, families, and communities.
+    </p>
+
+    <a href="{% url 'donate' %}" class="projects-hero-btn">
+        Donate Now
+    </a>
+
+    <a href="{% url 'volunteer' %}" class="projects-hero-btn">
+        Become a Volunteer
+    </a>
+
+</section>
+
+
 <script src="{% static 'js/projects.js' %}"></script>
+
 {% endblock %}

@@ -1,1 +1,386 @@
-{% extends "base.html" %}{% block title %}Media{% endblock %}{% block content %}<section class="page-hero"><div class="container"><div class="eyebrow">Media</div><h1>Photos, videos and media coverage</h1></div></section><section class="section"><div class="container"><h2>Photos & Videos</h2><div class="row g-4 mb-5">{% for m in media %}<div class="col-md-4"><div class="card overflow-hidden">{% if m.image %}<img class="gallery-img rounded-0" src="{{m.image.url}}" alt="{{m.title}}">{% else %}<img class="gallery-img rounded-0" src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=80" alt="Community healthcare photograph">{% endif %}<div class="p-3"><h3>{{m.title}}</h3><p>{{m.caption}}</p>{% if m.source_credit %}<small>{{m.source_credit}}</small>{% endif %}</div></div></div>{% empty %}<p>Add verified, licensed/authorized media in the admin.</p>{% endfor %}</div><h2>Press Releases</h2>{% for p in press %}<article class="border-bottom py-3"><h3>{{p.title}}</h3><small>{{p.date}}</small><p>{{p.body}}</p>{% if p.source_url %}<a href="{{p.source_url}}" target="_blank" rel="noopener">Source</a>{% endif %}</article>{% empty %}<p>No press releases yet.</p>{% endfor %}<h2 class="mt-5">Electronic Media</h2>{% for e in electronic %}<p><strong>{{e.outlet}}</strong> — <a href="{{e.url}}" target="_blank" rel="noopener">{{e.title}}</a></p>{% empty %}<p>No electronic media entries yet.</p>{% endfor %}</div></section>{% endblock %}
+
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Media | NAYAA{% endblock %}
+
+{% block content %}
+
+<!-- ================= MEDIA HERO ================= -->
+
+<section class="page-hero">
+    <div class="container">
+
+        <div class="eyebrow">NAYAA MEDIA</div>
+
+        <h1>Photos, Videos and Media Coverage</h1>
+
+        <p>
+            Explore moments from our initiatives, community activities,
+            stories and updates.
+        </p>
+
+    </div>
+</section>
+
+
+<!-- ================= PHOTO AND VIDEO GALLERY ================= -->
+
+<section class="section">
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <span class="eyebrow">OUR MOMENTS</span>
+
+            <h2>Photos & Videos</h2>
+
+            <p>
+                A glimpse into our activities, initiatives
+                and community engagement.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            {% for m in media %}
+
+                {% if m.verified %}
+
+                    <div class="col-md-6 col-lg-4">
+
+                        <article class="card h-100 overflow-hidden shadow-sm">
+
+                            <!-- PHOTO -->
+
+                            {% if m.media_type == "photo" %}
+
+                                {% if m.image %}
+
+                                    <img
+                                        src="{{ m.image.url }}"
+                                        class="gallery-img w-100"
+                                        alt="{{ m.title }}"
+                                        loading="lazy"
+                                        style="height:240px; object-fit:cover;"
+                                    >
+
+                                {% endif %}
+
+
+                            <!-- VIDEO -->
+
+                            {% elif m.media_type == "video" %}
+
+                                <div class="media-video-preview">
+
+                                    {% if m.image %}
+
+                                        <img
+                                            src="{{ m.image.url }}"
+                                            class="gallery-img w-100"
+                                            alt="{{ m.title }}"
+                                            loading="lazy"
+                                            style="height:240px; object-fit:cover;"
+                                        >
+
+                                    {% else %}
+
+                                        <div class="video-placeholder">
+                                            <span>VIDEO</span>
+                                        </div>
+
+                                    {% endif %}
+
+                                    {% if m.video_url %}
+
+                                        <a
+                                            href="{{ m.video_url }}"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="video-open-link"
+                                        >
+                                            Watch Video
+                                        </a>
+
+                                    {% endif %}
+
+                                </div>
+
+                            {% endif %}
+
+
+                            <!-- MEDIA DETAILS -->
+
+                            <div class="card-body p-4">
+
+                                <span class="badge bg-success mb-2">
+                                    {{ m.get_media_type_display }}
+                                </span>
+
+                                <h3 class="h5">
+                                    {{ m.title }}
+                                </h3>
+
+                                {% if m.caption %}
+
+                                    <p class="text-muted">
+                                        {{ m.caption }}
+                                    </p>
+
+                                {% endif %}
+
+
+                                {% if m.source_credit %}
+
+                                    <small class="text-muted">
+                                        Photo/Media Credit:
+                                        {{ m.source_credit }}
+                                    </small>
+
+                                {% endif %}
+
+
+                                {% if m.media_type == "video" and m.video_url %}
+
+                                    <div class="mt-3">
+
+                                        <a
+                                            href="{{ m.video_url }}"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            Watch Video →
+                                        </a>
+
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                {% endif %}
+
+            {% empty %}
+
+                <div class="col-12 text-center">
+
+                    <p>
+                        Our photos and videos will be available here soon.
+                    </p>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- ================= PRESS RELEASES ================= -->
+
+        <section class="mt-5 pt-4">
+
+            <div class="text-center mb-4">
+
+                <span class="eyebrow">LATEST ANNOUNCEMENTS</span>
+
+                <h2>Press Releases</h2>
+
+                <p>
+                    Read official announcements and updates from NAYAA.
+                </p>
+
+            </div>
+
+
+            {% for p in press %}
+
+                <article class="border-bottom py-4">
+
+                    <div class="mb-2">
+
+                        <small class="text-muted">
+                            {{ p.date|date:"d F Y" }}
+                        </small>
+
+                    </div>
+
+                    <h3 class="h5">
+                        {{ p.title }}
+                    </h3>
+
+                    <p>
+                        {{ p.body|linebreaksbr }}
+                    </p>
+
+                    {% if p.source_url %}
+
+                        <a
+                            href="{{ p.source_url }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Read Original Source →
+                        </a>
+
+                    {% endif %}
+
+                </article>
+
+            {% empty %}
+
+                <p class="text-center">
+                    No press releases have been published yet.
+                </p>
+
+            {% endfor %}
+
+        </section>
+
+
+        <!-- ================= ELECTRONIC MEDIA ================= -->
+
+        <section class="mt-5 pt-4">
+
+            <div class="text-center mb-4">
+
+                <span class="eyebrow">MEDIA RECOGNITION</span>
+
+                <h2>Electronic Media Coverage</h2>
+
+                <p>
+                    Explore articles, news features and external
+                    coverage related to NAYAA.
+                </p>
+
+            </div>
+
+
+            <div class="row g-4">
+
+                {% for e in electronic %}
+
+                    <div class="col-md-6">
+
+                        <article class="card h-100 p-4 shadow-sm">
+
+                            <h3 class="h5">
+                                {{ e.title }}
+                            </h3>
+
+                            <p class="mb-2">
+
+                                <strong>Media Outlet:</strong>
+                                {{ e.outlet }}
+
+                            </p>
+
+
+                            {% if e.published_on %}
+
+                                <small class="text-muted d-block mb-3">
+                                    Published:
+                                    {{ e.published_on|date:"d F Y" }}
+                                </small>
+
+                            {% endif %}
+
+
+                            <a
+                                href="{{ e.url }}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Read Media Coverage →
+                            </a>
+
+                        </article>
+
+                    </div>
+
+                {% empty %}
+
+                    <div class="col-12 text-center">
+
+                        <p>
+                            No electronic media coverage has been added yet.
+                        </p>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+    </div>
+</section>
+
+
+<!-- ================= MEDIA PAGE STYLES ================= -->
+
+<style>
+
+.media-video-preview {
+    position: relative;
+    background: #e9eee8;
+}
+
+.video-placeholder {
+    height: 240px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #e8eee5;
+    color: #315d42;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.video-open-link {
+    display: inline-block;
+    margin: 12px 16px 0;
+    padding: 9px 18px;
+    background: #315d42;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.video-open-link:hover {
+    background: #244832;
+    color: white;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+}
+
+.gallery-img {
+    display: block;
+}
+
+@media (max-width: 576px) {
+
+    .page-hero h1 {
+        font-size: 30px;
+    }
+
+    .section {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+}
+
+</style>
+
+{% endblock %}

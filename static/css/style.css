@@ -2721,3 +2721,124 @@ a {
         letter-spacing: 0.3px !important;
     }
 }
+/* =================================
+   NAYAA IMPACT STATISTICS
+================================= */
+
+.impact-section {
+    background: #f8f6ef;
+    padding: 75px 0;
+}
+
+.impact-heading {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.impact-heading span {
+    display: inline-block;
+    background: #dce8d1;
+    color: #b18b32;
+    padding: 10px 30px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.impact-heading h2 {
+    color: #164c35;
+    font-size: 36px;
+    font-weight: 800;
+    margin: 18px 0 12px;
+}
+
+.impact-heading p {
+    color: #555;
+    font-size: 17px;
+}
+
+.impact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+
+.impact-card {
+    background: #fffdf7;
+    border: 2px solid #c4d5a5;
+    border-radius: 22px;
+    padding: 35px 15px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.impact-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 12px 25px rgba(22, 76, 53, 0.12);
+}
+
+.impact-icon {
+    width: 75px;
+    height: 75px;
+    margin: 0 auto 15px;
+    background: #dce8d1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #164c35;
+    font-size: 35px;
+}
+
+.impact-card h3 {
+    color: #164c35;
+    font-size: 48px;
+    font-weight: 800;
+    margin: 8px 0;
+}
+
+.impact-card h4 {
+    color: #164c35;
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0;
+}
+
+@media (max-width: 992px) {
+    .impact-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .impact-section {
+        padding: 45px 0;
+    }
+
+    .impact-heading h2 {
+        font-size: 27px;
+    }
+
+    .impact-grid {
+        gap: 13px;
+    }
+
+    .impact-card {
+        padding: 25px 8px;
+    }
+
+    .impact-card h3 {
+        font-size: 34px;
+    }
+
+    .impact-card h4 {
+        font-size: 13px;
+    }
+
+    .impact-icon {
+        width: 58px;
+        height: 58px;
+        font-size: 27px;
+    }
+}

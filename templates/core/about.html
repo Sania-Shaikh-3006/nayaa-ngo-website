@@ -1,4 +1,5 @@
-{% extends "base.html" %}
+
+{% extends "core/base.html" %}
 {% load static %}
 
 {% block title %}About Us | NAYAA{% endblock %}
@@ -121,6 +122,76 @@
     </div>
 </section>
 
+<!-- OUR HISTORY AND MILESTONES -->
+<section class="about-journey">
+
+    <div class="about-journey-heading">
+        <span class="about-label">OUR STORY, OUR PURPOSE</span>
+        <h2>Every Great Change Begins With a Step</h2>
+        <p>
+            Our journey is guided by a belief that opportunities can
+            transform lives. Here are the values and aspirations
+            that shape the NAYAA journey.
+        </p>
+    </div>
+
+    <div class="about-journey-grid">
+
+        <!-- MILESTONE 1 -->
+        <div class="journey-card journey-one">
+            <div class="journey-number">01</div>
+            <div class="journey-icon">🌱</div>
+            <span class="journey-tag">THE BEGINNING</span>
+            <h3>A Hopeful Beginning</h3>
+            <p>
+                Every meaningful journey begins with a belief.
+                NAYAA is guided by the idea that everyone deserves
+                opportunities to learn, grow and move forward.
+            </p>
+        </div>
+
+        <!-- MILESTONE 2 -->
+        <div class="journey-card journey-two">
+            <div class="journey-number">02</div>
+            <div class="journey-icon">📚</div>
+            <span class="journey-tag">OUR PURPOSE</span>
+            <h3>Opening New Opportunities</h3>
+            <p>
+                We focus on education, healthcare, women empowerment,
+                skills and livelihoods to encourage a better quality
+                of life for individuals and families.
+            </p>
+        </div>
+
+        <!-- MILESTONE 3 -->
+        <div class="journey-card journey-three">
+            <div class="journey-number">03</div>
+            <div class="journey-icon">🤝</div>
+            <span class="journey-tag">GROWING TOGETHER</span>
+            <h3>Stronger Communities</h3>
+            <p>
+                We believe positive change grows through cooperation,
+                inclusion and the collective efforts of people
+                working towards shared opportunities.
+            </p>
+        </div>
+
+        <!-- MILESTONE 4 -->
+        <div class="journey-card journey-four">
+            <div class="journey-number">04</div>
+            <div class="journey-icon">🌍</div>
+            <span class="journey-tag">LOOKING AHEAD</span>
+            <h3>A Brighter Tomorrow</h3>
+            <p>
+                Our aspiration is a future where every generation
+                has the confidence, support and opportunities
+                to discover its full potential.
+            </p>
+        </div>
+
+    </div>
+</section>
+
 <!-- WHO WE SUPPORT -->
 <section class="about-people">
     <div class="about-people-content">
@@ -186,6 +257,147 @@
         </a>
     </div>
 </section>
+
+<!-- JOURNEY SECTION STYLING -->
+<style>
+.about-journey {
+    padding: 90px 7%;
+    background: linear-gradient(135deg, #f5f8ef, #fffaf0);
+    overflow: hidden;
+}
+
+.about-journey-heading {
+    max-width: 760px;
+    margin: 0 auto 55px;
+    text-align: center;
+}
+
+.about-journey-heading h2 {
+    color: #20543d;
+    font-size: clamp(28px, 4vw, 42px);
+    margin: 15px 0;
+    font-weight: 700;
+}
+
+.about-journey-heading p {
+    color: #66746a;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.about-journey-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+    max-width: 1250px;
+    margin: auto;
+}
+
+.journey-card {
+    position: relative;
+    padding: 30px 24px;
+    border-radius: 22px;
+    min-height: 330px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(40, 70, 50, 0.08);
+}
+
+.journey-card:hover {
+    transform: translateY(-9px);
+    box-shadow: 0 18px 35px rgba(40, 70, 50, 0.12);
+}
+
+.journey-one {
+    background: #e9f4df;
+    border-bottom: 5px solid #83ad55;
+}
+
+.journey-two {
+    background: #fff0dc;
+    border-bottom: 5px solid #e6a04e;
+}
+
+.journey-three {
+    background: #e6f0f7;
+    border-bottom: 5px solid #6599c2;
+}
+
+.journey-four {
+    background: #f3eafa;
+    border-bottom: 5px solid #a17abe;
+}
+
+.journey-number {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    font-size: 34px;
+    font-weight: 800;
+    opacity: 0.15;
+    color: #24543c;
+}
+
+.journey-icon {
+    width: 65px;
+    height: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.75);
+    font-size: 30px;
+    margin-bottom: 25px;
+}
+
+.journey-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #47724e;
+    margin-bottom: 10px;
+}
+
+.journey-card h3 {
+    color: #234c39;
+    font-size: 20px;
+    margin-bottom: 13px;
+    line-height: 1.4;
+}
+
+.journey-card p {
+    color: #58675e;
+    font-size: 14px;
+    line-height: 1.8;
+    margin: 0;
+}
+
+@media (max-width: 1000px) {
+    .about-journey-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 576px) {
+    .about-journey {
+        padding: 65px 6%;
+    }
+
+    .about-journey-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .journey-card {
+        min-height: auto;
+        padding: 28px 23px;
+    }
+
+    .about-journey-heading {
+        margin-bottom: 35px;
+    }
+}
+</style>
 
 <script src="{% static 'js/about.js' %}"></script>
 

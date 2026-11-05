@@ -1,1 +1,118 @@
-{% extends "base.html" %}{% block title %}Contact Us{% endblock %}{% block content %}<section class="page-hero"><div class="container"><h1>Contact Us</h1><p>General inquiries, media requests and partnership proposals.</p></div></section><section class="section"><div class="container"><div class="row g-5"><div class="col-lg-6"><form method="post">{% csrf_token %}{{form.as_p}}<button class="btn btn-brand">Send message</button></form></div><div class="col-lg-6"><h2>Office</h2><p>Replace this with the verified NGO office address, phone, email and social media.</p><div class="ratio ratio-16x9"><iframe title="Office location map" src="https://www.openstreetmap.org/export/embed.html?bbox=72.80%2C18.90%2C72.90%2C19.00&amp;layer=mapnik" loading="lazy"></iframe></div></div></div></div></section>{% endblock %}
+
+{% extends "core/base.html" %}
+
+{% block title %}Contact Us | NAYAA{% endblock %}
+
+{% block content %}
+
+<!-- Contact Hero -->
+<section class="page-hero">
+    <div class="container">
+        <h1>Contact Us</h1>
+        <p>
+            We'd love to hear from you. Connect with NAYAA for general
+            inquiries, volunteering, partnerships and other opportunities.
+        </p>
+    </div>
+</section>
+
+<!-- Contact Information and Form -->
+<section class="section">
+    <div class="container">
+
+        <div class="row g-5">
+
+            <!-- Contact Form -->
+            <div class="col-lg-6">
+                <div class="card p-4 h-100">
+
+                    <h2>Send Us a Message</h2>
+
+                    <p>
+                        Have a question or want to work with us?
+                        Fill out the form below.
+                    </p>
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-success">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="post">
+                        {% csrf_token %}
+
+                        {{ form.as_p }}
+
+                        <button type="submit" class="btn btn-brand">
+                            Send Message
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+
+            <!-- Contact Details -->
+            <div class="col-lg-6">
+
+                <div class="card p-4 h-100">
+
+                    <h2>Get in Touch</h2>
+
+                    <p>
+                        We welcome conversations with individuals,
+                        communities, volunteers and organisations
+                        who share our vision.
+                    </p>
+
+                    <div class="mb-4">
+                        <h5>Email</h5>
+                        <p>
+                            <a href="mailto:nayaaforfuture@gmail.com">
+                                nayaaforfuture@gmail.com
+                            </a>
+                        </p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5>Phone</h5>
+                        <p>Contact number will be updated soon.</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5>Office Location</h5>
+                        <p>
+                            Please contact us by email for location
+                            and office details.
+                        </p>
+                    </div>
+
+                    <h5>Find Us</h5>
+
+                    <div class="ratio ratio-16x9">
+                        <iframe
+                            title="Map of Mumbai"
+                            src="https://www.openstreetmap.org/export/embed.html?bbox=72.80%2C18.90%2C72.90%2C19.00&amp;layer=mapnik"
+                            loading="lazy"
+                            style="border:0;"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+
+                    <small class="text-muted mt-2">
+                        Map shown for general Mumbai reference.
+                        It is not a verified NAYAA office location.
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

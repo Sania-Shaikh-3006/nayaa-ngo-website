@@ -1,172 +1,198 @@
-{% extends "base.html" %}
+{% extends "core/base.html" %}
+{% load static %}
 
-{% block title %}Nayaa{% endblock %}
+{% block title %}NAYAA{% endblock %}
 
 {% block content %}
 
-<!-- =====================================================
-     DONATION POPUP
-     ===================================================== -->
-
+<!-- DONATION POPUP -->
 <div id="donationPopup" class="donation-popup">
-
     <div class="donation-popup-box">
 
-        <button
-            type="button"
-            class="donation-popup-close"
-            aria-label="Close popup"
-            onclick="closeDonationPopup();">
+        <button type="button"
+                class="donation-popup-close"
+                aria-label="Close popup"
+                onclick="closeDonationPopup();">
             ×
         </button>
 
-
-        <!-- POPUP PHOTO -->
-
         <div class="donation-popup-image">
-
             <img
                 src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1000&q=85"
                 alt="Children">
-
         </div>
 
-
-        <!-- POPUP MESSAGE -->
-
         <div class="donation-popup-content">
-
             <div class="donation-popup-eyebrow">
                 HELP CREATE A BETTER FUTURE
             </div>
 
-            <h2>
-                Your support can create opportunities.
-            </h2>
+            <h2>Your support can create opportunities.</h2>
 
             <p>
-                Your contribution can help Nayaa create
-                opportunities for children, women, families,
-                and communities through education, healthcare,
-                skills, livelihoods, and community development.
+                Your contribution can help Nayaa create opportunities
+                for children, women, families, and communities through
+                education, healthcare, skills, livelihoods, and
+                community development.
             </p>
 
-
             <div class="donation-popup-buttons">
-
-                <a
-                    href="{% url 'donate' %}"
-                    class="donation-popup-donate">
+                <a href="{% url 'donate' %}"
+                   class="donation-popup-donate">
                     DONATE NOW
                 </a>
 
-                <button
-                    type="button"
-                    class="donation-popup-browse"
-                    onclick="closeDonationPopup();">
+                <button type="button"
+                        class="donation-popup-browse"
+                        onclick="closeDonationPopup();">
                     Continue browsing
                 </button>
-
             </div>
-
         </div>
-
     </div>
-
 </div>
 
 
-<!-- =====================================================
-     HERO
-     ===================================================== -->
-
+<!-- HERO BANNER -->
 <section class="hero">
-
     <div class="container">
 
-        <div class="col-lg-8">
+        {% if banner_slides %}
+            {% for banner in banner_slides %}
+                {% if forloop.first %}
 
-            <h1 class="hero-main-title">
-                Creating Opportunities for Children and Communities
-            </h1>
+                    <div class="col-lg-8">
 
-        </div>
+                        {% if banner.image %}
+                            <img
+                                src="{{ banner.image.url }}"
+                                alt="{{ banner.title }}"
+                                class="img-fluid mb-4"
+                                loading="eager">
+                        {% endif %}
+
+                        <h1 class="hero-main-title">
+                            Creating Opportunities for Children and Communities
+                        </h1>
+
+                        {% if banner.description %}
+                            <p>{{ banner.description }}</p>
+                        {% endif %}
+
+                    </div>
+
+                {% endif %}
+            {% endfor %}
+
+        {% else %}
+
+            <div class="col-lg-8">
+                <h1 class="hero-main-title">
+                    Creating Opportunities for Children and Communities
+                </h1>
+
+                <p>
+                    Nayaa creates meaningful opportunities through
+                    education, healthcare, women empowerment, skills
+                    and livelihoods, and community development.
+                </p>
+            </div>
+
+        {% endif %}
 
     </div>
-
 </section>
 
 
-<!-- =====================================================
-     MISSION & VISION
-     ===================================================== -->
-
+<!-- MISSION AND VISION -->
 <section class="section">
-
     <div class="container">
-
         <div class="row g-5">
 
-            <!-- MISSION -->
-
             <div class="col-lg-6">
-
-                <div class="eyebrow">
-                    Our Mission
-                </div>
+                <div class="eyebrow">Our Mission</div>
 
                 <h2 class="mission-vision-heading">
-                    Creating opportunities that open new possibilities.
+                    {% if homepage_content %}
+                        {{ homepage_content.mission_title }}
+                    {% else %}
+                        Creating opportunities that open new possibilities.
+                    {% endif %}
                 </h2>
 
                 <p class="mission-vision-text">
-                    Nayaa creates opportunities through education,
-                    healthcare, empowerment, skills, and community
-                    development.
+                    {% if homepage_content %}
+                        {{ homepage_content.mission_description }}
+                    {% else %}
+                        Nayaa works to create meaningful opportunities
+                        for children, young people, women, families,
+                        and communities through education, healthcare,
+                        empowerment, skills, livelihoods, and inclusive
+                        community development.
+                    {% endif %}
                 </p>
-
             </div>
 
-
-            <!-- VISION -->
-
             <div class="col-lg-6">
-
-                <div class="eyebrow">
-                    Our Vision
-                </div>
+                <div class="eyebrow">Our Vision</div>
 
                 <h2 class="mission-vision-heading">
-                    A future where everyone has the opportunity to grow.
+                    {% if homepage_content %}
+                        {{ homepage_content.vision_title }}
+                    {% else %}
+                        A future where everyone has the opportunity to grow.
+                    {% endif %}
                 </h2>
 
                 <p class="mission-vision-text">
-                    We envision inclusive communities where people can
-                    learn, live with dignity, and build a better future.
+                    {% if homepage_content %}
+                        {{ homepage_content.vision_description }}
+                    {% else %}
+                        We envision inclusive communities where people
+                        can learn, live with dignity, and build a
+                        better future.
+                    {% endif %}
                 </p>
-
             </div>
 
         </div>
-
     </div>
+</section>
+<!-- IMPACT STATISTICS -->
+<section class="section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2>Our Impact</h2>
+            <p>Every step creates a meaningful difference.</p>
+        </div>
 
+        <div class="row g-4">
+            {% for stat in stats %}
+            <div class="col-6 col-lg-3">
+                <div class="impact-area-card text-center">
+                    <h3>{{ stat.value }}</h3>
+                    <p>{{ stat.label }}</p>
+
+                    {% if stat.description %}
+                        <small>{{ stat.description }}</small>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p>Impact statistics will be displayed here when available.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </section>
 
-
-<!-- =====================================================
-     YOUR IMPACT STARTS HERE
-     ===================================================== -->
-
+<!-- AREAS OF WORK -->
 <section class="section impact-areas">
-
     <div class="container">
 
         <div class="text-center mb-5">
-
-            <div class="eyebrow">
-                Your Impact Starts Here
-            </div>
+            <div class="eyebrow">Your Impact Starts Here</div>
 
             <h2 class="impact-areas-title">
                 Choose an area where you would like to create change.
@@ -177,252 +203,443 @@
                 for children, women, families, and communities.
                 Explore the areas where our work can make a difference.
             </p>
-
         </div>
-
 
         <div class="row g-4">
 
-            <!-- =================================================
-                 EDUCATION
-                 ================================================= -->
-
             <div class="col-md-6 col-lg-4">
-
                 <div class="impact-area-card">
-
-                    <div class="impact-area-icon">
-                        🎓
-                    </div>
-
-                    <h3>
-                        Education
-                    </h3>
-
+                    <div class="impact-area-icon">🎓</div>
+                    <h3>Education</h3>
                     <p>
                         Creating learning opportunities that help children
                         develop knowledge, confidence, and skills for their future.
                     </p>
-
-                    <a
-                        href="{% url 'education' %}"
-                        class="impact-area-link">
+                    <a href="{% url 'education' %}" class="impact-area-link">
                         Explore Education →
                     </a>
-
                 </div>
-
             </div>
 
-
-            <!-- =================================================
-                 HEALTHCARE
-                 ================================================= -->
-
             <div class="col-md-6 col-lg-4">
-
                 <div class="impact-area-card">
-
-                    <div class="impact-area-icon">
-                        ❤️
-                    </div>
-
-                    <h3>
-                        Healthcare
-                    </h3>
-
+                    <div class="impact-area-icon">❤️</div>
+                    <h3>Healthcare</h3>
                     <p>
                         Supporting awareness, wellbeing, and opportunities
                         that can contribute to healthier communities.
                     </p>
-
-                    <a
-                        href="{% url 'healthcare' %}"
-                        class="impact-area-link">
+                    <a href="{% url 'healthcare' %}" class="impact-area-link">
                         Explore Healthcare →
                     </a>
-
                 </div>
-
             </div>
 
-
-            <!-- =================================================
-                 WOMEN EMPOWERMENT
-                 ================================================= -->
-
             <div class="col-md-6 col-lg-4">
-
                 <div class="impact-area-card">
-
-                    <div class="impact-area-icon">
-                        👩
-                    </div>
-
-                    <h3>
-                        Women Empowerment
-                    </h3>
-
+                    <div class="impact-area-icon">👩</div>
+                    <h3>Women Empowerment</h3>
                     <p>
                         Creating pathways that encourage women to build
                         confidence, skills, independence, and new possibilities.
                     </p>
-
-                    <a
-                        href="{% url 'women_empowerment' %}"
-                        class="impact-area-link">
+                    <a href="{% url 'women_empowerment' %}" class="impact-area-link">
                         Explore Empowerment →
                     </a>
-
                 </div>
-
             </div>
 
-
-            <!-- =================================================
-                 SKILLS & LIVELIHOODS
-                 ================================================= -->
-
             <div class="col-md-6 col-lg-6">
-
                 <div class="impact-area-card impact-area-card-wide">
-
-                    <div class="impact-area-icon">
-                        💼
-                    </div>
-
-                    <h3>
-                        Skills & Livelihoods
-                    </h3>
-
+                    <div class="impact-area-icon">💼</div>
+                    <h3>Skills & Livelihoods</h3>
                     <p>
                         Supporting people with opportunities to develop useful
                         skills and explore pathways towards sustainable livelihoods.
                     </p>
-
-                    <a
-                        href="{% url 'skills_livelihoods' %}"
-                        class="impact-area-link">
+                    <a href="{% url 'skills_livelihoods' %}" class="impact-area-link">
                         Explore Skills & Livelihoods →
                     </a>
-
                 </div>
-
             </div>
 
-
-            <!-- =================================================
-                 COMMUNITY DEVELOPMENT
-                 ================================================= -->
-
             <div class="col-md-6 col-lg-6">
-
                 <div class="impact-area-card impact-area-card-wide">
-
-                    <div class="impact-area-icon">
-                        🏘️
-                    </div>
-
-                    <h3>
-                        Community Development
-                    </h3>
-
+                    <div class="impact-area-icon">🏘️</div>
+                    <h3>Community Development</h3>
                     <p>
                         Strengthening communities by encouraging participation,
                         collaboration, awareness, and opportunities for growth.
                     </p>
-
-                    <a
-                        href="{% url 'community_development' %}"
-                        class="impact-area-link">
+                    <a href="{% url 'community_development' %}" class="impact-area-link">
                         Explore Community Development →
                     </a>
-
                 </div>
-
             </div>
 
         </div>
-
     </div>
-
 </section>
 
 
-<!-- =====================================================
-     IMPACT
-     ===================================================== -->
 
-<section class="section impact-strip">
-
+<!-- OUR PROGRAMS AND INITIATIVES -->
+<section class="section">
     <div class="container">
 
-        <div class="row g-3">
+        <div class="text-center mb-5">
+            <div class="eyebrow">What We Do</div>
+            <h2>Our Programs & Initiatives</h2>
+            <p>
+                Explore the programs through which Nayaa works
+                towards creating opportunities.
+            </p>
+        </div>
 
-            {% for s in stats %}
+        <div class="row g-4">
 
-            <div class="col-6 col-lg-3">
+            {% for program in programs %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="impact-area-card">
 
-                <div class="stat">
+                        {% if program.image %}
+                            <img
+                                src="{{ program.image.url }}"
+                                alt="{{ program.title }}"
+                                class="img-fluid mb-3"
+                                loading="lazy">
+                        {% endif %}
 
-                    <strong>
-                        {{ s.value }}
-                    </strong>
+                        <h3>{{ program.title }}</h3>
+                        <p>{{ program.summary }}</p>
 
-                    {{ s.label }}
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center">
+                    <p>
+                        Nayaa's programs and initiatives will be displayed here.
+                    </p>
+                </div>
+            {% endfor %}
 
-                    <small class="d-block text-muted">
-                        {{ s.description }}
-                    </small>
+        </div>
+    </div>
+</section>
 
+
+<!-- SUCCESS STORIES -->
+<section class="section">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <div class="eyebrow">Stories of Change</div>
+            <h2>Success Stories</h2>
+            <p>
+                Read verified stories that reflect the experiences
+                and journeys connected with Nayaa's work.
+            </p>
+        </div>
+
+        <div class="row g-4">
+
+            {% for story in stories %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="impact-area-card">
+
+                        {% if story.image %}
+                            <img
+                                src="{{ story.image.url }}"
+                                alt="{{ story.title }}"
+                                class="img-fluid mb-3"
+                                loading="lazy">
+                        {% endif %}
+
+                        <h3>{{ story.title }}</h3>
+                        <p>{{ story.summary|truncatewords:30 }}</p>
+
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center">
+                    <p>
+                        Verified success stories will be displayed here.
+                    </p>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+
+<!-- CAMPAIGNS -->
+<section class="section">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <div class="eyebrow">Get Involved</div>
+            <h2>Our Campaigns</h2>
+            <p>
+                Explore initiatives and campaigns that invite people
+                to participate in creating positive change.
+            </p>
+        </div>
+
+        <div class="row g-4">
+
+            {% for campaign in campaigns %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="impact-area-card">
+                        <h3>{{ campaign.title }}</h3>
+                        <p>{{ campaign.summary }}</p>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center">
+                    <p>
+                        Nayaa's campaigns will be displayed here.
+                    </p>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+<!-- OUR PARTNERS & SUPPORTERS -->
+<section class="section">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <div class="eyebrow">Growing Together</div>
+            <h2>Our Partners & Supporters</h2>
+            <p>
+                We value the organizations and supporters who stand
+                alongside Nayaa in creating opportunities for
+                children and communities.
+            </p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+
+            {% for partner in partners %}
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="impact-area-card text-center">
+
+                        {% if partner.logo %}
+                            <img
+                                src="{{ partner.logo.url }}"
+                                alt="{{ partner.name }} logo"
+                                class="img-fluid mb-3"
+                                style="max-height: 110px; object-fit: contain;"
+                                loading="lazy">
+                        {% endif %}
+
+                        <h3>{{ partner.name }}</h3>
+
+                        {% if partner.description %}
+                            <p>{{ partner.description }}</p>
+                        {% endif %}
+
+                        {% if partner.website %}
+                            <a
+                                href="{{ partner.website }}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="impact-area-link">
+                                Visit Website →
+                            </a>
+                        {% endif %}
+
+                    </div>
                 </div>
 
-            </div>
-
             {% empty %}
+                <div class="col-12 text-center">
+                    <p>
+                        Our partner and supporter information
+                        will be displayed here.
+                    </p>
+                </div>
+            {% endfor %}
 
-            <div class="col-12">
+        </div>
+    </div>
+</section>
 
-                <p>
-                    Nayaa's impact information will be displayed here.
-                </p>
 
-            </div>
+<!-- LATEST NEWS -->
+<section class="section">
+    <div class="container">
 
+        <div class="text-center mb-5">
+            <div class="eyebrow">Stay Informed</div>
+            <h2>Latest News</h2>
+            <p>
+                Read the latest updates and news from Nayaa.
+            </p>
+        </div>
+
+        <div class="row g-4">
+
+            {% for post in latest_news %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="impact-area-card">
+
+                        {% if post.image %}
+                            <img
+                                src="{{ post.image.url }}"
+                                alt="{{ post.title }}"
+                                class="img-fluid mb-3"
+                                loading="lazy">
+                        {% endif %}
+
+                        <h3>{{ post.title }}</h3>
+                        <p>{{ post.excerpt|truncatewords:25 }}</p>
+
+                        <a href="{% url 'blog_detail' post.slug %}"
+                           class="impact-area-link">
+                            Read More →
+                        </a>
+
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center">
+                    <p>
+                        Nayaa's latest news will be displayed here.
+                    </p>
+                </div>
             {% endfor %}
 
         </div>
 
     </div>
-
 </section>
 
 
-{% load static %}
+<!-- PRESS RELEASES -->
+<section class="section">
+    <div class="container">
 
-<!-- SUSTAINABLE DEVELOPMENT GOALS SECTION -->
+        <div class="text-center mb-5">
+            <div class="eyebrow">Media Updates</div>
+            <h2>Press Releases</h2>
+        </div>
+
+        <div class="row g-4">
+
+            {% for release in press_releases %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="impact-area-card">
+
+                        <small>{{ release.date }}</small>
+
+                        <h3>{{ release.title }}</h3>
+
+                        <p>{{ release.body|truncatewords:30 }}</p>
+
+                        {% if release.source_url %}
+                            <a href="{{ release.source_url }}"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="impact-area-link">
+                                View Release →
+                            </a>
+                        {% endif %}
+
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center">
+                    <p>
+                        Press releases will be displayed here when available.
+                    </p>
+                </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- UPCOMING EVENTS -->
+<section class="section">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <div class="eyebrow">Stay Connected</div>
+            <h2>Upcoming Events</h2>
+            <p>
+                Discover activities and upcoming events organised by Nayaa.
+            </p>
+        </div>
+
+        <div class="row g-4">
+
+            {% for event in events %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="impact-area-card">
+
+                        <div class="eyebrow">{{ event.date }}</div>
+
+                        <h3>{{ event.title }}</h3>
+
+                        <p>{{ event.description|truncatewords:25 }}</p>
+
+                        <p>
+                            <strong>Location:</strong> {{ event.location }}
+                        </p>
+
+                        {% if event.registration_url %}
+                            <a href="{{ event.registration_url }}"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="impact-area-link">
+                                Register →
+                            </a>
+                        {% endif %}
+
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center">
+                    <p>
+                        Upcoming events will be displayed here.
+                    </p>
+                </div>
+            {% endfor %}
+
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="{% url 'community' %}" class="btn btn-brand">
+                Explore Community
+            </a>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- SUSTAINABLE DEVELOPMENT GOALS -->
 <section class="sdg-section">
     <div class="container">
         <img
             src="{% static 'images/sdg-goals.png' %}"
-            alt="Towards achieving Sustainable Development Goals: Good Health and Well Being, Gender Equality, Quality Education, Decent Work and Economic Growth, Reduced Inequalities, and Partnerships for the Goals"
+            alt="Sustainable Development Goals"
             class="sdg-image"
-            loading="lazy"
-        >
+            loading="lazy">
     </div>
 </section>
 
-<!-- =====================================================
-     CALL TO ACTION
-     ===================================================== -->
 
+<!-- CALL TO ACTION -->
 <section class="section">
-
     <div class="container text-center">
 
-        <div class="eyebrow">
-            Be Part of the Journey
-        </div>
+        <div class="eyebrow">Be Part of the Journey</div>
 
         <h2>
             Help create opportunities for the next generation.
@@ -433,40 +650,34 @@
             and help create opportunities for children and communities.
         </p>
 
-        <a
-            class="btn btn-brand me-2"
-            href="{% url 'volunteer' %}">
+        <a class="btn btn-brand me-2"
+           href="{% url 'volunteer' %}">
             Volunteer
         </a>
 
-        <a
-            class="btn btn-light rounded-pill"
-            href="{% url 'donate' %}">
+        <a class="btn btn-light rounded-pill me-2"
+           href="{% url 'donate' %}">
             Donate
         </a>
 
-    </div>
+        <a class="btn btn-light rounded-pill"
+           href="{% url 'community' %}">
+            Join Events
+        </a>
 
+    </div>
 </section>
 
 
-<!-- =====================================================
-     DONATION POPUP CLOSE FUNCTION
-     ===================================================== -->
-
+<!-- DONATION POPUP SCRIPT -->
 <script>
-
 function closeDonationPopup() {
-
     const popup = document.getElementById("donationPopup");
 
     if (popup) {
         popup.remove();
     }
-
 }
-
 </script>
-
 
 {% endblock %}
