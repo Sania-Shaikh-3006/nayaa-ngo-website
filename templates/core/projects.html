@@ -1,348 +1,385 @@
-
 {% extends "core/base.html" %}
 {% load static %}
 
-{% block title %}Our Projects | NAYAA{% endblock %}
+{% block title %}Our Projects | NAYAA - For Futures Still Unwritten{% endblock %}
 
 {% block content %}
 
-<!-- PROJECTS HERO -->
-
+<!-- PROJECTS HERO HEADER (NAYAA GREEN) -->
 <section class="projects-hero">
-    <div class="projects-hero-content">
-
-        <span class="projects-tag">OUR INITIATIVES</span>
-
-        <h1>Creating Change, One Project at a Time</h1>
-
-        <p>
-            Every project is a step toward a brighter future.
-            Explore how we support children, families, and communities.
-        </p>
-
-        <a href="{% url 'donate' %}" class="projects-hero-btn">
-            Support Our Work
-        </a>
-
+    <div class="container-custom text-center">
+        <span class="hero-eyebrow">OUR INITIATIVES</span>
+        <h1>Our Projects</h1>
+        <p class="hero-sub">Making a difference through our community initiatives</p>
+        {% if user.is_authenticated and user.is_superuser %}
+            <a href="{% url 'projects_dashboard' %}" class="btn-manage-pill">⚙ Manage Projects Dashboard</a>
+        {% endif %}
     </div>
 </section>
 
-
-<!-- OUR FOCUS AREAS -->
-
-<section class="projects-section">
-
-    <div class="projects-heading">
-
-        <span>WHAT WE DO</span>
-
-        <h2>Our Focus Areas</h2>
-
-        <p>
-            Building opportunities through education, healthcare,
-            empowerment, and community development.
-        </p>
-
+<!-- STATUS FILTERS (PDF 2) -->
+<section class="filter-section">
+    <div class="container-custom text-center">
+        <div class="filter-btn-group">
+            <a href="{% url 'projects' %}" class="filter-btn {% if current_status == 'All' %}active{% endif %}">All Projects</a>
+            <a href="{% url 'projects' %}?status=Ongoing" class="filter-btn {% if current_status == 'Ongoing' %}active{% endif %}">Ongoing</a>
+            <a href="{% url 'projects' %}?status=Completed" class="filter-btn {% if current_status == 'Completed' %}active{% endif %}">Completed</a>
+            <a href="{% url 'projects' %}?status=Upcoming" class="filter-btn {% if current_status == 'Upcoming' %}active{% endif %}">Upcoming</a>
+        </div>
     </div>
-
-
-    <div class="projects-grid">
-
-        <article class="project-card">
-
-            <img
-                src="{% static 'images/project-education.jpg' %}"
-                alt="Children learning together in a community classroom"
-            >
-
-            <div class="project-card-content">
-
-                <span class="project-category">Education</span>
-
-                <h3>Learning for a Brighter Future</h3>
-
-                <p>
-                    Supporting children with learning opportunities,
-                    educational resources, and a welcoming space to grow.
-                </p>
-
-                <a href="{% url 'donate' %}">
-                    Support this cause →
-                </a>
-
-            </div>
-
-        </article>
-
-
-        <article class="project-card">
-
-            <img
-                src="{% static 'images/project-healthcare.jpg' %}"
-                alt="Community healthcare support"
-            >
-
-            <div class="project-card-content">
-
-                <span class="project-category">Healthcare</span>
-
-                <h3>Healthier Communities</h3>
-
-                <p>
-                    Encouraging health awareness and improving access
-                    to essential healthcare support.
-                </p>
-
-                <a href="{% url 'donate' %}">
-                    Support this cause →
-                </a>
-
-            </div>
-
-        </article>
-
-
-        <article class="project-card">
-
-            <img
-                src="{% static 'images/project-women.jpg' %}"
-                alt="Women participating in a skills workshop"
-            >
-
-            <div class="project-card-content">
-
-                <span class="project-category">Women Empowerment</span>
-
-                <h3>Skills and New Possibilities</h3>
-
-                <p>
-                    Creating pathways for women to build skills,
-                    confidence, and livelihood opportunities.
-                </p>
-
-                <a href="{% url 'donate' %}">
-                    Support this cause →
-                </a>
-
-            </div>
-
-        </article>
-
-
-        <article class="project-card">
-
-            <img
-                src="{% static 'images/project-community.jpg' %}"
-                alt="Volunteers working together in a community"
-            >
-
-            <div class="project-card-content">
-
-                <span class="project-category">Community Development</span>
-
-                <h3>Stronger Together</h3>
-
-                <p>
-                    Bringing people together to encourage inclusion,
-                    participation, and community development.
-                </p>
-
-                <a href="{% url 'donate' %}">
-                    Support this cause →
-                </a>
-
-            </div>
-
-        </article>
-
-    </div>
-
 </section>
 
-
-<!-- PROJECTS ADDED THROUGH DJANGO ADMIN -->
-
-<section class="projects-section">
-
-    <div class="projects-heading">
-
-        <span>OUR WORK IN ACTION</span>
-
-        <h2>Our Ongoing and Completed Projects</h2>
-
-        <p>
-            Explore the projects managed by NAYAA and the opportunities
-            they aim to create.
-        </p>
-
-    </div>
-
-
-    <div class="projects-grid">
-
-        {% for project in projects %}
-
-            {% if project.verified %}
-
-                <article class="project-card">
-
-                    <!-- PROJECT COVER IMAGE -->
-
-                    {% if project.cover_image %}
-
-                        <img
-                            src="{{ project.cover_image.url }}"
-                            alt="{{ project.title }}"
-                        >
-
-                    {% endif %}
-
-
-                    <div class="project-card-content">
-
-                        <span class="project-category">
-                            {{ project.sector }}
-                        </span>
-
-                        <h3>{{ project.title }}</h3>
-
-                        <p>{{ project.description }}</p>
-
-
-                        <p>
-                            <strong>Status:</strong>
-                            {{ project.get_status_display }}
-                        </p>
-
-                        <p>
-                            <strong>Goals:</strong>
-                            {{ project.goals }}
-                        </p>
-
-                        <p>
-                            <strong>Beneficiaries:</strong>
-                            {{ project.beneficiaries }}
-                        </p>
-
-                        <p>
-                            <strong>Timeline:</strong>
-                            {{ project.timeline }}
-                        </p>
-
-                        <p>
-                            <strong>Location:</strong>
-                            {{ project.location }}
-                        </p>
-
-
-                        <a href="{{ project.get_absolute_url }}">
-                            View Project Details →
-                        </a>
-
-
-                        {% if project.report %}
-
-                            <p>
-                                <a href="{{ project.report.url }}" target="_blank">
-                                    Download Project Report
-                                </a>
-                            </p>
-
+<!-- PROJECTS GRID (PDF 2 & 3) -->
+<section class="projects-grid-section">
+    <div class="container-custom">
+        <div class="projects-cards-grid">
+            {% for project in projects %}
+                <div class="project-card">
+                    <div class="card-img-wrapper">
+                        {% if project.images.first %}
+                            <img src="{{ project.images.first.image.url }}" alt="{{ project.title }}">
+                        {% elif project.cover_image %}
+                            <img src="{{ project.cover_image.url }}" alt="{{ project.title }}">
+                        {% else %}
+                            <div class="placeholder-img">
+                                <span>🌿 NAYAA Project</span>
+                            </div>
                         {% endif %}
-
+                        <span class="card-status-pill status-{{ project.status|lower }}">{{ project.status }}</span>
                     </div>
 
-
-                    <!-- MULTIPLE VERIFIED PROJECT PHOTOS -->
-
-                    <div class="project-gallery">
-
-                        <h4>Project Gallery</h4>
-
-                        <div class="projects-grid">
-
-                            {% for media in project.mediaitem_set.all %}
-
-                                {% if media.verified and media.media_type == "photo" and media.image %}
-
-                                    <figure class="project-gallery-item">
-
-                                        <img
-                                            src="{{ media.image.url }}"
-                                            alt="{{ media.title }}"
-                                        >
-
-                                        {% if media.caption %}
-
-                                            <figcaption>
-                                                {{ media.caption }}
-                                            </figcaption>
-
-                                        {% endif %}
-
-                                        {% if media.source_credit %}
-
-                                            <small>
-                                                Photo credit: {{ media.source_credit }}
-                                            </small>
-
-                                        {% endif %}
-
-                                    </figure>
-
-                                {% endif %}
-
-                            {% empty %}
-
-                                <p>
-                                    More project photos will be added soon.
-                                </p>
-
-                            {% endfor %}
-
+                    <div class="card-body">
+                        <h3>{{ project.title }}</h3>
+                        <p class="card-desc">{{ project.description|truncatewords:24 }}</p>
+                        
+                        <div class="card-footer">
+                            <a href="{% url 'project_detail' project.slug %}" class="btn-learn-more">Learn More →</a>
+                            {% if project.location %}
+                                <span class="loc-text">📍 {{ project.location }}</span>
+                            {% endif %}
                         </div>
-
                     </div>
-
-                </article>
-
-            {% endif %}
-
-        {% empty %}
-
-            <p>
-                Our project updates will be available here soon.
-            </p>
-
-        {% endfor %}
-
+                </div>
+            {% empty %}
+                <div class="no-projects-msg">
+                    <h3>No projects found under "{{ current_status }}"</h3>
+                    <p>Check back soon or explore our other initiatives!</p>
+                    <a href="{% url 'projects' %}" class="btn-green-solid">View All Projects</a>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-
 </section>
 
+<!-- OUR IMPACT SECTION (PDF 2 - 100% NAYAA GREEN) -->
+<section class="projects-impact-section">
+    <div class="container-custom text-center">
+        <span class="impact-eyebrow">MEASURABLE CHANGE</span>
+        <h2>Our Impact</h2>
+        <p class="impact-sub">See how we are changing lives with your generous support</p>
+
+        <div class="impact-numbers-grid">
+            <div class="impact-stat-box">
+                <h3>500+</h3>
+                <p>People Helped</p>
+            </div>
+            <div class="impact-stat-box">
+                <h3>300+</h3>
+                <p>Volunteers Engaged</p>
+            </div>
+            <div class="impact-stat-box">
+                <h3>₹50,000+</h3>
+                <p>Funds Raised</p>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- CALL TO ACTION -->
-
 <section class="projects-cta">
-
-    <h2>Be a Part of the Change</h2>
-
-    <p>
-        Your support can help create meaningful opportunities
-        for children, families, and communities.
-    </p>
-
-    <a href="{% url 'donate' %}" class="projects-hero-btn">
-        Donate Now
-    </a>
-
-    <a href="{% url 'volunteer' %}" class="projects-hero-btn">
-        Become a Volunteer
-    </a>
-
+    <div class="container-custom text-center">
+        <h2>Support Our Initiatives</h2>
+        <p>Every project creates lasting change for children, women, and families.</p>
+        <div class="cta-actions">
+            <a href="{% url 'donate' %}" class="btn-green-solid">Donate Now</a>
+            <a href="{% url 'volunteer' %}" class="btn-green-outline">Join as a Volunteer</a>
+        </div>
+    </div>
 </section>
 
+<!-- NAYAA SIGNATURE GREEN CSS -->
+<style>
+:root {
+    --nayaa-dark-green: #20543d;
+    --nayaa-mid-green: #2d7a57;
+    --nayaa-light-green: #e9f4df;
+    --nayaa-cream: #fbfbf6;
+    --nayaa-text-dark: #1e3328;
+    --nayaa-text-muted: #5f7065;
+}
 
-<script src="{% static 'js/projects.js' %}"></script>
+.container-custom {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+.text-center { text-align: center; }
+
+/* HERO - FOREST GREEN */
+.projects-hero {
+    background: linear-gradient(135deg, #1b4733 0%, #20543d 100%);
+    color: #ffffff;
+    padding: 70px 20px;
+}
+.hero-eyebrow {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #b5e4a8;
+    margin-bottom: 10px;
+}
+.projects-hero h1 {
+    font-size: clamp(32px, 4vw, 44px);
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+.hero-sub {
+    font-size: 17px;
+    color: #d8f3dc;
+    margin-bottom: 20px;
+}
+.btn-manage-pill {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    padding: 8px 22px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+.btn-manage-pill:hover { background: #fff; color: var(--nayaa-dark-green); }
+
+/* FILTERS - SAGE & GREEN */
+.filter-section {
+    padding: 35px 0 15px;
+    background: #fbfdf9;
+}
+.filter-btn-group {
+    display: inline-flex;
+    gap: 8px;
+    background: #eef4eb;
+    padding: 6px;
+    border-radius: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.filter-btn {
+    padding: 8px 22px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: var(--nayaa-text-dark);
+    font-weight: 600;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+.filter-btn:hover { color: var(--nayaa-dark-green); }
+.filter-btn.active {
+    background: var(--nayaa-dark-green);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(32, 84, 61, 0.25);
+}
+
+/* CARDS */
+.projects-grid-section {
+    padding: 30px 0 70px;
+    background: #fbfdf9;
+}
+.projects-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    gap: 30px;
+}
+.project-card {
+    background: #ffffff;
+    border: 1px solid #e1ecdc;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(32, 84, 61, 0.1);
+}
+.card-img-wrapper {
+    position: relative;
+    width: 100%;
+    height: 210px;
+    background: #eef4eb;
+}
+.card-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.placeholder-img {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--nayaa-mid-green);
+    font-weight: 700;
+    font-size: 16px;
+    background: #eef4eb;
+}
+.card-status-pill {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.status-ongoing { background: var(--nayaa-dark-green); color: #fff; }
+.status-completed { background: #52796f; color: #fff; }
+.status-upcoming { background: #d4a373; color: #fff; }
+
+.card-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.card-body h3 {
+    margin: 0 0 10px 0;
+    font-size: 20px;
+    color: var(--nayaa-dark-green);
+    font-weight: 700;
+}
+.card-desc {
+    color: var(--nayaa-text-muted);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #f0f4ee;
+    padding-top: 15px;
+}
+.btn-learn-more {
+    color: var(--nayaa-dark-green);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    transition: 0.2s;
+}
+.btn-learn-more:hover { color: var(--nayaa-mid-green); text-decoration: underline; }
+.loc-text {
+    font-size: 13px;
+    color: var(--nayaa-text-muted);
+}
+
+.no-projects-msg {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px dashed #c8d9c0;
+}
+
+/* IMPACT - SIGNATURE NAYAA GREEN BOXES */
+.projects-impact-section {
+    background: #f4f8f1;
+    padding: 65px 20px;
+}
+.impact-eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--nayaa-mid-green);
+    margin-bottom: 6px;
+}
+.projects-impact-section h2 {
+    color: var(--nayaa-dark-green);
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+.impact-sub {
+    color: var(--nayaa-text-muted);
+    font-size: 15px;
+    margin-bottom: 35px;
+}
+.impact-numbers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 22px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.impact-stat-box {
+    background: var(--nayaa-dark-green);
+    color: #ffffff;
+    padding: 35px 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(32, 84, 61, 0.15);
+}
+.impact-stat-box h3 {
+    font-size: 38px;
+    font-weight: 800;
+    margin: 0 0 6px 0;
+    color: #ffffff;
+}
+.impact-stat-box p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #d8f3dc;
+}
+
+/* CTA */
+.projects-cta {
+    background: #ffffff;
+    padding: 65px 20px;
+}
+.projects-cta h2 { color: var(--nayaa-dark-green); font-size: 28px; font-weight: 700; margin-bottom: 10px; }
+.projects-cta p { color: var(--nayaa-text-muted); font-size: 15px; margin-bottom: 25px; }
+.cta-actions { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+.btn-green-solid {
+    background: var(--nayaa-dark-green);
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.2s;
+}
+.btn-green-solid:hover { background: #163d2c; color: #fff; }
+.btn-green-outline {
+    border: 2px solid var(--nayaa-dark-green);
+    color: var(--nayaa-dark-green);
+    padding: 10px 26px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.2s;
+}
+.btn-green-outline:hover { background: var(--nayaa-dark-green); color: #fff; }
+</style>
 
 {% endblock %}

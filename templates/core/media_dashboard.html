@@ -1,0 +1,377 @@
+{% extends "core/base.html" %}
+
+{% block title %}Manage Media Page | NAYAA Admin{% endblock %}
+
+{% block content %}
+<div class="dash-wrapper">
+    <div class="dash-header">
+        <h1>Manage Media Page</h1>
+        <p>Admin content management for Press Releases, Media Coverage, Gallery & Videos</p>
+        <a href="{% url 'media' %}" class="btn-live" target="_blank">👁 View Live Media Page</a>
+    </div>
+
+    <div class="dash-container">
+
+        <!-- 1. PRESS RELEASES SECTION (PDF 2) -->
+        <div class="dash-box">
+            <h2>Press Releases</h2>
+            
+            <form method="POST" class="dash-form" id="pressForm">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="add_press">
+                <input type="hidden" name="press_id" id="press_id" value="">
+
+                <div class="form-group">
+                    <label for="press_title">Title</label>
+                    <input type="text" name="title" id="press_title" placeholder="Enter press release title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="press_date">Date</label>
+                    <input type="date" name="date" id="press_date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="press_desc">Description</label>
+                    <textarea name="description" id="press_desc" rows="3" placeholder="Enter a brief description" required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit" id="pressSubmitBtn">Add Press Release</button>
+            </form>
+
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in press_releases %}
+                        <tr>
+                            <td><strong>{{ p.title }}</strong></td>
+                            <td>{{ p.release_date|date:"Y-m-d" }}</td>
+                            <td>{{ p.description|truncatewords:15 }}</td>
+                            <td>
+                                <button type="button" class="btn-edit" onclick="editPress('{{ p.id }}', `{{ p.title|escapejs }}`, '{{ p.release_date|date:'Y-m-d' }}', `{{ p.description|escapejs }}`)">Edit</button>
+                                <a href="{% url 'media_delete_item' 'press' p.id %}" class="btn-delete" onclick="return confirm('Delete this press release?');">Delete</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="4" class="text-muted">No press releases added yet.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 2. MEDIA COVERAGE SECTION (PDF 2) -->
+        <div class="dash-box">
+            <h2>Media Coverage</h2>
+
+            <form method="POST" class="dash-form" id="coverageForm">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="add_coverage">
+                <input type="hidden" name="coverage_id" id="coverage_id" value="">
+
+                <div class="form-group">
+                    <label for="cov_title">Title</label>
+                    <input type="text" name="title" id="cov_title" placeholder="Enter media coverage title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cov_url">URL</label>
+                    <input type="url" name="url" id="cov_url" placeholder="Enter media coverage link (https://...)" required>
+                </div>
+
+                <button type="submit" class="btn-submit" id="covSubmitBtn">Add Media Coverage</button>
+            </form>
+
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>URL</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in media_coverages %}
+                        <tr>
+                            <td><strong>{{ c.title }}</strong></td>
+                            <td><a href="{{ c.url }}" target="_blank" class="table-link">View Article ↗</a></td>
+                            <td>
+                                <button type="button" class="btn-edit" onclick="editCoverage('{{ c.id }}', `{{ c.title|escapejs }}`, `{{ c.url|escapejs }}`)">Edit</button>
+                                <a href="{% url 'media_delete_item' 'coverage' c.id %}" class="btn-delete" onclick="return confirm('Delete this media coverage?');">Delete</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="3" class="text-muted">No media coverage entries yet.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 3. IMAGE GALLERY SECTION (PDF 2) -->
+        <div class="dash-box">
+            <h2>Image Gallery</h2>
+
+            <form method="POST" enctype="multipart/form-data" class="dash-form">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="add_image">
+
+                <div class="form-group">
+                    <label for="img_file">Upload Image</label>
+                    <input type="file" name="image" id="img_file" accept="image/*" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="img_desc">Optional Caption/Description</label>
+                    <input type="text" name="description" id="img_desc" placeholder="Enter image caption">
+                </div>
+
+                <button type="submit" class="btn-submit">Add Image</button>
+            </form>
+
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for img in gallery_images %}
+                        <tr>
+                            <td><img src="{{ img.image.url }}" alt="Gallery" style="width: 70px; height: 50px; object-fit: cover; border-radius: 6px;"></td>
+                            <td>{{ img.description|default:"—" }}</td>
+                            <td>
+                                <a href="{% url 'media_delete_item' 'image' img.id %}" class="btn-delete" onclick="return confirm('Delete this image?');">Delete</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="3" class="text-muted">No gallery images uploaded yet.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 4. VIDEOS SECTION (PDF 2) -->
+        <div class="dash-box">
+            <h2>Videos</h2>
+
+            <form method="POST" class="dash-form" id="videoForm">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="add_video">
+                <input type="hidden" name="video_id" id="video_id" value="">
+
+                <div class="form-group">
+                    <label for="vid_url">Video URL</label>
+                    <input type="url" name="video_url" id="vid_url" placeholder="Enter video link (e.g., YouTube URL)" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="vid_desc">Description (Optional)</label>
+                    <input type="text" name="description" id="vid_desc" placeholder="Enter brief video title/description">
+                </div>
+
+                <button type="submit" class="btn-submit" id="vidSubmitBtn">Add Video</button>
+            </form>
+
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th>Video</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for v in videos %}
+                        <tr>
+                            <td><a href="{{ v.video_url }}" target="_blank" class="table-link">View Video ↗</a></td>
+                            <td>{{ v.description|default:"—" }}</td>
+                            <td>
+                                <button type="button" class="btn-edit" onclick="editVideo('{{ v.id }}', `{{ v.video_url|escapejs }}`, `{{ v.description|default:''|escapejs }}`)">Edit</button>
+                                <a href="{% url 'media_delete_item' 'video' v.id %}" class="btn-delete" onclick="return confirm('Delete this video?');">Delete</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="3" class="text-muted">No videos added yet.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<style>
+:root {
+    --nayaa-dark-green: #20543d;
+    --nayaa-mid-green: #2d7a57;
+    --nayaa-light-green: #e9f4df;
+}
+
+.dash-wrapper {
+    background: #f7faf5;
+    min-height: 85vh;
+    padding-bottom: 60px;
+}
+.dash-header {
+    background: linear-gradient(135deg, #1b4733, #20543d);
+    color: #fff;
+    text-align: center;
+    padding: 35px 20px;
+    margin-bottom: 30px;
+}
+.dash-header h1 { font-size: 30px; font-weight: 800; margin: 0 0 6px; }
+.dash-header p { font-size: 15px; color: #d8f3dc; margin: 0 0 15px; }
+.btn-live {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: 600;
+}
+.btn-live:hover { background: #fff; color: var(--nayaa-dark-green); }
+
+.dash-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+.dash-box {
+    background: #fff;
+    border: 1px solid #e1ecdc;
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 35px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.02);
+}
+.dash-box h2 {
+    color: var(--nayaa-dark-green);
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--nayaa-light-green);
+    padding-bottom: 10px;
+}
+
+.dash-form {
+    margin-bottom: 25px;
+    background: #fbfdf9;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e8efe5;
+}
+.form-group { margin-bottom: 15px; }
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--nayaa-dark-green);
+    margin-bottom: 5px;
+}
+.dash-form input[type="text"],
+.dash-form input[type="url"],
+.dash-form input[type="date"],
+.dash-form input[type="file"],
+.dash-form textarea {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #c8d9c0;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+.btn-submit {
+    background: var(--nayaa-dark-green);
+    color: #fff;
+    border: none;
+    padding: 9px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.btn-submit:hover { background: #163d2c; }
+
+.dash-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.dash-table th, .dash-table td {
+    padding: 10px 12px;
+    border: 1px solid #e5ede0;
+    text-align: left;
+    font-size: 13px;
+    vertical-align: middle;
+}
+.dash-table th {
+    background: #f4f8f1;
+    color: var(--nayaa-dark-green);
+    font-weight: 700;
+}
+.table-link {
+    color: var(--nayaa-mid-green);
+    font-weight: 600;
+    text-decoration: underline;
+}
+.btn-edit {
+    background: var(--nayaa-mid-green);
+    color: #fff;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 5px;
+}
+.btn-delete {
+    background: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+}
+</style>
+
+<script>
+function editPress(id, title, date, desc) {
+    document.getElementById("press_id").value = id;
+    document.getElementById("press_title").value = title;
+    document.getElementById("press_date").value = date;
+    document.getElementById("press_desc").value = desc;
+    document.getElementById("pressSubmitBtn").innerText = "Update Press Release";
+    document.getElementById("press_title").focus();
+}
+function editCoverage(id, title, url) {
+    document.getElementById("coverage_id").value = id;
+    document.getElementById("cov_title").value = title;
+    document.getElementById("cov_url").value = url;
+    document.getElementById("covSubmitBtn").innerText = "Update Media Coverage";
+    document.getElementById("cov_title").focus();
+}
+function editVideo(id, url, desc) {
+    document.getElementById("video_id").value = id;
+    document.getElementById("vid_url").value = url;
+    document.getElementById("vid_desc").value = desc;
+    document.getElementById("vidSubmitBtn").innerText = "Update Video";
+    document.getElementById("vid_url").focus();
+}
+</script>
+{% endblock %}

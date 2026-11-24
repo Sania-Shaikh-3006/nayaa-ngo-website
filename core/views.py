@@ -106,20 +106,28 @@ def home(request):
 # ============================================================
 
 def about(request):
-    return render(request, "core/about.html")
+    our_story = OurStory.objects.order_by("-updated_at").first()
+    core_values = CoreValue.objects.all().order_by("id")
+    programs = AboutProgram.objects.all().order_by("id")
+    team_members = TeamMember.objects.all().order_by("id")
+    impact_stats = ImpactStat.objects.filter(active=True).order_by("order")
+
+    context = {
+        "our_story": our_story,
+        "core_values": core_values,
+        "about_programs": programs,
+        "team_members": team_members,
+        "impact_stats": impact_stats,
+    }
+    return render(request, "core/about.html", context)
 
 # ============================================================
 # OUR WORK
 # ============================================================
 
 def work(request):
-    return render(
-        request,
-        "core/projects.html",
-        {
-            "projects": Project.objects.filter(verified=True)
-        }
-    )
+    return projects(request)
+
 
 # ============================================================
 # NAYAA — INDIVIDUAL AREAS OF WORK
@@ -149,15 +157,25 @@ def community_development(request):
 # PROJECTS
 # ============================================================
 
+# ✅ REPLACE WITH THIS:
 def projects(request):
+    status_filter = request.GET.get("status")
+    projects_list = Project.objects.filter(verified=True).order_by("-id")
+    
+    if status_filter in ["Ongoing", "Completed", "Upcoming"]:
+        projects_list = projects_list.filter(status=status_filter)
+
+    stats = ImpactStat.objects.filter(active=True).order_by("order")
+
     return render(
         request,
         "core/projects.html",
         {
-            "projects": Project.objects.filter(verified=True)
+            "projects": projects_list,
+            "current_status": status_filter or "All",
+            "stats": stats,
         }
     )
-
 
 def stories(request):
     all_stories = Story.objects.filter(
@@ -190,21 +208,18 @@ def project_detail(request, slug):
 # ============================================================
 
 def media(request):
-    return render(
-        request,
-        "core/media.html",
-        {
-            "media": MediaItem.objects
-                .filter(verified=True)
-                .order_by("-created_at"),
+    press_releases = PressReleaseItem.objects.all().order_by("-release_date")
+    media_coverages = MediaCoverage.objects.all().order_by("-created_at")
+    gallery_images = ImageGallery.objects.all().order_by("-uploaded_at")
+    videos = Video.objects.all().order_by("-uploaded_at")
 
-            "press": PressRelease.objects
-                .order_by("-date"),
-
-            "electronic": ElectronicMedia.objects
-                .order_by("-published_on"),
-        }
-    )
+    context = {
+        "press_releases": press_releases,
+        "media_coverages": media_coverages,
+        "gallery_images": gallery_images,
+        "videos": videos,
+    }
+    return render(request, "core/media.html", context)
 
 
 # ============================================================
@@ -469,39 +484,31 @@ def is_superuser(user):
     return user.is_authenticated and user.is_superuser
 
 
-# ============================================================
+## ============================================================
 # DASHBOARD
 # Only superusers can access this page.
-# Contact message count has been removed.
 # ============================================================
 
 @user_passes_test(is_superuser, login_url="/admin/login/")
 def dashboard(request):
-
     context = {
         "project_count": Project.objects.count(),
-
         "volunteer_count": VolunteerApplication.objects.count(),
-
         "donation_total": (
             Donation.objects
             .filter(status="paid")
             .aggregate(total=Sum("amount"))["total"]
             or Decimal("0")
         ),
-
         "recent_donations": (
             Donation.objects
             .order_by("-created_at")[:5]
         ),
     }
+    return render(request, "core/dashboard.html", context)
 
-    return render(
-        request,
-        "core/dashboard.html",
-        context
-    )
-    # ============================================================
+
+# ============================================================
 # NAYAA REST API
 # ============================================================
 
@@ -518,4 +525,266 @@ def api_home(request):
             "/api/volunteers/",
         ],
     })
-    
+
+
+# ============================================================
+# ABOUT US ADMIN DASHBOARD (PDF 2)
+# ============================================================
+
+@user_passes_test(is_superuser, login_url="/login/")
+def about_dashboard(request):
+    if request.method == "POST":
+        action = request.POST.get("action")
+
+        if action == "save_story":
+            content = request.POST.get("content", "").strip()
+            story_id = request.POST.get("story_id")
+            if content:
+                if story_id:
+                    story = get_object_or_404(OurStory, id=story_id)
+                    story.content = content
+                    story.save()
+                    messages.success(request, "Story updated.")
+                else:
+                    OurStory.objects.create(content=content)
+                    messages.success(request, "Story added.")
+            return redirect("about_dashboard")
+
+        elif action == "add_value":
+            value = request.POST.get("value", "").strip()
+            value_id = request.POST.get("value_id")
+            if value:
+                if value_id:
+                    cv = get_object_or_404(CoreValue, id=value_id)
+                    cv.value = value
+                    cv.save()
+                    messages.success(request, "Core value updated.")
+                else:
+                    CoreValue.objects.create(value=value)
+                    messages.success(request, "Core value added.")
+            return redirect("about_dashboard")
+
+        elif action == "add_program":
+            name = request.POST.get("name", "").strip()
+            description = request.POST.get("description", "").strip()
+            program_id = request.POST.get("program_id")
+            if name:
+                if program_id:
+                    p = get_object_or_404(AboutProgram, id=program_id)
+                    p.name = name
+                    p.description = description
+                    p.save()
+                    messages.success(request, "Program updated.")
+                else:
+                    AboutProgram.objects.create(name=name, description=description)
+                    messages.success(request, "Program added.")
+            return redirect("about_dashboard")
+
+        elif action == "add_team_member":
+            name = request.POST.get("name", "").strip()
+            role = request.POST.get("role", "").strip()
+            image = request.FILES.get("image")
+            member_id = request.POST.get("member_id")
+            if name and role:
+                if member_id:
+                    m = get_object_or_404(TeamMember, id=member_id)
+                    m.name = name
+                    m.role = role
+                    if image:
+                        m.image = image
+                    m.save()
+                    messages.success(request, "Team member updated.")
+                else:
+                    TeamMember.objects.create(name=name, role=role, image=image)
+                    messages.success(request, "Team member added.")
+            return redirect("about_dashboard")
+
+    context = {
+        "our_stories": OurStory.objects.all().order_by("-updated_at"),
+        "core_values": CoreValue.objects.all().order_by("id"),
+        "about_programs": AboutProgram.objects.all().order_by("id"),
+        "team_members": TeamMember.objects.all().order_by("id"),
+    }
+    return render(request, "core/about_dashboard.html", context)
+
+
+@user_passes_test(is_superuser, login_url="/login/")
+def about_delete_item(request, section, item_id):
+    if section == "story":
+        get_object_or_404(OurStory, id=item_id).delete()
+        messages.success(request, "Story deleted.")
+    elif section == "value":
+        get_object_or_404(CoreValue, id=item_id).delete()
+        messages.success(request, "Core value deleted.")
+    elif section == "program":
+        get_object_or_404(AboutProgram, id=item_id).delete()
+        messages.success(request, "Program deleted.")
+    elif section == "member":
+        get_object_or_404(TeamMember, id=item_id).delete()
+        messages.success(request, "Team member deleted.")
+    return redirect("about_dashboard")
+
+    # ============================================================
+# PROJECT MANAGEMENT DASHBOARD (From PDF 1)
+# ============================================================
+
+@user_passes_test(is_superuser, login_url="/login/")
+def projects_dashboard(request):
+    edit_project = None
+    edit_id = request.GET.get("edit")
+    if edit_id:
+        edit_project = get_object_or_404(Project, id=edit_id)
+
+    if request.method == "POST":
+        project_id = request.POST.get("project_id")
+        title = request.POST.get("title", "").strip()
+        description = request.POST.get("description", "").strip()
+        status = request.POST.get("status", "Ongoing")
+        start_date = request.POST.get("start_date") or None
+        end_date = request.POST.get("end_date") or None
+        location = request.POST.get("location", "").strip()
+        files = request.FILES.getlist("images")
+
+        if title and description:
+            if project_id:
+                p = get_object_or_404(Project, id=project_id)
+                p.title = title
+                p.description = description
+                p.status = status
+                p.start_date = start_date
+                p.end_date = end_date
+                p.location = location
+                p.save()
+                messages.success(request, f"Project '{p.title}' updated successfully.")
+            else:
+                p = Project.objects.create(
+                    title=title,
+                    description=description,
+                    status=status,
+                    start_date=start_date,
+                    end_date=end_date,
+                    location=location,
+                    verified=True
+                )
+                messages.success(request, f"Project '{p.title}' saved successfully.")
+
+            # Save uploaded project images
+            for f in files:
+                ProjectImage.objects.create(project=p, image=f)
+
+            return redirect("projects_dashboard")
+
+    all_projects = Project.objects.all().order_by("-id")
+    return render(
+        request,
+        "core/projects_dashboard.html",
+        {
+            "projects": all_projects,
+            "edit_project": edit_project,
+        }
+    )
+
+
+@user_passes_test(is_superuser, login_url="/login/")
+def project_delete(request, project_id):
+    p = get_object_or_404(Project, id=project_id)
+    title = p.title
+    p.delete()
+    messages.success(request, f"Project '{title}' deleted successfully.")
+    return redirect("projects_dashboard")
+
+    # ============================================================
+# MEDIA MANAGEMENT DASHBOARD (PDF 2)
+# ============================================================
+
+@user_passes_test(is_superuser, login_url="/login/")
+def media_dashboard(request):
+    if request.method == "POST":
+        action = request.POST.get("action")
+
+        # 1. PRESS RELEASE
+        if action == "add_press":
+            press_id = request.POST.get("press_id")
+            title = request.POST.get("title", "").strip()
+            date = request.POST.get("date")
+            desc = request.POST.get("description", "").strip()
+            if title and desc and date:
+                if press_id:
+                    p = get_object_or_404(PressReleaseItem, id=press_id)
+                    p.title = title
+                    p.release_date = date
+                    p.description = desc
+                    p.save()
+                    messages.success(request, "Press release updated.")
+                else:
+                    PressReleaseItem.objects.create(title=title, release_date=date, description=desc)
+                    messages.success(request, "Press release added.")
+            return redirect("media_dashboard")
+
+        # 2. MEDIA COVERAGE
+        elif action == "add_coverage":
+            cov_id = request.POST.get("coverage_id")
+            title = request.POST.get("title", "").strip()
+            url = request.POST.get("url", "").strip()
+            if title and url:
+                if cov_id:
+                    c = get_object_or_404(MediaCoverage, id=cov_id)
+                    c.title = title
+                    c.url = url
+                    c.save()
+                    messages.success(request, "Media coverage updated.")
+                else:
+                    MediaCoverage.objects.create(title=title, url=url)
+                    messages.success(request, "Media coverage added.")
+            return redirect("media_dashboard")
+
+        # 3. IMAGE GALLERY
+        elif action == "add_image":
+            image_file = request.FILES.get("image")
+            desc = request.POST.get("description", "").strip()
+            if image_file:
+                ImageGallery.objects.create(image=image_file, description=desc)
+                messages.success(request, "Gallery image added.")
+            return redirect("media_dashboard")
+
+        # 4. VIDEOS
+        elif action == "add_video":
+            video_id = request.POST.get("video_id")
+            video_url = request.POST.get("video_url", "").strip()
+            desc = request.POST.get("description", "").strip()
+            if video_url:
+                if video_id:
+                    v = get_object_or_404(Video, id=video_id)
+                    v.video_url = video_url
+                    v.description = desc
+                    v.save()
+                    messages.success(request, "Video updated.")
+                else:
+                    Video.objects.create(video_url=video_url, description=desc)
+                    messages.success(request, "Video added.")
+            return redirect("media_dashboard")
+
+    context = {
+        "press_releases": PressReleaseItem.objects.all().order_by("-release_date"),
+        "media_coverages": MediaCoverage.objects.all().order_by("-created_at"),
+        "gallery_images": ImageGallery.objects.all().order_by("-uploaded_at"),
+        "videos": Video.objects.all().order_by("-uploaded_at"),
+    }
+    return render(request, "core/media_dashboard.html", context)
+
+
+@user_passes_test(is_superuser, login_url="/login/")
+def media_delete_item(request, section, item_id):
+    if section == "press":
+        get_object_or_404(PressReleaseItem, id=item_id).delete()
+        messages.success(request, "Press release deleted.")
+    elif section == "coverage":
+        get_object_or_404(MediaCoverage, id=item_id).delete()
+        messages.success(request, "Media coverage deleted.")
+    elif section == "image":
+        get_object_or_404(ImageGallery, id=item_id).delete()
+        messages.success(request, "Gallery image deleted.")
+    elif section == "video":
+        get_object_or_404(Video, id=item_id).delete()
+        messages.success(request, "Video deleted.")
+    return redirect("media_dashboard")

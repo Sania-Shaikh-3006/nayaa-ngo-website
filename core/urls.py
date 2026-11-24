@@ -30,38 +30,20 @@ urlpatterns = [
     path("login/", auth_views.LoginView.as_view(template_name="registration/login.html"), name="login"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("forgot-password/", auth_views.PasswordResetView.as_view(template_name="registration/password_reset_form.html"), name="password_reset"),
-    path(
-    "forgot-password/",
-    auth_views.PasswordResetView.as_view(
-        template_name="registration/password_reset_form.html"
-    ),
-    name="forgot_password",
-),
-
-path(
-    "forgot-password/done/",
-    auth_views.PasswordResetDoneView.as_view(
-        template_name="registration/password_reset_done.html"
-    ),
-    name="password_reset_done",
-),
-
-path(
-    "reset/<uidb64>/<token>/",
-    auth_views.PasswordResetConfirmView.as_view(
-        template_name="registration/password_reset_confirm.html"
-    ),
-    name="password_reset_confirm",
-),
-
-path(
-    "reset/done/",
-    auth_views.PasswordResetCompleteView.as_view(
-        template_name="registration/password_reset_complete.html"
-    ),
-    name="password_reset_complete",
-),
+    path("forgot-password/done/", auth_views.PasswordResetDoneView.as_view(template_name="registration/password_reset_done.html"), name="password_reset_done"),
+    path("reset/<uidb64>/<token>/", auth_views.PasswordResetConfirmView.as_view(template_name="registration/password_reset_confirm.html"), name="password_reset_confirm"),
+    path("reset/done/", auth_views.PasswordResetCompleteView.as_view(template_name="registration/password_reset_complete.html"), name="password_reset_complete"),
+    
+    # Dashboards
     path("dashboard/", views.dashboard, name="dashboard"),
+    path("dashboard/about-us/", views.about_dashboard, name="about_dashboard"),
+    path("dashboard/about-us/delete/<str:section>/<int:item_id>/", views.about_delete_item, name="about_delete_item"),
+    path("dashboard/projects/", views.projects_dashboard, name="projects_dashboard"),
+    path("dashboard/projects/delete/<int:project_id>/", views.project_delete, name="project_delete"),
+    
+    # NEW: Media Management Dashboard (Module 5)
+    path("dashboard/media/", views.media_dashboard, name="media_dashboard"),
+    path("dashboard/media/delete/<str:section>/<int:item_id>/", views.media_delete_item, name="media_delete_item"),
+    
     path("api/", views.api_home, name="api_home"),
-
 ]

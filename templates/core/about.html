@@ -1,404 +1,578 @@
-
 {% extends "core/base.html" %}
 {% load static %}
 
-{% block title %}About Us | NAYAA{% endblock %}
+{% block title %}About Us | NAYAA - For Futures Still Unwritten{% endblock %}
 
 {% block content %}
 
-<!-- ABOUT HERO -->
+<!-- 1. HERO / INTRODUCTION SECTION (PDF 1 & 4) -->
 <section class="about-hero">
     <div class="about-hero-content">
         <span class="about-eyebrow">ABOUT NAYAA</span>
-        <h1>Creating Opportunities for a Better Tomorrow</h1>
-        <p>
-            We believe every person deserves the opportunity to learn,
-            grow, and build a brighter future.
+        <h1>Welcome to NAYAA</h1>
+        <p class="about-tagline">Making a difference, one step at a time.</p>
+        <p class="about-hero-lead">
+            We are a passionate team dedicated to making a difference in the lives of
+            underprivileged communities through education, healthcare, and empowerment.
         </p>
-        <a href="{% url 'donate' %}" class="about-hero-btn">
-            Be Part of the Change
-        </a>
-    </div>
-</section>
-
-<!-- ABOUT INTRODUCTION -->
-<section class="about-intro">
-    <div class="about-intro-image">
-        <img src="{% static 'images/about-nayaa.jpg' %}"
-             alt="Community members learning and working together">
-    </div>
-
-    <div class="about-intro-text">
-        <span class="about-label">WHO WE ARE</span>
-        <h2>A Future Full of Possibilities</h2>
-
-        <p>
-            NAYAA is built around a simple belief: meaningful opportunities
-            can create lasting change. We aim to support children, young
-            people, women, families, and communities through initiatives
-            that encourage growth, inclusion, and independence.
-        </p>
-
-        <p>
-            Our focus includes education, healthcare, women empowerment,
-            skills and livelihoods, and inclusive community development.
-            By bringing people and possibilities together, we hope to
-            contribute to a future where everyone has a chance to thrive.
-        </p>
-    </div>
-</section>
-
-<!-- MISSION AND VISION -->
-<section class="about-mission">
-    <div class="about-mission-card">
-        <div class="about-icon">✦</div>
-        <h2>Our Mission</h2>
-        <p>
-            To create meaningful opportunities for children, young people,
-            women, families, and communities through education, healthcare,
-            empowerment, skills, livelihoods, and inclusive development.
-        </p>
-    </div>
-
-    <div class="about-mission-card">
-        <div class="about-icon">◎</div>
-        <h2>Our Vision</h2>
-        <p>
-            A future where every individual and community can access
-            opportunities, realize their potential, and build a life
-            filled with dignity, confidence, and hope.
-        </p>
-    </div>
-</section>
-
-<!-- OUR VALUES -->
-<section class="about-values">
-    <div class="about-section-heading">
-        <span>WHAT GUIDES US</span>
-        <h2>Our Core Values</h2>
-        <p>
-            The principles that shape our work and guide our approach
-            to creating meaningful change.
-        </p>
-    </div>
-
-    <div class="about-values-grid">
-
-        <div class="about-value-card">
-            <div class="about-value-icon">♡</div>
-            <h3>Compassion</h3>
-            <p>
-                We believe in understanding people, listening to their
-                needs, and working with empathy.
-            </p>
-        </div>
-
-        <div class="about-value-card">
-            <div class="about-value-icon">✧</div>
-            <h3>Empowerment</h3>
-            <p>
-                We encourage people to develop their abilities,
-                confidence, and independence.
-            </p>
-        </div>
-
-        <div class="about-value-card">
-            <div class="about-value-icon">◈</div>
-            <h3>Inclusivity</h3>
-            <p>
-                We value equal opportunities and believe every voice
-                deserves to be heard.
-            </p>
-        </div>
-
-        <div class="about-value-card">
-            <div class="about-value-icon">❋</div>
-            <h3>Community</h3>
-            <p>
-                We believe lasting progress grows when people
-                work together and support one another.
-            </p>
+        <div class="about-hero-actions">
+            <a href="{% url 'donate' %}" class="btn-primary-custom">Donate Now</a>
+            <a href="{% url 'volunteer' %}" class="btn-outline-custom">Volunteer Today</a>
+            {% if user.is_authenticated and user.is_superuser %}
+                <a href="{% url 'about_dashboard' %}" class="btn-admin-pill">⚙ Manage About Page</a>
+            {% endif %}
         </div>
     </div>
 </section>
 
-<!-- OUR HISTORY AND MILESTONES -->
-<section class="about-journey">
-
-    <div class="about-journey-heading">
-        <span class="about-label">OUR STORY, OUR PURPOSE</span>
-        <h2>Every Great Change Begins With a Step</h2>
-        <p>
-            Our journey is guided by a belief that opportunities can
-            transform lives. Here are the values and aspirations
-            that shape the NAYAA journey.
-        </p>
-    </div>
-
-    <div class="about-journey-grid">
-
-        <!-- MILESTONE 1 -->
-        <div class="journey-card journey-one">
-            <div class="journey-number">01</div>
-            <div class="journey-icon">🌱</div>
-            <span class="journey-tag">THE BEGINNING</span>
-            <h3>A Hopeful Beginning</h3>
-            <p>
-                Every meaningful journey begins with a belief.
-                NAYAA is guided by the idea that everyone deserves
-                opportunities to learn, grow and move forward.
-            </p>
-        </div>
-
-        <!-- MILESTONE 2 -->
-        <div class="journey-card journey-two">
-            <div class="journey-number">02</div>
-            <div class="journey-icon">📚</div>
-            <span class="journey-tag">OUR PURPOSE</span>
-            <h3>Opening New Opportunities</h3>
-            <p>
-                We focus on education, healthcare, women empowerment,
-                skills and livelihoods to encourage a better quality
-                of life for individuals and families.
-            </p>
-        </div>
-
-        <!-- MILESTONE 3 -->
-        <div class="journey-card journey-three">
-            <div class="journey-number">03</div>
-            <div class="journey-icon">🤝</div>
-            <span class="journey-tag">GROWING TOGETHER</span>
-            <h3>Stronger Communities</h3>
-            <p>
-                We believe positive change grows through cooperation,
-                inclusion and the collective efforts of people
-                working towards shared opportunities.
-            </p>
-        </div>
-
-        <!-- MILESTONE 4 -->
-        <div class="journey-card journey-four">
-            <div class="journey-number">04</div>
-            <div class="journey-icon">🌍</div>
-            <span class="journey-tag">LOOKING AHEAD</span>
-            <h3>A Brighter Tomorrow</h3>
-            <p>
-                Our aspiration is a future where every generation
-                has the confidence, support and opportunities
-                to discover its full potential.
-            </p>
-        </div>
-
-    </div>
-</section>
-
-<!-- WHO WE SUPPORT -->
-<section class="about-people">
-    <div class="about-people-content">
-        <span class="about-label">OUR FOCUS</span>
-        <h2>Opportunities for Every Generation</h2>
-        <p>
-            Our approach focuses on people and communities at different
-            stages of life, recognizing that each has unique needs
-            and potential.
-        </p>
-
-        <div class="about-people-list">
-            <div class="about-person">
-                <span>01</span>
-                <div>
-                    <h3>Children and Young People</h3>
-                    <p>Encouraging learning, growth, and future opportunities.</p>
-                </div>
+<!-- MISSION AND VISION SECTION (PDF 1 & 4) -->
+<section class="about-mission-section">
+    <div class="container-custom">
+        <div class="mission-vision-grid">
+            <div class="mv-card">
+                <div class="mv-icon">🎯</div>
+                <h3>Our Mission</h3>
+                <p>
+                    To provide quality education to every child, regardless of their socio-economic background,
+                    and empower marginalized communities to build self-reliance and independence.
+                </p>
             </div>
-
-            <div class="about-person">
-                <span>02</span>
-                <div>
-                    <h3>Women</h3>
-                    <p>Supporting empowerment, skills, and livelihoods.</p>
-                </div>
+            <div class="mv-card">
+                <div class="mv-icon">👁️</div>
+                <h3>Our Vision</h3>
+                <p>
+                    A world where every individual has the opportunity to live with dignity,
+                    reach their full potential, and participate meaningfully in society.
+                </p>
             </div>
+        </div>
+    </div>
+</section>
 
-            <div class="about-person">
-                <span>03</span>
-                <div>
-                    <h3>Families</h3>
-                    <p>Promoting well-being, awareness, and access to support.</p>
+<!-- 2. HISTORY AND BACKGROUND ("OUR STORY") (PDF 1, 3, 4) -->
+<section class="about-story-section">
+    <div class="container-custom">
+        <div class="section-title text-center">
+            <span class="sub-badge">HISTORY & BACKGROUND</span>
+            <h2>Our Story</h2>
+        </div>
+
+        <div class="story-content-box">
+            {% if our_story %}
+                <p class="story-text">{{ our_story.content|linebreaks }}</p>
+            {% else %}
+                <p class="story-text">
+                    Founded in 2015, NAYAA started as a small community initiative. Today, we have empowered
+                    over 10,000 individuals across 50+ villages by focusing on education, health, and sustainable livelihood.
+                </p>
+            {% endif %}
+        </div>
+
+        <!-- KEY MILESTONES -->
+        <div class="milestones-container">
+            <h3 class="milestones-heading">Key Milestones</h3>
+            <div class="milestones-grid">
+                <div class="milestone-card">
+                    <span class="milestone-year">2016</span>
+                    <h4>First School Launched</h4>
+                    <p>Established our first community learning center serving 120 children.</p>
                 </div>
-            </div>
-
-            <div class="about-person">
-                <span>04</span>
-                <div>
-                    <h3>Communities</h3>
-                    <p>Building inclusive spaces and shared opportunities.</p>
+                <div class="milestone-card">
+                    <span class="milestone-year">2018</span>
+                    <h4>100+ Health Camps</h4>
+                    <p>Organized healthcare and awareness checkups in underserved rural areas.</p>
+                </div>
+                <div class="milestone-card">
+                    <span class="milestone-year">2022</span>
+                    <h4>10,000 Beneficiaries</h4>
+                    <p>Reached the landmark milestone of transforming over 10,000 lives.</p>
                 </div>
             </div>
         </div>
     </div>
+</section>
 
-    <div class="about-people-image">
-        <img src="{% static 'images/project-community.jpg' %}"
-             alt="People working together in a community">
+<!-- 3. CORE VALUES SECTION (PDF 1, 3, 4) -->
+<section class="about-values-section">
+    <div class="container-custom">
+        <div class="section-title text-center">
+            <span class="sub-badge">WHAT GUIDES US</span>
+            <h2>Our Core Values</h2>
+            <p>The ethical foundation and guiding principles behind everything we do.</p>
+        </div>
+
+        <div class="values-grid">
+            {% if core_values %}
+                {% for item in core_values %}
+                    <div class="value-item-card">
+                        <div class="value-dot">✦</div>
+                        <h3>{{ item.value }}</h3>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="value-item-card">
+                    <div class="value-dot">✦</div>
+                    <h3>Integrity</h3>
+                </div>
+                <div class="value-item-card">
+                    <div class="value-dot">✦</div>
+                    <h3>Empathy</h3>
+                </div>
+                <div class="value-item-card">
+                    <div class="value-dot">✦</div>
+                    <h3>Inclusivity</h3>
+                </div>
+                <div class="value-item-card">
+                    <div class="value-dot">✦</div>
+                    <h3>Transparency</h3>
+                </div>
+            {% endif %}
+        </div>
     </div>
 </section>
 
-<!-- CALL TO ACTION -->
-<section class="about-cta">
-    <div class="about-cta-content">
-        <h2>Be Part of a Brighter Future</h2>
-        <p>
-            Every step toward opportunity begins with people who care.
-            Join us in supporting a future filled with possibilities.
-        </p>
-        <a href="{% url 'donate' %}" class="about-cta-btn">
-            Support NAYAA
-        </a>
+<!-- 4. AREAS OF FOCUS / PROGRAMS (PDF 1, 3, 4) -->
+<section class="about-programs-section">
+    <div class="container-custom">
+        <div class="section-title text-center">
+            <span class="sub-badge">WHAT WE DO</span>
+            <h2>Our Programs</h2>
+            <p>Targeted initiatives designed to generate long-term sustainable impact.</p>
+        </div>
+
+        <div class="programs-grid">
+            {% if about_programs %}
+                {% for prog in about_programs %}
+                    <div class="prog-card">
+                        <div class="prog-icon">📚</div>
+                        <h3>{{ prog.name }}</h3>
+                        {% if prog.description %}
+                            <p>{{ prog.description }}</p>
+                        {% else %}
+                            <p>Holistic community support promoting opportunity and self-reliance.</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="prog-card">
+                    <div class="prog-icon">📖</div>
+                    <h3>Free Educational Resources for Children</h3>
+                    <p>Providing books, mentoring, and school supplies to bridge learning gaps.</p>
+                </div>
+                <div class="prog-card">
+                    <div class="prog-icon">🩺</div>
+                    <h3>Healthcare Camps in Rural Areas</h3>
+                    <p>Conducting medical checkups and preventative health education camps.</p>
+                </div>
+                <div class="prog-card">
+                    <div class="prog-icon">🧵</div>
+                    <h3>Vocational Training for Women</h3>
+                    <p>Equipping women with marketable skills to generate independent livelihoods.</p>
+                </div>
+            {% endif %}
+        </div>
     </div>
 </section>
 
-<!-- JOURNEY SECTION STYLING -->
+<!-- 5. LEADERSHIP & TEAM MEMBERS (PDF 1, 3, 4) -->
+<section class="about-team-section">
+    <div class="container-custom">
+        <div class="section-title text-center">
+            <span class="sub-badge">LEADERSHIP</span>
+            <h2>Meet Our Team</h2>
+            <p>Dedicated individuals working passionately toward our shared vision.</p>
+        </div>
+
+        <div class="team-grid">
+            {% if team_members %}
+                {% for member in team_members %}
+                    <div class="team-card">
+                        <div class="team-avatar-wrapper">
+                            {% if member.image %}
+                                <img src="{{ member.image.url }}" alt="{{ member.name }}" class="team-img">
+                            {% else %}
+                                <div class="team-placeholder-avatar">{{ member.name|slice:":1" }}</div>
+                            {% endif %}
+                        </div>
+                        <h3>{{ member.name }}</h3>
+                        <span class="team-role">{{ member.role }}</span>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="team-card">
+                    <div class="team-placeholder-avatar">J</div>
+                    <h3>John Doe</h3>
+                    <span class="team-role">Founder</span>
+                    <p class="team-bio">Leading the organization with a vision for community growth.</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-placeholder-avatar">J</div>
+                    <h3>Jane Smith</h3>
+                    <span class="team-role">Program Manager</span>
+                    <p class="team-bio">Oversees all initiatives ensuring impact and sustainability.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- 6. IMPACT & ACHIEVEMENTS (PDF 1 & 4) -->
+<section class="about-impact-section">
+    <div class="container-custom">
+        <div class="section-title text-center">
+            <span class="sub-badge">MEASURABLE CHANGE</span>
+            <h2>Our Impact</h2>
+            <p>In the past year, together with our supporters, we have achieved:</p>
+        </div>
+
+        <div class="impact-stats-grid">
+            {% if impact_stats %}
+                {% for stat in impact_stats %}
+                    <div class="impact-stat-card">
+                        <h3>{{ stat.value }}</h3>
+                        <p>{{ stat.label }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="impact-stat-card">
+                    <h3>5,000+</h3>
+                    <p>Children Educated</p>
+                </div>
+                <div class="impact-stat-card">
+                    <h3>50+</h3>
+                    <p>Health Camps Conducted</p>
+                </div>
+                <div class="impact-stat-card">
+                    <h3>200+</h3>
+                    <p>Women Empowered with Vocational Skills</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- 7. CALL TO ACTION (CTA) (PDF 1 & 4) -->
+<section class="about-cta-banner">
+    <div class="container-custom text-center">
+        <h2>Become a part of the change.</h2>
+        <p>Volunteer today or donate to help us transform lives.</p>
+        <div class="cta-btn-group">
+            <a href="{% url 'donate' %}" class="btn-cta-donate">Donate Now</a>
+            <a href="{% url 'volunteer' %}" class="btn-cta-volunteer">Volunteer Today</a>
+        </div>
+    </div>
+</section>
+
+<!-- STYLING MATCHING NAYAA BRAND IDENTITY -->
 <style>
-.about-journey {
-    padding: 90px 7%;
-    background: linear-gradient(135deg, #f5f8ef, #fffaf0);
-    overflow: hidden;
+:root {
+    --nayaa-dark-green: #20543d;
+    --nayaa-mid-green: #2d7a57;
+    --nayaa-light-green: #e9f4df;
+    --nayaa-cream: #fbfbf6;
+    --nayaa-text-dark: #1e3328;
+    --nayaa-text-muted: #5f7065;
 }
 
-.about-journey-heading {
-    max-width: 760px;
-    margin: 0 auto 55px;
+.container-custom {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.text-center { text-align: center; }
+
+/* HERO */
+.about-hero {
+    background: linear-gradient(135deg, #1b4733 0%, #296b4c 100%);
+    color: #ffffff;
+    padding: 85px 20px;
     text-align: center;
 }
-
-.about-journey-heading h2 {
-    color: #20543d;
-    font-size: clamp(28px, 4vw, 42px);
-    margin: 15px 0;
+.about-hero-content {
+    max-width: 780px;
+    margin: 0 auto;
+}
+.about-eyebrow {
+    display: inline-block;
+    font-size: 13px;
     font-weight: 700;
+    letter-spacing: 2px;
+    color: #b5e4a8;
+    margin-bottom: 12px;
 }
-
-.about-journey-heading p {
-    color: #66746a;
-    font-size: 16px;
-    line-height: 1.8;
-}
-
-.about-journey-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 22px;
-    max-width: 1250px;
-    margin: auto;
-}
-
-.journey-card {
-    position: relative;
-    padding: 30px 24px;
-    border-radius: 22px;
-    min-height: 330px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid rgba(40, 70, 50, 0.08);
-}
-
-.journey-card:hover {
-    transform: translateY(-9px);
-    box-shadow: 0 18px 35px rgba(40, 70, 50, 0.12);
-}
-
-.journey-one {
-    background: #e9f4df;
-    border-bottom: 5px solid #83ad55;
-}
-
-.journey-two {
-    background: #fff0dc;
-    border-bottom: 5px solid #e6a04e;
-}
-
-.journey-three {
-    background: #e6f0f7;
-    border-bottom: 5px solid #6599c2;
-}
-
-.journey-four {
-    background: #f3eafa;
-    border-bottom: 5px solid #a17abe;
-}
-
-.journey-number {
-    position: absolute;
-    top: 18px;
-    right: 20px;
-    font-size: 34px;
+.about-hero h1 {
+    font-size: clamp(32px, 5vw, 48px);
     font-weight: 800;
-    opacity: 0.15;
-    color: #24543c;
+    margin-bottom: 8px;
 }
-
-.journey-icon {
-    width: 65px;
-    height: 65px;
+.about-tagline {
+    font-size: 19px;
+    font-style: italic;
+    color: #d8f3dc;
+    margin-bottom: 15px;
+}
+.about-hero-lead {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #ebf7ec;
+    margin-bottom: 30px;
+}
+.about-hero-actions {
     display: flex;
     justify-content: center;
-    align-items: center;
-    border-radius: 18px;
-    background: rgba(255, 255, 255, 0.75);
-    font-size: 30px;
-    margin-bottom: 25px;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.btn-primary-custom {
+    background: #40916c;
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+.btn-primary-custom:hover { background: #2d6a4f; color: #fff; }
+.btn-outline-custom {
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    padding: 10px 26px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+.btn-outline-custom:hover { background: #fff; color: var(--nayaa-dark-green); }
+.btn-admin-pill {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
 }
 
-.journey-tag {
-    display: inline-block;
-    font-size: 10px;
+/* SECTION TITLES */
+.section-title {
+    margin-bottom: 45px;
+}
+.sub-badge {
+    font-size: 12px;
     font-weight: 800;
     letter-spacing: 1.5px;
-    color: #47724e;
-    margin-bottom: 10px;
+    color: var(--nayaa-mid-green);
+    display: inline-block;
+    margin-bottom: 8px;
+}
+.section-title h2 {
+    color: var(--nayaa-dark-green);
+    font-size: clamp(26px, 3.5vw, 36px);
+    font-weight: 700;
+}
+.section-title p {
+    color: var(--nayaa-text-muted);
+    font-size: 15px;
+    margin-top: 6px;
 }
 
-.journey-card h3 {
-    color: #234c39;
-    font-size: 20px;
-    margin-bottom: 13px;
-    line-height: 1.4;
+/* MISSION & VISION */
+.about-mission-section {
+    padding: 60px 0;
+    background: #f4f8f1;
 }
+.mission-vision-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+}
+.mv-card {
+    background: #ffffff;
+    padding: 35px 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    border-left: 5px solid var(--nayaa-mid-green);
+}
+.mv-icon { font-size: 32px; margin-bottom: 12px; }
+.mv-card h3 { color: var(--nayaa-dark-green); font-size: 22px; margin-bottom: 12px; }
+.mv-card p { color: var(--nayaa-text-muted); line-height: 1.7; font-size: 15px; }
 
-.journey-card p {
-    color: #58675e;
-    font-size: 14px;
+/* STORY & MILESTONES */
+.about-story-section {
+    padding: 70px 0;
+    background: #ffffff;
+}
+.story-content-box {
+    max-width: 820px;
+    margin: 0 auto 50px;
+    background: #fbfdf9;
+    padding: 35px 40px;
+    border-radius: 18px;
+    border: 1px solid #e1ecdc;
+}
+.story-text {
+    font-size: 17px;
     line-height: 1.8;
-    margin: 0;
+    color: var(--nayaa-text-dark);
 }
-
-@media (max-width: 1000px) {
-    .about-journey-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+.milestones-heading {
+    text-align: center;
+    color: var(--nayaa-dark-green);
+    margin-bottom: 30px;
+    font-size: 22px;
 }
-
-@media (max-width: 576px) {
-    .about-journey {
-        padding: 65px 6%;
-    }
-
-    .about-journey-grid {
-        grid-template-columns: 1fr;
-        gap: 18px;
-    }
-
-    .journey-card {
-        min-height: auto;
-        padding: 28px 23px;
-    }
-
-    .about-journey-heading {
-        margin-bottom: 35px;
-    }
+.milestones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
 }
+.milestone-card {
+    background: #f9fbf7;
+    border-radius: 14px;
+    padding: 25px;
+    border-top: 4px solid var(--nayaa-mid-green);
+    text-align: center;
+}
+.milestone-year {
+    display: inline-block;
+    background: var(--nayaa-light-green);
+    color: var(--nayaa-dark-green);
+    font-weight: 800;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+.milestone-card h4 { color: var(--nayaa-dark-green); font-size: 18px; margin-bottom: 8px; }
+.milestone-card p { color: var(--nayaa-text-muted); font-size: 14px; line-height: 1.6; }
+
+/* VALUES */
+.about-values-section {
+    padding: 70px 0;
+    background: #f6faf3;
+}
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+.value-item-card {
+    background: #ffffff;
+    padding: 30px 20px;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    transition: transform 0.2s ease;
+}
+.value-item-card:hover { transform: translateY(-5px); }
+.value-dot { color: var(--nayaa-mid-green); font-size: 22px; margin-bottom: 10px; }
+.value-item-card h3 { color: var(--nayaa-dark-green); font-size: 20px; font-weight: 700; margin: 0; }
+
+/* PROGRAMS */
+.about-programs-section {
+    padding: 70px 0;
+    background: #ffffff;
+}
+.programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+.prog-card {
+    background: #fcfdfa;
+    border: 1px solid #e5ede0;
+    border-radius: 16px;
+    padding: 30px;
+    text-align: left;
+}
+.prog-icon { font-size: 34px; margin-bottom: 15px; }
+.prog-card h3 { color: var(--nayaa-dark-green); font-size: 20px; margin-bottom: 10px; font-weight: 700; }
+.prog-card p { color: var(--nayaa-text-muted); font-size: 14px; line-height: 1.7; margin: 0; }
+
+/* TEAM */
+.about-team-section {
+    padding: 70px 0;
+    background: #fbfbf7;
+}
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 25px;
+}
+.team-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+}
+.team-avatar-wrapper {
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #eef4eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid var(--nayaa-light-green);
+}
+.team-img { width: 100%; height: 100%; object-fit: cover; }
+.team-placeholder-avatar { font-size: 42px; font-weight: 800; color: var(--nayaa-dark-green); }
+.team-card h3 { color: var(--nayaa-dark-green); font-size: 19px; margin-bottom: 4px; font-weight: 700; }
+.team-role { color: var(--nayaa-mid-green); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 10px; }
+.team-bio { font-size: 13px; color: var(--nayaa-text-muted); line-height: 1.6; }
+
+/* IMPACT */
+.about-impact-section {
+    padding: 65px 0;
+    background: #ffffff;
+}
+.impact-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+.impact-stat-card {
+    background: #f4f8f0;
+    padding: 35px 20px;
+    border-radius: 16px;
+    text-align: center;
+}
+.impact-stat-card h3 { font-size: 40px; font-weight: 800; color: var(--nayaa-dark-green); margin-bottom: 8px; }
+.impact-stat-card p { font-size: 15px; color: var(--nayaa-text-dark); font-weight: 600; margin: 0; }
+
+/* CTA BANNER */
+.about-cta-banner {
+    background: #1976d2; /* Reference blue from PDF 1 & 2, or custom green */
+    color: #ffffff;
+    padding: 60px 20px;
+}
+.about-cta-banner h2 { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
+.about-cta-banner p { font-size: 17px; margin-bottom: 25px; color: #e3f2fd; }
+.cta-btn-group { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+.btn-cta-donate {
+    background: #ffffff;
+    color: #1976d2;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+.btn-cta-donate:hover { background: #f0f0f0; color: #0d47a1; }
+.btn-cta-volunteer {
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    padding: 10px 28px;
+    border-radius: 30px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+.btn-cta-volunteer:hover { background: #ffffff; color: #1976d2; }
 </style>
-
-<script src="{% static 'js/about.js' %}"></script>
 
 {% endblock %}

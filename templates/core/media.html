@@ -1,386 +1,427 @@
-
 {% extends "core/base.html" %}
 {% load static %}
 
-{% block title %}Media | NAYAA{% endblock %}
+{% block title %}Media & News | NAYAA - For Futures Still Unwritten{% endblock %}
 
 {% block content %}
 
-<!-- ================= MEDIA HERO ================= -->
-
-<section class="page-hero">
-    <div class="container">
-
-        <div class="eyebrow">NAYAA MEDIA</div>
-
-        <h1>Photos, Videos and Media Coverage</h1>
-
-        <p>
-            Explore moments from our initiatives, community activities,
-            stories and updates.
+<!-- 1. HERO / INTRODUCTION SECTION (PDF 1 & 4) -->
+<section class="media-hero">
+    <div class="container-custom text-center">
+        <span class="media-eyebrow">NEWS & PRESS ROOM</span>
+        <h1>NGO Media Page</h1>
+        <p class="media-lead">
+            Welcome to the Media page of our NGO. Here, you can find the latest press releases, 
+            media coverage, images, and videos showcasing the impact of our work. This page serves 
+            as a resource for journalists and media professionals to stay updated with our activities and achievements.
         </p>
-
+        {% if user.is_authenticated and user.is_superuser %}
+            <a href="{% url 'media_dashboard' %}" class="btn-manage-pill">⚙ Manage Media Dashboard</a>
+        {% endif %}
     </div>
 </section>
 
-
-<!-- ================= PHOTO AND VIDEO GALLERY ================= -->
-
-<section class="section">
-    <div class="container">
-
-        <div class="text-center mb-5">
-
-            <span class="eyebrow">OUR MOMENTS</span>
-
-            <h2>Photos & Videos</h2>
-
-            <p>
-                A glimpse into our activities, initiatives
-                and community engagement.
-            </p>
-
+<!-- 2. PRESS RELEASES SECTION (PDF 1 & 4) -->
+<section class="media-section">
+    <div class="container-custom">
+        <div class="section-heading">
+            <span class="sub-badge">OFFICIAL ANNOUNCEMENTS</span>
+            <h2>Press Releases</h2>
+            <div class="heading-line"></div>
         </div>
 
-
-        <div class="row g-4">
-
-            {% for m in media %}
-
-                {% if m.verified %}
-
-                    <div class="col-md-6 col-lg-4">
-
-                        <article class="card h-100 overflow-hidden shadow-sm">
-
-                            <!-- PHOTO -->
-
-                            {% if m.media_type == "photo" %}
-
-                                {% if m.image %}
-
-                                    <img
-                                        src="{{ m.image.url }}"
-                                        class="gallery-img w-100"
-                                        alt="{{ m.title }}"
-                                        loading="lazy"
-                                        style="height:240px; object-fit:cover;"
-                                    >
-
-                                {% endif %}
-
-
-                            <!-- VIDEO -->
-
-                            {% elif m.media_type == "video" %}
-
-                                <div class="media-video-preview">
-
-                                    {% if m.image %}
-
-                                        <img
-                                            src="{{ m.image.url }}"
-                                            class="gallery-img w-100"
-                                            alt="{{ m.title }}"
-                                            loading="lazy"
-                                            style="height:240px; object-fit:cover;"
-                                        >
-
-                                    {% else %}
-
-                                        <div class="video-placeholder">
-                                            <span>VIDEO</span>
-                                        </div>
-
-                                    {% endif %}
-
-                                    {% if m.video_url %}
-
-                                        <a
-                                            href="{{ m.video_url }}"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            class="video-open-link"
-                                        >
-                                            Watch Video
-                                        </a>
-
-                                    {% endif %}
-
-                                </div>
-
-                            {% endif %}
-
-
-                            <!-- MEDIA DETAILS -->
-
-                            <div class="card-body p-4">
-
-                                <span class="badge bg-success mb-2">
-                                    {{ m.get_media_type_display }}
-                                </span>
-
-                                <h3 class="h5">
-                                    {{ m.title }}
-                                </h3>
-
-                                {% if m.caption %}
-
-                                    <p class="text-muted">
-                                        {{ m.caption }}
-                                    </p>
-
-                                {% endif %}
-
-
-                                {% if m.source_credit %}
-
-                                    <small class="text-muted">
-                                        Photo/Media Credit:
-                                        {{ m.source_credit }}
-                                    </small>
-
-                                {% endif %}
-
-
-                                {% if m.media_type == "video" and m.video_url %}
-
-                                    <div class="mt-3">
-
-                                        <a
-                                            href="{{ m.video_url }}"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            Watch Video →
-                                        </a>
-
-                                    </div>
-
-                                {% endif %}
-
-                            </div>
-
-                        </article>
-
-                    </div>
-
-                {% endif %}
-
-            {% empty %}
-
-                <div class="col-12 text-center">
-
-                    <p>
-                        Our photos and videos will be available here soon.
-                    </p>
-
+        <div class="press-list">
+            {% for press in press_releases %}
+                <div class="press-item">
+                    <h3>{{ press.title }}</h3>
+                    <span class="press-date">📅 {{ press.release_date|date:"F d, Y" }}</span>
+                    <p>{{ press.description }}</p>
+                    <a href="{% url 'contact' %}?inquiry=media" class="btn-read-more">Read more...</a>
                 </div>
-
-            {% endfor %}
-
-        </div>
-
-
-        <!-- ================= PRESS RELEASES ================= -->
-
-        <section class="mt-5 pt-4">
-
-            <div class="text-center mb-4">
-
-                <span class="eyebrow">LATEST ANNOUNCEMENTS</span>
-
-                <h2>Press Releases</h2>
-
-                <p>
-                    Read official announcements and updates from NAYAA.
-                </p>
-
-            </div>
-
-
-            {% for p in press %}
-
-                <article class="border-bottom py-4">
-
-                    <div class="mb-2">
-
-                        <small class="text-muted">
-                            {{ p.date|date:"d F Y" }}
-                        </small>
-
-                    </div>
-
-                    <h3 class="h5">
-                        {{ p.title }}
-                    </h3>
-
-                    <p>
-                        {{ p.body|linebreaksbr }}
-                    </p>
-
-                    {% if p.source_url %}
-
-                        <a
-                            href="{{ p.source_url }}"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Read Original Source →
-                        </a>
-
-                    {% endif %}
-
-                </article>
-
             {% empty %}
-
-                <p class="text-center">
-                    No press releases have been published yet.
-                </p>
-
+                <div class="press-item">
+                    <h3>NGO Launches New Initiative to Support Underprivileged Children</h3>
+                    <span class="press-date">📅 January 15, 2025</span>
+                    <p>Our NGO is excited to announce a new initiative aimed at providing education and resources to children from low-income families.</p>
+                    <a href="{% url 'contact' %}?inquiry=media" class="btn-read-more">Read more...</a>
+                </div>
+                <div class="press-item">
+                    <h3>NGO Partners with Local Communities for Clean Water Project</h3>
+                    <span class="press-date">📅 December 12, 2024</span>
+                    <p>In partnership with local communities, our NGO has launched a clean water initiative in rural areas.</p>
+                    <a href="{% url 'contact' %}?inquiry=media" class="btn-read-more">Read more...</a>
+                </div>
             {% endfor %}
-
-        </section>
-
-
-        <!-- ================= ELECTRONIC MEDIA ================= -->
-
-        <section class="mt-5 pt-4">
-
-            <div class="text-center mb-4">
-
-                <span class="eyebrow">MEDIA RECOGNITION</span>
-
-                <h2>Electronic Media Coverage</h2>
-
-                <p>
-                    Explore articles, news features and external
-                    coverage related to NAYAA.
-                </p>
-
-            </div>
-
-
-            <div class="row g-4">
-
-                {% for e in electronic %}
-
-                    <div class="col-md-6">
-
-                        <article class="card h-100 p-4 shadow-sm">
-
-                            <h3 class="h5">
-                                {{ e.title }}
-                            </h3>
-
-                            <p class="mb-2">
-
-                                <strong>Media Outlet:</strong>
-                                {{ e.outlet }}
-
-                            </p>
-
-
-                            {% if e.published_on %}
-
-                                <small class="text-muted d-block mb-3">
-                                    Published:
-                                    {{ e.published_on|date:"d F Y" }}
-                                </small>
-
-                            {% endif %}
-
-
-                            <a
-                                href="{{ e.url }}"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                Read Media Coverage →
-                            </a>
-
-                        </article>
-
-                    </div>
-
-                {% empty %}
-
-                    <div class="col-12 text-center">
-
-                        <p>
-                            No electronic media coverage has been added yet.
-                        </p>
-
-                    </div>
-
-                {% endfor %}
-
-            </div>
-
-        </section>
-
+        </div>
     </div>
 </section>
 
+<!-- 3. MEDIA COVERAGE SECTION (PDF 1 & 4) -->
+<section class="media-section bg-light-green">
+    <div class="container-custom">
+        <div class="section-heading">
+            <span class="sub-badge">IN THE NEWS</span>
+            <h2>Media Coverage</h2>
+            <div class="heading-line"></div>
+        </div>
 
-<!-- ================= MEDIA PAGE STYLES ================= -->
+        <div class="coverage-grid">
+            {% for cov in media_coverages %}
+                <div class="coverage-card">
+                    <div class="cov-icon">📰</div>
+                    <h3>{{ cov.title }}</h3>
+                    <p>Featured in recognized media reporting our community achievements.</p>
+                    <a href="{{ cov.url }}" target="_blank" class="btn-coverage-link">Read full article ↗</a>
+                </div>
+            {% empty %}
+                <div class="coverage-card">
+                    <div class="cov-icon">📰</div>
+                    <h3>Our NGO Featured in Global News Network</h3>
+                    <p>Our NGO was recently featured on Global News for our efforts to combat poverty in developing regions.</p>
+                    <a href="https://news.google.com" target="_blank" class="btn-coverage-link">Read the full article ↗</a>
+                </div>
+                <div class="coverage-card">
+                    <div class="cov-icon">📺</div>
+                    <h3>TV Interview on Our Recent Environmental Initiative</h3>
+                    <p>Watch our founder’s TV interview discussing our community conservation efforts and future milestones.</p>
+                    <a href="https://youtube.com" target="_blank" class="btn-coverage-link">Watch Now ↗</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 
+<!-- 4. IMAGE GALLERY SECTION (PDF 1 & 4) -->
+<section class="media-section">
+    <div class="container-custom">
+        <div class="section-heading text-center">
+            <span class="sub-badge">PHOTO ARCHIVE</span>
+            <h2>Image Gallery</h2>
+            <p>Capturing genuine moments of learning, hope, and community transformation</p>
+        </div>
+
+        <div class="gallery-grid">
+            {% for img in gallery_images %}
+                <div class="gallery-item">
+                    <img src="{{ img.image.url }}" alt="{{ img.description|default:'NAYAA Gallery' }}">
+                    {% if img.description %}
+                        <div class="gallery-caption">{{ img.description }}</div>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <div class="gallery-item">
+                    <img src="{% static 'images/project-community.jpg' %}" alt="Community initiative">
+                    <div class="gallery-caption">Community Learning Center</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="{% static 'images/about-nayaa.jpg' %}" alt="Women empowerment">
+                    <div class="gallery-caption">Women Vocational Training</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="{% static 'images/project-classroom.jpg' %}" alt="Children education">
+                    <div class="gallery-caption">Classroom Digital Support</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- 5. VIDEOS SECTION (PDF 1 & 4) -->
+<section class="media-section bg-light-green">
+    <div class="container-custom">
+        <div class="section-heading text-center">
+            <span class="sub-badge">MULTIMEDIA</span>
+            <h2>Videos</h2>
+            <p>Watch our documentaries, community interviews, and program highlights</p>
+        </div>
+
+        <div class="video-container-wrapper">
+            {% for vid in videos %}
+                <div class="video-card">
+                    <div class="video-responsive">
+                        <iframe src="{{ vid.embed_url }}" title="{{ vid.description|default:'NAYAA Video' }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    {% if vid.description %}
+                        <p class="video-desc">{{ vid.description }}</p>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <div class="video-card">
+                    <div class="video-responsive">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="NAYAA Story" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <p class="video-desc">NAYAA: Creating Opportunities for Communities and Children</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- 6. CONTACT FOR MEDIA SECTION (PDF 1 & 4) -->
+<section class="media-contact-banner">
+    <div class="container-custom text-center">
+        <h2>Media Inquiries & Press Relations</h2>
+        <p>Contact us at <strong>media@ngo.org</strong> or <strong>nayaaforfuture@gmail.com</strong> for interviews, press kits, or collaborations.</p>
+        <a href="{% url 'contact' %}?inquiry=media" class="btn-contact-white">Contact Media Relations</a>
+    </div>
+</section>
+
+<!-- NAYAA GREEN CSS -->
 <style>
-
-.media-video-preview {
-    position: relative;
-    background: #e9eee8;
+:root {
+    --nayaa-dark-green: #20543d;
+    --nayaa-mid-green: #2d7a57;
+    --nayaa-light-green: #e9f4df;
+    --nayaa-cream: #fbfdf9;
+    --nayaa-text-dark: #1e3328;
+    --nayaa-text-muted: #5f7065;
 }
 
-.video-placeholder {
-    height: 240px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #e8eee5;
-    color: #315d42;
-    font-size: 22px;
-    font-weight: bold;
+.container-custom {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
+.text-center { text-align: center; }
 
-.video-open-link {
+/* HERO */
+.media-hero {
+    background: linear-gradient(135deg, #1b4733 0%, #20543d 100%);
+    color: #ffffff;
+    padding: 75px 20px;
+}
+.media-eyebrow {
     display: inline-block;
-    margin: 12px 16px 0;
-    padding: 9px 18px;
-    background: #315d42;
-    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #b5e4a8;
+    margin-bottom: 10px;
+}
+.media-hero h1 {
+    font-size: clamp(32px, 4vw, 44px);
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+.media-lead {
+    max-width: 820px;
+    margin: 0 auto 25px;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #e2f5e7;
+}
+.btn-manage-pill {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    padding: 8px 22px;
+    border-radius: 30px;
     text-decoration: none;
-    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+.btn-manage-pill:hover { background: #fff; color: var(--nayaa-dark-green); }
+
+/* SECTIONS */
+.media-section {
+    padding: 65px 0;
+}
+.bg-light-green {
+    background: #f4f8f1;
+}
+.section-heading {
+    margin-bottom: 35px;
+}
+.sub-badge {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--nayaa-mid-green);
+    display: inline-block;
+    margin-bottom: 6px;
+}
+.section-heading h2 {
+    color: var(--nayaa-dark-green);
+    font-size: 28px;
+    font-weight: 800;
+    margin: 0 0 8px;
+}
+.section-heading p {
+    color: var(--nayaa-text-muted);
+    font-size: 15px;
+    margin: 0;
+}
+.heading-line {
+    width: 60px;
+    height: 3px;
+    background: var(--nayaa-dark-green);
+    margin-top: 8px;
 }
 
-.video-open-link:hover {
-    background: #244832;
-    color: white;
+/* PRESS RELEASES */
+.press-list {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+.press-item {
+    background: #ffffff;
+    border-left: 4px solid var(--nayaa-dark-green);
+    border-radius: 8px;
+    padding: 22px 25px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.03);
+}
+.press-item h3 {
+    margin: 0 0 6px;
+    font-size: 19px;
+    color: var(--nayaa-dark-green);
+    font-weight: 700;
+}
+.press-date {
+    display: inline-block;
+    font-size: 13px;
+    color: var(--nayaa-mid-green);
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.press-item p {
+    color: var(--nayaa-text-muted);
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 0 0 12px;
+}
+.btn-read-more {
+    color: var(--nayaa-dark-green);
+    font-weight: 700;
+    font-size: 13px;
+    text-decoration: underline;
 }
 
-.card {
-    border: none;
+/* COVERAGE */
+.coverage-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+.coverage-card {
+    background: #ffffff;
+    padding: 28px 24px;
     border-radius: 12px;
+    border: 1px solid #e1ecdc;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.02);
+}
+.cov-icon { font-size: 28px; margin-bottom: 10px; }
+.coverage-card h3 {
+    color: var(--nayaa-dark-green);
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 8px;
+}
+.coverage-card p {
+    color: var(--nayaa-text-muted);
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 0 0 16px;
+}
+.btn-coverage-link {
+    color: var(--nayaa-dark-green);
+    font-weight: 700;
+    font-size: 13px;
+    text-decoration: none;
+    border-bottom: 1px solid var(--nayaa-dark-green);
+    padding-bottom: 2px;
 }
 
-.gallery-img {
-    display: block;
+/* GALLERY */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+.gallery-item {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 220px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+.gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(27,71,51,0.85), transparent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 25px 14px 10px;
 }
 
-@media (max-width: 576px) {
-
-    .page-hero h1 {
-        font-size: 30px;
-    }
-
-    .section {
-        padding-top: 40px;
-        padding-bottom: 40px;
-    }
-
+/* VIDEOS */
+.video-container-wrapper {
+    max-width: 850px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.video-card {
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    border: 1px solid #e1ecdc;
+}
+.video-responsive {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+}
+.video-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.video-desc {
+    padding: 15px 20px;
+    font-size: 15px;
+    color: var(--nayaa-dark-green);
+    font-weight: 700;
+    margin: 0;
 }
 
+/* CONTACT BANNER */
+.media-contact-banner {
+    background: var(--nayaa-dark-green);
+    color: #ffffff;
+    padding: 55px 20px;
+}
+.media-contact-banner h2 { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
+.media-contact-banner p { font-size: 15px; color: #d8f3dc; margin-bottom: 22px; }
+.btn-contact-white {
+    background: #ffffff;
+    color: var(--nayaa-dark-green);
+    padding: 11px 28px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    display: inline-block;
+}
+.btn-contact-white:hover { background: #f0f0f0; }
 </style>
 
 {% endblock %}

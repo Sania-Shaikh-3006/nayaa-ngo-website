@@ -1,0 +1,401 @@
+{% extends "core/base.html" %}
+
+{% block title %}Admin Dashboard - Manage About Us | NAYAA{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+    <div class="dashboard-header">
+        <h1>Admin Dashboard</h1>
+        <p>Manage the "About Us" Page Content</p>
+        <a href="{% url 'about' %}" class="btn-preview" target="_blank">👁 View Live About Page</a>
+    </div>
+
+    <div class="dashboard-container">
+
+        <!-- =================== 1. OUR STORY SECTION =================== -->
+        <div class="dash-card">
+            <h2>Our Story</h2>
+            
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th style="width: 75%;">Content</th>
+                        <th style="width: 25%;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for story in our_stories %}
+                        <tr>
+                            <td>{{ story.content|truncatechars:120 }}</td>
+                            <td>
+                                <button type="button" class="btn-edit" onclick="editStory('{{ story.id }}', `{{ story.content|escapejs }}`)">Edit</button>
+                                <a href="{% url 'about_delete_item' 'story' story.id %}" class="btn-delete" onclick="return confirm('Delete this story?');">Delete</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="2" class="text-muted">No story entries yet.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <form method="POST" class="dash-form" id="storyForm">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="save_story">
+                <input type="hidden" name="story_id" id="story_id" value="">
+                
+                <label for="story_content">Story:</label>
+                <textarea name="content" id="story_content" rows="4" placeholder="Add a new story..." required></textarea>
+                
+                <div class="form-btn-row">
+                    <button type="submit" class="btn-save">Save</button>
+                    <button type="button" class="btn-cancel" onclick="resetStoryForm()" style="display:none;" id="cancelStoryBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- =================== 2. CORE VALUES SECTION =================== -->
+        <div class="dash-card">
+            <h2>Core Values</h2>
+
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th style="width: 75%;">Value</th>
+                        <th style="width: 25%;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for val in core_values %}
+                        <tr>
+                            <td>{{ val.value }}</td>
+                            <td>
+                                <button type="button" class="btn-edit" onclick="editValue('{{ val.id }}', `{{ val.value|escapejs }}`)">Edit</button>
+                                <a href="{% url 'about_delete_item' 'value' val.id %}" class="btn-delete" onclick="return confirm('Delete this value?');">Delete</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="2" class="text-muted">No core values added yet.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <form method="POST" class="dash-form" id="valueForm">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="add_value">
+                <input type="hidden" name="value_id" id="value_id" value="">
+
+                <label for="value_input">New Core Value:</label>
+                <input type="text" name="value" id="value_input" placeholder="Add a new core value" required>
+
+                <div class="form-btn-row">
+                    <button type="submit" class="btn-save">Save</button>
+                    <button type="button" class="btn-cancel" onclick="resetValueForm()" style="display:none;" id="cancelValueBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- =================== 3. PROGRAMS SECTION =================== -->
+        <div class="dash-card">
+            <h2>Programs</h2>
+
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th style="width: 75%;">Program</th>
+                        <th style="width: 25%;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for prog in about_programs %}
+                        <tr>
+                            <td>
+                                <strong>{{ prog.name }}</strong>
+                                {% if prog.description %}<br><small class="text-muted">{{ prog.description|truncatechars:80 }}</small>{% endif %}
+                            </td>
+                            <td>
+                                <button type="button" class="btn-edit" onclick="editProgram('{{ prog.id }}', `{{ prog.name|escapejs }}`, `{{ prog.description|default:''|escapejs }}`)">Edit</button>
+                                <a href="{% url 'about_delete_item' 'program' prog.id %}" class="btn-delete" onclick="return confirm('Delete this program?');">Delete</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="2" class="text-muted">No programs added yet.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <form method="POST" class="dash-form" id="programForm">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="add_program">
+                <input type="hidden" name="program_id" id="program_id" value="">
+
+                <label for="program_name">New Program:</label>
+                <input type="text" name="name" id="program_name" placeholder="Add a new program..." required>
+
+                <label for="program_desc" style="margin-top: 10px;">Description (Optional):</label>
+                <textarea name="description" id="program_desc" rows="2" placeholder="Brief program details..."></textarea>
+
+                <div class="form-btn-row">
+                    <button type="submit" class="btn-save">Save</button>
+                    <button type="button" class="btn-cancel" onclick="resetProgramForm()" style="display:none;" id="cancelProgramBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- =================== 4. TEAM MEMBERS SECTION =================== -->
+        <div class="dash-card">
+            <h2>Team Members</h2>
+
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th>Photo</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for member in team_members %}
+                        <tr>
+                            <td>
+                                {% if member.image %}
+                                    <img src="{{ member.image.url }}" alt="{{ member.name }}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                                {% else %}
+                                    <span style="display:inline-block; width:40px; height:40px; background:#e0e0e0; border-radius:50%; text-align:center; line-height:40px; font-weight:bold;">{{ member.name|slice:":1" }}</span>
+                                {% endif %}
+                            </td>
+                            <td><strong>{{ member.name }}</strong></td>
+                            <td>{{ member.role }}</td>
+                            <td>
+                                <button type="button" class="btn-edit" onclick="editMember('{{ member.id }}', `{{ member.name|escapejs }}`, `{{ member.role|escapejs }}`)">Edit</button>
+                                <a href="{% url 'about_delete_item' 'member' member.id %}" class="btn-delete" onclick="return confirm('Delete this member?');">Delete</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="4" class="text-muted">No team members added yet.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <form method="POST" enctype="multipart/form-data" class="dash-form" id="memberForm">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="add_team_member">
+                <input type="hidden" name="member_id" id="member_id" value="">
+
+                <label for="member_name">Name:</label>
+                <input type="text" name="name" id="member_name" placeholder="Enter name" required>
+
+                <label for="member_role" style="margin-top: 10px;">Role:</label>
+                <input type="text" name="role" id="member_role" placeholder="Enter role (e.g., Founder, Manager)" required>
+
+                <label for="member_image" style="margin-top: 10px;">Upload Image:</label>
+                <input type="file" name="image" id="member_image" accept="image/*">
+
+                <div class="form-btn-row">
+                    <button type="submit" class="btn-save">Save</button>
+                    <button type="button" class="btn-cancel" onclick="resetMemberForm()" style="display:none;" id="cancelMemberBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<!-- DASHBOARD STYLING (Matching PDF 2 Reference) -->
+<style>
+.dashboard-wrapper {
+    background: #f4f6f9;
+    min-height: 80vh;
+    padding-bottom: 60px;
+}
+.dashboard-header {
+    background: #007bff; /* Signature reference blue from PDF 2 */
+    color: #ffffff;
+    text-align: center;
+    padding: 35px 20px;
+}
+.dashboard-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+.dashboard-header p {
+    font-size: 15px;
+    opacity: 0.9;
+    margin-bottom: 15px;
+}
+.btn-preview {
+    display: inline-block;
+    background: rgba(255,255,255,0.25);
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: 600;
+}
+.btn-preview:hover { background: #fff; color: #007bff; }
+
+.dashboard-container {
+    max-width: 960px;
+    margin: 30px auto;
+    padding: 0 15px;
+}
+.dash-card {
+    background: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.dash-card h2 {
+    color: #007bff;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+/* TABLES */
+.dash-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 25px;
+}
+.dash-table th, .dash-table td {
+    padding: 12px 14px;
+    border: 1px solid #e9ecef;
+    text-align: left;
+    font-size: 14px;
+    vertical-align: middle;
+}
+.dash-table th {
+    background: #f8f9fa;
+    color: #495057;
+    font-weight: 600;
+}
+.btn-edit {
+    background: #ffc107;
+    color: #212529;
+    border: none;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 5px;
+}
+.btn-delete {
+    background: #dc3545;
+    color: #ffffff;
+    border: none;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+}
+.btn-delete:hover { color: #fff; background: #bd2130; }
+
+/* FORMS */
+.dash-form label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 6px;
+}
+.dash-form input[type="text"],
+.dash-form textarea,
+.dash-form input[type="file"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.form-btn-row {
+    margin-top: 15px;
+}
+.btn-save {
+    background: #007bff;
+    color: #ffffff;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+.btn-save:hover { background: #0069d9; }
+.btn-cancel {
+    background: #6c757d;
+    color: #fff;
+    border: none;
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    margin-top: 6px;
+    cursor: pointer;
+}
+</style>
+
+<!-- INLINE EDITING JAVASCRIPT -->
+<script>
+function editStory(id, content) {
+    document.getElementById("story_id").value = id;
+    document.getElementById("story_content").value = content;
+    document.getElementById("cancelStoryBtn").style.display = "block";
+    document.getElementById("story_content").focus();
+}
+function resetStoryForm() {
+    document.getElementById("story_id").value = "";
+    document.getElementById("story_content").value = "";
+    document.getElementById("cancelStoryBtn").style.display = "none";
+}
+
+function editValue(id, value) {
+    document.getElementById("value_id").value = id;
+    document.getElementById("value_input").value = value;
+    document.getElementById("cancelValueBtn").style.display = "block";
+    document.getElementById("value_input").focus();
+}
+function resetValueForm() {
+    document.getElementById("value_id").value = "";
+    document.getElementById("value_input").value = "";
+    document.getElementById("cancelValueBtn").style.display = "none";
+}
+
+function editProgram(id, name, desc) {
+    document.getElementById("program_id").value = id;
+    document.getElementById("program_name").value = name;
+    document.getElementById("program_desc").value = desc;
+    document.getElementById("cancelProgramBtn").style.display = "block";
+    document.getElementById("program_name").focus();
+}
+function resetProgramForm() {
+    document.getElementById("program_id").value = "";
+    document.getElementById("program_name").value = "";
+    document.getElementById("program_desc").value = "";
+    document.getElementById("cancelProgramBtn").style.display = "none";
+}
+
+function editMember(id, name, role) {
+    document.getElementById("member_id").value = id;
+    document.getElementById("member_name").value = name;
+    document.getElementById("member_role").value = role;
+    document.getElementById("cancelMemberBtn").style.display = "block";
+    document.getElementById("member_name").focus();
+}
+function resetMemberForm() {
+    document.getElementById("member_id").value = "";
+    document.getElementById("member_name").value = "";
+    document.getElementById("member_role").value = "";
+    document.getElementById("cancelMemberBtn").style.display = "none";
+}
+</script>
+{% endblock %}

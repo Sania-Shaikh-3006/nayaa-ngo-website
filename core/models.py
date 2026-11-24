@@ -58,28 +58,43 @@ class Campaign(models.Model):
         return self.title
 
 
+# ✅ PASTE THIS NEW CODE IN ITS PLACE:
 class Project(models.Model):
-    STATUS = [
-        ("ongoing", "Ongoing"),
-        ("completed", "Completed"),
+    STATUS_CHOICES = [
+        ("Ongoing", "Ongoing"),
+        ("Completed", "Completed"),
+        ("Upcoming", "Upcoming"),
     ]
 
-    title = models.CharField(max_length=180)
+    title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True)
-    sector = models.CharField(max_length=80)
-    goals = models.TextField()
-    beneficiaries = models.TextField()
-    timeline = models.CharField(max_length=180)
-    location = models.CharField(max_length=180)
     description = models.TextField()
+    status = models.CharField(max_length=30, choices=STATUS_CHOICES, default="Ongoing")
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+    location = models.CharField(max_length=255, blank=True, null=True)
+    sector = models.CharField(max_length=80, blank=True)
+    goals = models.TextField(blank=True)
+    beneficiaries = models.TextField(blank=True)
+    timeline = models.CharField(max_length=180, blank=True)
     cover_image = models.ImageField(upload_to="projects/", blank=True, null=True)
     report = models.FileField(upload_to="reports/", blank=True, null=True)
-    status = models.CharField(max_length=20, choices=STATUS, default="ongoing")
-    verified = models.BooleanField(default=False)
+    verified = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+
+    class Meta:
+        db_table = "projects"
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            base_slug = slugify(self.title) or "project"
+            slug = base_slug
+            count = 1
+            while Project.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{count}"
+                count += 1
+            self.slug = slug
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
@@ -89,6 +104,36 @@ class Project(models.Model):
         return self.title
 
 
+class ProjectImage(models.Model):
+    """Table: project_images (from PDF 4)"""
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="images")
+    image = models.ImageField(upload_to="project_images/")
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "project_images"
+
+    def __str__(self):
+        return f"Image for {self.project.title}"
+
+    @property
+    def image_url(self):
+        return self.image.url if self.image else ""
+
+class ProjectImage(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="images")
+    image = models.ImageField(upload_to="project_images/")
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "project_images"
+
+    def __str__(self):
+        return f"Image for {self.project.title}"
+
+    @property
+    def image_url(self):
+        return self.image.url if self.image else ""
 class MediaItem(models.Model):
     TYPE = [
         ("photo", "Photo"),
@@ -195,7 +240,6 @@ class PartnershipInquiry(models.Model):
 
     def __str__(self):
         return self.organization
-
 
 # NEW: CONFIRMED PARTNERS AND SUPPORTERS
 class Partner(models.Model):
@@ -315,3 +359,141 @@ class HomePageContent(models.Model):
 
     def __str__(self):
         return "Nayaa Homepage Content"
+        # ============================================================
+# ABOUT US DYNAMIC MODELS (From PDF 3)
+# ============================================================
+
+class OurStory(models.Model):
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "our_story"
+        verbose_name = "Our Story"
+        verbose_name_plural = "Our Story"
+
+    def __str__(self):
+        return f"Story ({self.created_at.strftime('%Y-%m-%d')})"
+
+
+class CoreValue(models.Model):
+    value = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "core_values"
+        verbose_name = "Core Value"
+        verbose_name_plural = "Core Values"
+
+    def __str__(self):
+        return self.value
+
+
+class AboutProgram(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "programs"
+        verbose_name = "About Program"
+        verbose_name_plural = "About Programs"
+
+    def __str__(self):
+        return self.name
+
+
+class TeamMember(models.Model):
+    name = models.CharField(max_length=255)
+    role = models.CharField(max_length=255)
+    image = models.ImageField(upload_to="team/", blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "team_members"
+        verbose_name = "Team Member"
+        verbose_name_plural = "Team Members"
+
+    def __str__(self):
+        return f"{self.name} - {self.role}"
+    
+    # ============================================================
+# MEDIA PAGE MODELS (From PDF 3 Database Design)
+# ============================================================
+
+class PressReleaseItem(models.Model):
+    """Table 1: press_releases"""
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    release_date = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "press_releases"
+        ordering = ["-release_date"]
+
+    def __str__(self):
+        return self.title
+
+
+class MediaCoverage(models.Model):
+    """Table 2: media_coverage"""
+    title = models.CharField(max_length=255)
+    url = models.URLField(max_length=2083)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "media_coverage"
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return self.title
+
+
+class ImageGallery(models.Model):
+    """Table 3: image_gallery"""
+    image = models.ImageField(upload_to="gallery/")
+    description = models.CharField(max_length=255, blank=True, null=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "image_gallery"
+        ordering = ["-uploaded_at"]
+
+    def __str__(self):
+        return self.description or f"Gallery Image {self.id}"
+
+    @property
+    def image_path(self):
+        return self.image.url if self.image else ""
+
+
+class Video(models.Model):
+    """Table 4: videos"""
+    video_url = models.URLField(max_length=2083)
+    description = models.CharField(max_length=255, blank=True, null=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "videos"
+        ordering = ["-uploaded_at"]
+
+    def __str__(self):
+        return self.description or self.video_url
+
+    @property
+    def embed_url(self):
+        url = self.video_url
+        if "watch?v=" in url:
+            video_id = url.split("watch?v=")[1].split("&")[0]
+            return f"https://www.youtube.com/embed/{video_id}"
+        elif "youtu.be/" in url:
+            video_id = url.split("youtu.be/")[1].split("?")[0]
+            return f"https://www.youtube.com/embed/{video_id}"
+        return url
